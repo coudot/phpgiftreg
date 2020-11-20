@@ -158,7 +158,7 @@ if (!empty($_REQUEST["action"])) {
 
 		if ($row = $stmt->fetch()) {
 			$description = $row["description"];
-			$price = number_format($row["price"],2,".",",");
+			$price = $row["price"];
 			$source = $row["source"];
 			$url = $row["url"];
 			$category = $row["category"];
