@@ -29,28 +29,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	</script>
 </head>
 <body>
-	 {include file='navbar.tpl' isadmin=$isadmin}
-
-	 <div class="container" style="padding-top: 60px;">
-	 	{if $opt.show_helptext}
-			<div class="row">
-				<div class="span12">
-					<div class="alert alert-info">
-						<ul>
-							<li>You can click the column headers to sort by that attribute.</li>
-							<li>Once you've bought or decided not to buy an item, remember to return to the recipient's gift lists and mark it accordingly.</li>
-							<li><strong>Please login to the Gift Registry site to get the most recent version of this list.</strong></li>
-							<li>For better printing results, please change your print orientation to "Landscape" mode.</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		{/if}
+	 <div class="container" style="padding-top: 5px;">
 
 		<div class="row">
 			<div class="span12">
 				<div class="well">
-					<h1>My Items</h1>
+					<p style="text-align: center">🎁 Wish list for {$fullname|escape:'htmlall'} - {$today|escape:'htmlall'} 🎁</p>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
@@ -64,27 +48,27 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<tbody>
 							{foreach from=$shoplist item=row}
 								<tr>
-									<td>{$row.rendered}</td>
+									<td style="min-width: 75px">{$row.rendered}</td>
 									<td>{$row.source|escape:'htmlall'}</td>
-									<td>{$row.description|escape:'htmlall'}</td>
+									<td><span style="font-weight: bold">
+                                    {if $row.url != ''}
+                                        <a href="{$row.url|escape:'htmlall'}">
+                                    {/if}
+                                            {$row.description|escape:'htmlall'}
+                                    {if $row.url != ''}
+                                        </a>
+                                    {/if}
+                                        </span><br/> <em>{$row.comment|escape:'htmlall'}</em></td>
 									<td>{$row.category|escape:'htmlall'}</td>
 									<td>{$row.price}</td>
 								</tr>
 							{/foreach}
 						</tbody>
 					</table>
-					<h5>{$itemcount} item(s), {$totalprice} total.</h5>
 				</div>
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="span6">
-				<div class="well">
-					<a onClick="printPage()" href="#">Send to printer</a>
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

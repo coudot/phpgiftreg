@@ -54,7 +54,7 @@ switch($sort) {
 
 try {
 	// not worried about SQL injection since $sortby is calculated above.
-	$stmt = $smarty->dbh()->prepare("SELECT description, source, price, i.comment, i.quantity, i.quantity * i.price AS total, rendered, c.category " .
+	$stmt = $smarty->dbh()->prepare("SELECT description, source, price, url, i.comment, i.quantity, i.quantity * i.price AS total, rendered, c.category " .
 			"FROM {$opt["table_prefix"]}items i " .
 			"INNER JOIN {$opt["table_prefix"]}users u ON u.userid = i.userid " .
 			"INNER JOIN {$opt["table_prefix"]}ranks r ON r.ranking = i.ranking " .
@@ -77,6 +77,8 @@ try {
 		$shoplist[] = $row;
 	}
 
+	$smarty->assign('fullname', $_SESSION['fullname']);
+	$smarty->assign('today', (new DateTime())->format($opt["date_format"]));
 	$smarty->assign('shoplist', $shoplist);
 	$smarty->assign('totalprice', formatPrice($totalprice, $opt));
 	$smarty->assign('itemcount', $itemcount);
