@@ -23,8 +23,7 @@ See the original [README](src/README) file for more information.
 
 ### License and copyright
 
-phpgiftreg is licensed by the GPL.  For more information on the GPL, visit
-http://www.gnu.org
+phpgiftreg is licensed by the GPLv2+. See COPYING.
 
 Copyright 2012 Ryan Walberg <generalpf@gmail.com> @GeneralPF
 
