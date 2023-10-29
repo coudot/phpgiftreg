@@ -14,7 +14,7 @@ CREATE TABLE `allocs` (
   `bought` tinyint(1) NOT NULL default '0',
   `quantity` int(11) NOT NULL default '0',
   PRIMARY KEY  (`itemid`,`userid`,`bought`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 --
 -- Table structure for table `categories`
@@ -24,7 +24,7 @@ CREATE TABLE `categories` (
   `categoryid` int(11) NOT NULL auto_increment,
   `category` varchar(50) default NULL,
   PRIMARY KEY  (`categoryid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 --
 -- Dumping data for table `categories`
@@ -58,7 +58,7 @@ CREATE TABLE `events` (
   `eventdate` date NOT NULL default '0000-00-00',
   `recurring` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`eventid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 --
 -- Dumping data for table `events`
@@ -83,7 +83,7 @@ CREATE TABLE `items` (
   `quantity` int(11) NOT NULL default '0',
   `image_filename` varchar(255) default NULL,
   PRIMARY KEY  (`itemid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 --
 -- Table structure for table `messages`
@@ -97,7 +97,7 @@ CREATE TABLE `messages` (
   `isread` tinyint(1) NOT NULL default '0',
   `created` date NOT NULL default '0000-00-00',
   PRIMARY KEY  (`messageid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 --
 -- Table structure for table `ranks`
@@ -109,7 +109,7 @@ CREATE TABLE `ranks` (
   `rendered` varchar(255) NOT NULL default '',
   `rankorder` int(11) NOT NULL default '0',
   PRIMARY KEY  (`ranking`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 --
 -- Dumping data for table `ranks`
@@ -130,7 +130,7 @@ CREATE TABLE `shoppers` (
   `mayshopfor` int(11) NOT NULL default '0',
   `pending` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`shopper`,`mayshopfor`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 --
 -- Table structure for table `families`
@@ -140,7 +140,7 @@ CREATE TABLE families (
   familyid int(11) NOT NULL auto_increment,
   familyname varchar(255) NOT NULL default '',
   PRIMARY KEY  (familyid)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 --
 -- Table structure for table `users`
@@ -159,7 +159,7 @@ CREATE TABLE `users` (
   `list_stamp` datetime default NULL,
   `initialfamilyid` int NULL,
   PRIMARY KEY  (`userid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 --
 -- Table structure for table `memberships`
@@ -169,11 +169,11 @@ CREATE TABLE memberships (
   userid int(11) NOT NULL default '0',
   familyid int(11) NOT NULL default '0',
   PRIMARY KEY  (userid,familyid)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE `subscriptions` (
 	`publisher` int(11) NOT NULL,
 	`subscriber` int(11) NOT NULL,
 	`last_notified` datetime DEFAULT NULL,
 	PRIMARY KEY (`publisher`,`subscriber`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
