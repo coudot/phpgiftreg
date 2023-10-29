@@ -72,7 +72,7 @@ function getGlobalOptions() {
 		"allow_multiples" => 1,
 
 		/* This is prefixed to all currency values, set it as appropriate for your currency. */
-		"currency_symbol" => "$",	// US or other dollars      
+		"currency_symbol" => "$",	// US or other dollars	  
 		//"currency_symbol" => "&#163;",	// Pound (£) symbol
 		//"currency_symbol" => "&#165;",	// Yen
 		//"currency_symbol" => "&#8364;",	// Euro
@@ -132,7 +132,10 @@ function getGlobalOptions() {
 		/* The number of minutes in between subscription notifications so the subscribers
 			don't get flooded with updates.
 		*/
-		"notify_threshold_minutes" => 60
+		"notify_threshold_minutes" => 60,
+
+		/* Rely on HTTP header to authenticate user */
+		// "auth_http_header" => "Auth-User",
 	);
 }
 ?>

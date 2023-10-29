@@ -17,6 +17,8 @@ require_once(dirname(__FILE__) . "/includes/funcLib.php");
 require_once(dirname(__FILE__) . "/includes/MySmarty.class.php");
 $smarty = new MySmarty();
 $opt = $smarty->opt();
+$username = "";
+$auth_http_header = "";
 
 if (isset($_GET["action"])) {
 	if ($_GET["action"] == "logout") {
@@ -25,14 +27,27 @@ if (isset($_GET["action"])) {
 	}
 }
 
-if (!empty($_POST["username"])) {
-	$username = $_POST["username"];
-	$password = $_POST["password"];
+if ($opt["auth_http_header"]) {
+	$auth_http_header = "HTTP_".strtoupper(str_replace('-','_',$opt["auth_http_header"]));
+}
+
+if (!empty($_POST["username"]) or ($opt["auth_http_header"] and !empty($_SERVER[$auth_http_header]))) {
 
 	try {
-		$stmt = $smarty->dbh()->prepare("SELECT userid, fullname, admin FROM {$opt["table_prefix"]}users WHERE username = ? AND password = {$opt["password_hasher"]}(?) AND approved = 1");
-		$stmt->bindParam(1, $username, PDO::PARAM_STR);
-		$stmt->bindParam(2, $password, PDO::PARAM_STR);
+		$stmt = "";
+
+		if ($opt["auth_http_header"]) {
+			$username = $_SERVER[$auth_http_header];
+			$stmt = $smarty->dbh()->prepare("SELECT userid, fullname, admin FROM {$opt["table_prefix"]}users WHERE username = ? AND approved = 1");
+			$stmt->bindParam(1, $username, PDO::PARAM_STR);
+		}
+		else {
+			$username = $_POST["username"];
+			$password = $_POST["password"];
+			$stmt = $smarty->dbh()->prepare("SELECT userid, fullname, admin FROM {$opt["table_prefix"]}users WHERE username = ? AND password = {$opt["password_hasher"]}(?) AND approved = 1");
+			$stmt->bindParam(1, $username, PDO::PARAM_STR);
+			$stmt->bindParam(2, $password, PDO::PARAM_STR);
+		}
 
 		$stmt->execute();
 		if ($row = $stmt->fetch()) {
@@ -40,7 +55,7 @@ if (!empty($_POST["username"])) {
 			$_SESSION["userid"] = $row["userid"];
 			$_SESSION["fullname"] = $row["fullname"];
 			$_SESSION["admin"] = $row["admin"];
-		
+
 			header("Location: " . getFullPath("index.php"));
 			exit;
 		}
