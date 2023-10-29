@@ -23,6 +23,7 @@ $auth_http_header = "";
 if (isset($_GET["action"])) {
 	if ($_GET["action"] == "logout") {
 		session_start();
+		session_regenerate_id();
 		session_destroy();
 	}
 }
