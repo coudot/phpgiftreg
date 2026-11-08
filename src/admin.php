@@ -24,7 +24,7 @@ if (!isset($_SESSION["userid"])) {
 	exit;
 }
 else if ($_SESSION["admin"] != 1) {
-	echo "Vous devez être administrateur pour accéder à cette page.";
+	echo translate("error.admin_required");
 	exit;
 }
 else {
@@ -52,11 +52,10 @@ if ($action == "approve") {
 	if ($row = $stmt->fetch()) {
 		mail(
 			$row["email"],
-			"Votre demande de compte a été approuvée",
-			"Votre demande d'accès à la liste de cadeaux a été approuvée par " . $_SESSION["fullname"] . ".\r\n" .
-				"Votre nom d'utilisateur est " . $row["username"] . " et votre mot de passe est $pwd.",
+			translate("email.application_approved_subject"),
+			translateFormat("email.application_approved_body", $_SESSION["fullname"], $row["username"], $pwd),
 			"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-		) or die("Courriel non accepté pour " . $row["email"]);
+		) or die(translate("error.mail") . $row["email"]);
 	}
 	header("Location: " . getFullPath("index.php"));
 	exit;
@@ -69,10 +68,10 @@ else if ($action == "reject") {
 	if ($row = $stmt->fetch()) {
 		mail(
 			$row["email"],
-			"Votre demande de compte a été refusée",
-			"Votre demande d'accès à la liste de cadeaux a été refusée par " . $_SESSION["fullname"] . ".",
+			translate("email.application_denied_subject"),
+			translateFormat("email.application_denied_body", $_SESSION["fullname"]),
 			"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-		) or die("Courriel non accepté pour " . $row["email"]);
+		) or die(translate("error.mail") . $row["email"]);
 	}
 
 	$stmt = $smarty->dbh()->prepare("DELETE FROM {$opt["table_prefix"]}users WHERE userid = ?");

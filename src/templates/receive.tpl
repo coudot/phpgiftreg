@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-	<title>Liste de cadeaux - Réception d'un article</title>
+	<title>Gift Registry - Receive an Item</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -44,13 +44,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					buyer: {
-						required: "Veuillez sélectionner un acheteur."
+						required: "Please select a buyer."
 					},
 					quantity: {
-						required: "Veuillez saisir la quantité reçue.",
-						digits: "La quantité doit être un nombre valide.",
-						min: "La quantité doit être supérieure ou égale à 1.",
-						max: "La quantité doit être inférieure ou égale à {$quantity}."
+						required: "Please enter the quantity you received.",
+						digits: "Quantity must be a valid number.",
+						min: "Quantity must be 1 or greater.",
+						max: "Quantity must be {$quantity} or less."
 					}
 				}
 			});
@@ -67,12 +67,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<input type="hidden" name="action" value="receive">
 	<input type="hidden" name="itemid" value="{$itemid}">
 	<fieldset>
-		<legend>Sélectionnez l'acheteur et la quantité</legend>
+		<legend>Select the buyer and quantity</legend>
 		<div class="control-group">
-			<label class="control-label" for="buyer">Acheteur</label>
+			<label class="control-label" for="buyer">Buyer</label>
 			<div class="controls">
 				<select id="buyer" name="buyer" class="input-xlarge">
-					<option value="">(sélectionnez un acheteur)</option>
+					<option value="">(select buyer)</option>
 					{foreach from=$buyers item=row}
 						<option value="{$row.userid}">{$row.fullname|escape:'htmlall'}</option>
 					{/foreach}
@@ -80,15 +80,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="quantity">Quantité reçue (maximum : {$quantity})</label>
+			<label class="control-label" for="quantity">Quantity received (maximum of {$quantity})</label>
 			<div class="controls">
 				<input type="text" id="quantity" name="quantity" value="1" maxlength="3">
-				<p class="help-block">Une fois tous les exemplaires d'un article reçus, celui-ci sera supprimé.</p>
+				<p class="help-block">Once you have received all of an item, it will be deleted.</p>
 			</div>
 		</div>
 		<div class="form-actions">
-			<button type="submit" class="btn btn-primary">Confirmer la réception</button>
-			<button type="button" class="btn" onClick="document.location.href='index.php';">Annuler</button>
+			<button type="submit" class="btn btn-primary">Receive Item</button>
+			<button type="button" class="btn" onClick="document.location.href='index.php';">Cancel</button>
 		</div>
 	</fieldset>
 </form>

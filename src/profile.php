@@ -42,11 +42,11 @@ if (!empty($_POST["action"])) {
 
 			$stmt->execute();
 
-			header("Location: " . getFullPath("index.php?message=" . urlencode("Mot de passe modifié.")));
+			header("Location: " . getFullPath("index.php?message=" . urlencode(translate("message.password_changed"))));
 			exit;
 		}
 		catch (PDOException $e) {
-			die("Erreur SQL : " . $e->getMessage());
+			die(translate("error.sql") . $e->getMessage());
 		}
 	}
 	else if ($action == "save") {
@@ -67,15 +67,15 @@ if (!empty($_POST["action"])) {
 
 			$_SESSION["fullname"] = $fullname;
 
-			header("Location: " . getFullPath("index.php?message=" . urlencode("Profil mis à jour.")));
+			header("Location: " . getFullPath("index.php?message=" . urlencode(translate("message.profile_updated"))));
 			exit;
 		}
 		catch (PDOException $e) {
-			die("Erreur SQL : " . $e->getMessage());
+			die(translate("error.sql") . $e->getMessage());
 		}
 	}
 	else {
-		die("Action inconnue.");
+		die(translate("error.unknown_action"));
 	}
 }
 
@@ -92,10 +92,10 @@ try {
 		$smarty->display('profile.tpl');
 	}
 	else {
-		die("Votre compte n'existe pas.");
+		die(translate("error.user_missing"));
 	}
 }
 catch (PDOException $e) {
-	die("Erreur SQL : " . $e->getMessage());
+	die(translate("error.sql") . $e->getMessage());
 }
 ?>

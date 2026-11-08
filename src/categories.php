@@ -24,7 +24,7 @@ if (!isset($_SESSION["userid"])) {
 	exit;
 }
 else if ($_SESSION["admin"] != 1) {
-	echo "Vous devez être administrateur pour accéder à cette page.";
+	echo translate("error.admin_required");
 	exit;
 }
 else {
@@ -43,7 +43,7 @@ if ($action == "insert" || $action == "update") {
 	$haserror = false;
 	if ($category == "") {
 		$haserror = true;
-		$category_error = "A category is required.";
+		$category_error = translate("validation.category_required");
 	}
 }
 
@@ -57,7 +57,7 @@ if ($action == "delete") {
 	$stmt->bindValue(1, (int) $_GET["categoryid"], PDO::PARAM_INT);
 	$stmt->execute();
 	
-	header("Location: " . getFullPath("categories.php?message=" . urlencode("Catégorie supprimée.")));
+	header("Location: " . getFullPath("categories.php?message=" . urlencode(translate("message.category_deleted"))));
 	exit;
 }
 else if ($action == "edit") {
@@ -77,7 +77,7 @@ else if ($action == "insert") {
 		$stmt->bindParam(1, $category, PDO::PARAM_STR);
 		$stmt->execute();
 		
-		header("Location: " . getFullPath("categories.php?message=" . urlencode("Catégorie ajoutée.")));
+		header("Location: " . getFullPath("categories.php?message=" . urlencode(translate("message.category_added"))));
 		exit;
 	}
 }
@@ -90,12 +90,12 @@ else if ($action == "update") {
 		$stmt->bindValue(2, (int) $_GET["categoryid"], PDO::PARAM_INT);
 		$stmt->execute();
 		
-		header("Location: " . getFullPath("categories.php?message=" . urlencode("Catégorie modifiée.")));
+		header("Location: " . getFullPath("categories.php?message=" . urlencode(translate("message.category_updated"))));
 		exit;		
 	}
 }
 else {
-	die("Action inconnue.");
+	die(translate("error.unknown_action"));
 }
 
 $stmt = $smarty->dbh()->prepare("SELECT c.categoryid, c.category, COUNT(itemid) AS itemsin " .

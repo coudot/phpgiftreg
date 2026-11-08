@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-	<title>Liste de cadeaux - Mes articles</title>
+	<title>Gift Registry - My Items</title>
  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -34,15 +34,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="well">
-					<p style="text-align: center">🎁 Liste de cadeaux de {$fullname|escape:'htmlall'} - {$today|escape:'htmlall'} 🎁</p>
+					<p style="text-align: center">🎁 Wish list for {$fullname|escape:'htmlall'} - {$today|escape:'htmlall'} 🎁</p>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th><a href="mylist.php?sort=ranking">Niveau</a></th>
-								<th><a href="mylist.php?sort=source">Magasin</a></th>
+								<th><a href="mylist.php?sort=ranking">Ranking</a></th>
+								<th><a href="mylist.php?sort=source">Source</a></th>
 								<th><a href="mylist.php?sort=description">Description</a></th>
-								<th><a href="mylist.php?sort=category">Catégorie</a></th>
-								<th><a href="mylist.php?sort=price">Prix</a></th>
+								<th><a href="mylist.php?sort=category">Category</a></th>
+								<th><a href="mylist.php?sort=price">Price</a></th>
 							</tr>
 						</thead>
 						<tbody>

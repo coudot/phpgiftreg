@@ -28,7 +28,7 @@ else {
 }
 
 if ($_SESSION["admin"] != 1) {
-	echo "Vous devez être administrateur pour accéder à cette page.";
+	echo translate("error.admin_required");
 	exit;
 }
 
@@ -53,15 +53,15 @@ if ($action == "insert" || $action == "update") {
 	$haserror = false;
 	if ($username == "") {
 		$haserror = true;
-		$username_error = "Le nom d'utilisateur est obligatoire.";
+		$username_error = translate("validation.username_required");
 	}
 	if ($fullname == "") {
 		$haserror = true;
-		$fullname_error = "Le nom complet est obligatoire.";
+		$fullname_error = translate("validation.fullname_required");
 	}
 	if ($email == "") {
 		$haserror = true;
-		$email_error = "L'adresse courriel est obligatoire.";
+		$email_error = translate("validation.email_required");
 	}
 
 }
@@ -94,7 +94,7 @@ if ($action == "delete") {
 	$stmt->bindParam(1, $deluserid, PDO::PARAM_INT);
 	$stmt->execute();
 	
-	header("Location: " . getFullPath("users.php?message=" . urlencode("Utilisateur supprimé.")));
+	header("Location: " . getFullPath("users.php?message=" . urlencode(translate("message.user_deleted"))));
 	exit;
 }
 else if ($action == "edit") {
@@ -134,12 +134,11 @@ else if ($action == "insert") {
 
 		mail(
 			$email,
-			"Votre compte de liste de cadeaux a été créé",
-			"Votre compte de liste de cadeaux a été créé.\r\n" .
-				"Votre nom d'utilisateur est $username et votre mot de passe est $pwd.",
+			translate("email.account_created_subject"),
+			translateFormat("email.account_created_body", $username, $pwd),
 			"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-		) or die("Courriel non accepté pour $email");
-		header("Location: " . getFullPath("users.php?message=" . urlencode("Utilisateur ajouté et courriel envoyé.")));
+		) or die(translate("error.mail") . $email);
+		header("Location: " . getFullPath("users.php?message=" . urlencode(translate("message.user_added"))));
 		exit;
 	}
 }
@@ -161,7 +160,7 @@ else if ($action == "update") {
 		$stmt->bindParam(6, $userisadmin, PDO::PARAM_BOOL);
 		$stmt->bindValue(7, (int) $_GET["userid"], PDO::PARAM_INT);
 		$stmt->execute();
-		header("Location: " . getFullPath("users.php?message=" . urlencode("Utilisateur modifié.")));
+		header("Location: " . getFullPath("users.php?message=" . urlencode(translate("message.user_updated"))));
 		exit;		
 	}
 }
@@ -177,15 +176,15 @@ else if ($action == "reset") {
 	$stmt->execute();
 	mail(
 		$resetemail,
-		"Réinitialisation du mot de passe de la liste de cadeaux",
-		"Votre mot de passe de liste de cadeaux a été réinitialisé ; le nouveau mot de passe est $pwd.",
+		translate("email.password_reset_subject"),
+		translateFormat("email.password_reset_body", $pwd),
 		"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-	) or die("Courriel non accepté pour $email");
-	header("Location: " . getFullPath("users.php?message=" . urlencode("Mot de passe réinitialisé.")));
+	) or die(translate("error.mail") . $email);
+	header("Location: " . getFullPath("users.php?message=" . urlencode(translate("message.password_reset"))));
 	exit;
 }
 else {
-	echo "Action inconnue.";
+	echo translate("error.unknown_action");
 	exit;
 }
 

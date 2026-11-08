@@ -14,8 +14,10 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 require_once(dirname(__FILE__) . "/includes/config.php");
+require_once(dirname(__FILE__) . "/includes/lang.php");
 
 $opt = getGlobalOptions();
+$messages = getLanguageMessages($opt["language"]);
 
 function dbh($opt) {
 	return new PDO($opt["pdo_connection_string"], $opt["pdo_username"], $opt["pdo_password"]);
@@ -26,11 +28,11 @@ $stmt->execute();
 if ($row = $stmt->fetch()) {
 	$user_count = $row["user_count"];
 	if ($user_count != 0) {
-		die("La base de données a déjà été configurée.");
+		die(translate("error.database_setup"));
 	}
 }
 else {
-	die("La base de données n'a pas été créée.");
+	die(translate("error.database_missing"));
 }
 
 if (isset($_POST["action"])) {
@@ -41,7 +43,7 @@ if (isset($_POST["action"])) {
 		$email = $_POST["email"];
 		$familyname = $_POST["familyname"];
 		if (trim($familyname) == "") {
-			$familyname = "Famille par défaut";
+			$familyname = translate("family.default");
 		}
 
 		// 1. create the family.
@@ -55,7 +57,7 @@ if (isset($_POST["action"])) {
 		if ($row = $stmt->fetch()) {
 			$familyid = $row["familyid"];
 		}
-		else die("Aucune famille n'a été créée.");
+		else die(translate("error.family_create"));
 
 		// 3. insert the user.
 		$stmt = dbh($opt)->prepare("INSERT INTO {$opt["table_prefix"]}users(username,fullname,password,email,approved,admin,initialfamilyid) VALUES(?, ?, {$opt["password_hasher"]}(?), ?, 1, 1, ?)");
@@ -72,7 +74,7 @@ if (isset($_POST["action"])) {
 		if ($row = $stmt->fetch()) {
 			$userid = $row["userid"];
 		}
-		else die("Aucun utilisateur n'a été créé.");
+		else die(translate("error.user_create"));
 
 		// 5. create the membership.
 		$stmt = dbh($opt)->prepare("INSERT INTO {$opt["table_prefix"]}memberships(userid,familyid) VALUES(?, ?)");
@@ -83,9 +85,9 @@ if (isset($_POST["action"])) {
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $opt["language"]; ?>" lang="<?php echo $opt["language"]; ?>">
 <head>
-	<title>Liste de cadeaux - Configuration</title>
+	<title><?php echo htmlspecialchars(translate("setup.page_title")); ?></title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script src="js/jquery.validate.min.js"></script>
 	<script language="JavaScript" type="text/javascript">
@@ -117,26 +119,26 @@ if (isset($_POST["action"])) {
 				},
 				messages: {
 					"username": {
-						required: "Le nom d'utilisateur initial est obligatoire.",
-						maxlength: "Le nom d'utilisateur initial ne doit pas dépasser 20 caractères."
+						required: "<?php echo addslashes(translate("validation.username_required")); ?>",
+						maxlength: "<?php echo addslashes(translate("validation.username_length")); ?>"
 					},
 					"pwd": {
-						required: "Le mot de passe initial est obligatoire.",
-						maxlength: "Le mot de passe initial ne doit pas dépasser 50 caractères."
+						required: "<?php echo addslashes(translate("validation.password_required")); ?>",
+						maxlength: "<?php echo addslashes(translate("validation.password_length")); ?>"
 					},
 					"confirmpwd": {
-						required: "Cette valeur est obligatoire.",
-						equalTo: "Ce mot de passe doit correspondre au mot de passe initial.",
-						maxlength: "Cette valeur ne doit pas dépasser 50 caractères."
+						required: "<?php echo addslashes(translate("validation.confirm_required")); ?>",
+						equalTo: "<?php echo addslashes(translate("validation.confirm_match")); ?>",
+						maxlength: "<?php echo addslashes(translate("validation.confirm_length")); ?>"
 					},
 					"fullname": {
-						required: "Le nom complet est obligatoire.",
-						maxlength: "Le nom complet ne doit pas dépasser 50 caractères."
+						required: "<?php echo addslashes(translate("validation.fullname_required")); ?>",
+						maxlength: "<?php echo addslashes(translate("validation.fullname_length")); ?>"
 					},
 					"email": {
-						required: "L'adresse courriel est obligatoire.",
-						maxlength: "L'adresse courriel ne doit pas dépasser 255 caractères.",
-						email: "L'adresse courriel n'est pas valide."
+						required: "<?php echo addslashes(translate("validation.email_required")); ?>",
+						maxlength: "<?php echo addslashes(translate("validation.email_length")); ?>",
+						email: "<?php echo addslashes(translate("validation.email_invalid")); ?>"
 					}
 				}
 			});
@@ -149,10 +151,10 @@ if (isset($_POST["action"]) && $_POST["action"] == "setup") {
 	// success!
 	?>
 	<p>
-		Merci d'avoir configuré la liste de cadeaux. Vous pouvez maintenant <a href="login.php">vous connecter</a> et commencer !
+		<?php echo translateFormat("setup.success", '<a href="login.php">' . htmlspecialchars(translate("setup.login_link")) . '</a>'); ?>
 	</p>
 	<p>
-		Vous trouverez ci-dessous les valeurs de configuration. Pour les modifier, éditez le fichier config.php, qui décrit la fonction de chaque valeur.
+		<?php echo htmlspecialchars(translate("setup.config_values")); ?>
 	</p>
 	<table border="1" cellpadding="2" cellspacing="2">
 		<?php
@@ -175,15 +177,15 @@ else {
 	$image_dir = $parts['dirname'] . "/" . $opt["image_subdir"];
 	$writeable = is_writable($image_dir);
 	if ($writeable) {
-		echo "<font color=\"green\">Le répertoire $image_dir est accessible en écriture ; vous pouvez téléverser des images.</font>";
+		echo "<font color=\"green\">" . htmlspecialchars(translateFormat("setup.image_writable", $image_dir)) . "</font>";
 	}
 	else {
-		echo "<font color=\"red\">Le répertoire $image_dir n'est PAS accessible en écriture ; vous ne pouvez pas téléverser d'images. Modifiez ses permissions pour autoriser le serveur Web à y écrire, ou désactivez le téléversement d'images dans config.php.</font>";
+		echo "<font color=\"red\">" . htmlspecialchars(translateFormat("setup.image_not_writable", $image_dir)) . "</font>";
 	}
 	echo "</p>";
 
 	// check if Smarty works.
-	echo "<p>Vérification de l'installation de Smarty... assurez-vous que le résultat est correct.</p>";
+	echo "<p>" . htmlspecialchars(translate("setup.smarty_test")) . "</p>";
 	require_once(dirname(__FILE__) . "/includes/MySmarty.class.php");
 	$smarty = new MySmarty();
 	$smarty->testInstall();
@@ -193,54 +195,54 @@ else {
 		<div align="center">
 			<table cellpadding="3" class="partbox">
 				<tr>
-					<td colspan="2" class="partboxtitle" align="center">Configurer la liste de cadeaux</td>
+					<td colspan="2" class="partboxtitle" align="center"><?php echo htmlspecialchars(translate("setup.title")); ?></td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<p>
-							L'installation de la liste de cadeaux n'est pas terminée. Créez le compte administrateur initial, nommez la famille par défaut, puis cliquez sur Envoyer.
+							<?php echo htmlspecialchars(translate("setup.incomplete")); ?>
 						</p>
 					</td>
 				</tr>
 				<tr>
-					<td>Nom d'utilisateur administrateur</td>
+					<td><?php echo htmlspecialchars(translate("setup.admin_username")); ?></td>
 					<td>
 						<input id="username" name="username" size="20" maxlength="20" type="text" value="<?php if (isset($_POST["username"])) echo htmlspecialchars($_POST["username"]); ?>"/>
 					</td>
 				</tr>
 				<tr>
-					<td>Mot de passe administrateur</td>
+					<td><?php echo htmlspecialchars(translate("setup.admin_password")); ?></td>
 					<td>
 						<input id="pwd" name="pwd" size="20" maxlength="50" type="password" />
 					</td>
 				</tr>
 				<tr>
-					<td>Confirmer le mot de passe administrateur</td>
+					<td><?php echo htmlspecialchars(translate("setup.admin_confirm")); ?></td>
 					<td>
 						<input id="confirmpwd" name="confirmpwd" size="20" maxlength="50" type="password" />
 					</td>
 				</tr>
 				<tr>
-					<td>Nom complet de l'administrateur</td>
+					<td><?php echo htmlspecialchars(translate("setup.admin_fullname")); ?></td>
 					<td>
 						<input id="fullname" name="fullname" size="30" maxlength="50" type="text" value="<?php if (isset($_POST["fullname"])) echo htmlspecialchars($_POST["fullname"]); ?>" />
 					</td>
 				</tr>
 				<tr>
-					<td>Adresse courriel de l'administrateur</td>
+					<td><?php echo htmlspecialchars(translate("setup.admin_email")); ?></td>
 					<td>
 						<input id="email" name="email" size="30" maxlength="255" type="text" value="<?php if (isset($_POST["email"])) echo htmlspecialchars($_POST["email"]); ?>" />
 					</td>
 				</tr>
 				<tr valign="top">
-					<td>Nom de la famille par défaut</td>
+					<td><?php echo htmlspecialchars(translate("setup.family_name")); ?></td>
 					<td>
 						<input id="familyname" name="familyname" size="50" maxlength="255" type="text" value="<?php if (isset($_POST["familyname"])) echo htmlspecialchars($_POST["familyname"]); ?>" />
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input type="submit" value="Envoyer" />
+						<input type="submit" value="<?php echo htmlspecialchars(translate("setup.submit")); ?>" />
 					</td>
 				</tr>
 			</table>

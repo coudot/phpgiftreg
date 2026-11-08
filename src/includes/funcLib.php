@@ -103,15 +103,15 @@ function processSubscriptions($publisher, $action, $itemdesc, $dbh, $opt) {
 		if ($msg == "") {
 			// same message for each user but we need the fullname from the first row before we can assemble it.
 			if ($action == "insert") {
-				$msg = $row["fullname"] . " a ajouté l'article « $itemdesc » à sa liste.";
+				$msg = translateFormat("email.subscription_added", $row["fullname"], $itemdesc);
 			}
 			else if ($action == "update") {
-				$msg = $row["fullname"] . " a modifié l'article « $itemdesc » dans sa liste.";
+				$msg = translateFormat("email.subscription_updated", $row["fullname"], $itemdesc);
 			}
 			else if ($action == "delete") {
-				$msg = $row["fullname"] . " a supprimé l'article « $itemdesc » de sa liste.";
+				$msg = translateFormat("email.subscription_deleted", $row["fullname"], $itemdesc);
 			}
-			$msg .= "\r\n\r\nVous recevez ce message car vous êtes abonné(e) à ses mises à jour. Vous ne recevrez pas d'autre notification pendant les " . $opt["notify_threshold_minutes"] . " prochaines minutes.";
+			$msg .= "\r\n\r\n" . translateFormat("email.subscription_footer", $opt["notify_threshold_minutes"]);
 		}
 		sendMessage($publisher, $row["subscriber"], $msg, $dbh, $opt);
 
@@ -142,14 +142,14 @@ function sendMessage($sender, $recipient, $message, $dbh, $opt) {
 		if ($row["email_msgs"] == 1) {
 			mail(
 				$row["remail"],
-				"Message de " . $row["fullname"] . " - Liste de cadeaux",
-				$row["fullname"] . " <" . $row["semail"] . "> vous a envoyé le message suivant :\r\n" . $message,
+				translateFormat("email.message_subject", $row["fullname"]),
+				translateFormat("email.message_body", $row["fullname"], $row["semail"], $message),
 				"From: {$opt["email_from"]}\r\nReply-To: " . $row["semail"] . "\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-			) or die("Courriel non accepté pour " . $row["remail"]);
+			) or die(translate("error.mail") . $row["remail"]);
 		}
 	}
 	else {
-		die("Le destinataire n'existe pas.");
+		die(translate("error.recipient_missing"));
 	}
 }
 

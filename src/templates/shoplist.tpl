@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-	<title>Liste de cadeaux - Mes achats</title>
+	<title>Gift Registry - My Shopping List</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -36,7 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="row">
 				<div class="span12">
 					<div class="alert alert-info">
-						Voici la liste des articles que vous avez <strong>réservés</strong>. Après avoir acheté un article ou décidé de ne pas l'acheter, retournez sur la liste du destinataire et indiquez-le.
+						This is a list of all items you have <strong>reserved</strong>.  Once you've bought or decided not to buy an item, remember to return to the recipient's gift lists and mark it accordingly.
 					</div>
 				</div>
 			</div>
@@ -45,15 +45,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="well">
-					<h1>Mes achats</h1>
+					<h1>My Shopping List</h1>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th><a href="shoplist.php?sort=recipient">Destinataire</a></th>
+								<th><a href="shoplist.php?sort=recipient">Recipient</a></th>
 								<th><a href="shoplist.php?sort=description">Description</a></th>
-								<th><a href="shoplist.php?sort=ranking">Niveau</a></th>
-								<th><a href="shoplist.php?sort=source">Magasin</a></th>
-								<th><a href="shoplist.php?sort=price">Prix</a></th>
+								<th><a href="shoplist.php?sort=ranking">Ranking</a></th>
+								<th><a href="shoplist.php?sort=source">Source</a></th>
+								<th><a href="shoplist.php?sort=price">Price</a></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -68,7 +68,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							{/foreach}
 						</tbody>
 					</table>
-					<h5>{$itemcount} article(s), {$totalprice} au total.</h5>
+					<h5>{$itemcount} item(s), {$totalprice} total.</h5>
 				</div>
 			</div>
 		</div>
@@ -76,7 +76,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span6">
 				<div class="well">
-					<a onClick="printPage()" href="#">Imprimer</a>
+					<a onClick="printPage()" href="#">Send to printer</a>
 				</div>
 			</div>
 		</div>

@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-	<title>Liste de cadeaux - Gérer les familles</title>
+	<title>Gift Registry - Manage Families</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -39,8 +39,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					familyname: {
-						required: "Le nom de la famille est obligatoire.",
-						maxlength: "Le nom de la famille ne doit pas dépasser 255 caractères."
+						required: "Family name is required.",
+						maxlength: "Family name must be 255 characters or less."
 					}
 				}
 			});
@@ -64,8 +64,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="row">
 				<div class="span12">
 					<div class="alert alert-info">
-						Vous pouvez définir les familles qui utiliseront votre liste de cadeaux. Les membres peuvent appartenir à une ou plusieurs familles.
-						Après avoir ajouté une famille, cliquez sur Modifier pour y ajouter des membres.
+						Here you can specify families that will use your gift registry.  Members may belong to one or more family circles.
+						After adding a new family, click Edit to add members to it.
 					</div>
 				</div>
 			</div>
@@ -77,8 +77,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Famille</th>
-								<th>Nombre de membres</th>
+								<th>Family</th>
+								<th># Members</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
@@ -88,14 +88,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 									<td>{$row.familyname|escape:'htmlall'}</td>
 									<td>{$row.members}</td>
 									<td>
-										<a href="families.php?action=edit&familyid={$row.familyid}#familyform"><img src="images/pencil.png" alt="Modifier la famille" title="Modifier la famille" border="0" /></a>
-										<a href="families.php?action=delete&familyid={$row.familyid}"><img src="images/bin.png" alt="Supprimer la famille" title="Supprimer la famille" border="0" /></a>
+										<a href="families.php?action=edit&familyid={$row.familyid}#familyform"><img src="images/pencil.png" alt="Edit Family" title="Edit Family" border="0" /></a>
+										<a href="families.php?action=delete&familyid={$row.familyid}"><img src="images/bin.png" alt="Delete Family" title="Delete Family" border="0" /></a>
 									</td>
 								</tr>
 							{/foreach}
 						</tbody>
 					</table>
-					<h5><a href="families.php">Ajouter une famille</a></h5>
+					<h5><a href="families.php">Add a new family</a></h5>
 				</div>
 			</div>
 		</div>
@@ -111,9 +111,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<input type="hidden" name="action" value="insert">
 					{/if}
 					<fieldset>
-						<legend>{if $action == "edit" || $action == "update"}Modifier la famille « {$familyname|escape:'htmlall'} »{else}Ajouter une famille{/if}</legend>
+						<legend>{if $action == "edit" || $action == "update"}Edit family '{$familyname|escape:'htmlall'}'{else}Add Family{/if}</legend>
 						<div class="control-group {if isset($familyname_error)}warning{/if}">
-							<label class="control-label" for="familyname">Nom de la famille</label>
+							<label class="control-label" for="familyname">Family name</label>
 							<div class="controls">
 								<input id="familyname" name="familyname" type="text" class="input-xlarge" value="{$familyname|escape:'htmlall'}" maxlength="255">
 								{if isset($familyname_error)}
@@ -122,8 +122,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert" || $action == "update"}Ajouter{else}Modifier{/if}</button>
-							<button type="button" class="btn" onClick="document.location.href='families.php';">Annuler</button>
+							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert" || $action == "update"}Add{else}Update{/if}</button>
+							<button type="button" class="btn" onClick="document.location.href='families.php';">Cancel</button>
 						</div>
 					</fieldset>
 				</form>
@@ -135,21 +135,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<input type="hidden" name="familyid" value="{$familyid}">
 						<input type="hidden" name="action" value="members">
 						<fieldset>
-							<legend>Membres de « {$familyname|escape:'htmlall'} »</legend>
+							<legend>Members of '{$familyname|escape:'htmlall'}'</legend>
 							<div class="control-group">
-								<label class="control-label" for="members[]">Membres</label>
+								<label class="control-label" for="members[]">Members</label>
 								<div class="controls">
 									<select name="members[]" size="10" multiple>
 										{foreach from=$nonmembers item=row}
 											<option value="{$row.userid}" {if $row.familyid != ''}SELECTED{/if}>{$row.fullname|escape:'htmlall'}</option>
 										{/foreach}
 									</select>
-									<p class="help-block">(Maintenez la touche CTRL enfoncée pour sélectionner plusieurs utilisateurs.)</p>
+									<p class="help-block">(Hold CTRL while clicking to select multiple users.)</p>
 								</div>
 							</div>
 							<div class="form-actions">
-								<button type="submit" class="btn btn-primary">Enregistrer</button>
-								<button type="button" class="btn" onClick="document.location.href='families.php';">Annuler</button>
+								<button type="submit" class="btn btn-primary">Save</button>
+								<button type="button" class="btn" onClick="document.location.href='families.php';">Cancel</button>
 							</div>
 						</fieldset>
 					</form>

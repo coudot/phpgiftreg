@@ -29,7 +29,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "signup") {
 	$stmt->bindParam(1, $username, PDO::PARAM_STR);
 	$stmt->execute();
 	if ($stmt->fetch()) {
-		$error = "Le nom d'utilisateur « " . $username . " » est déjà utilisé. Veuillez en choisir un autre.";
+		$error = translateFormat("message.user_duplicate", $username);
 	}
 	else {
 		// generate a password and insert the row.
@@ -53,10 +53,10 @@ if (isset($_POST["action"]) && $_POST["action"] == "signup") {
 			while ($row = $stmt->fetch()) {
 				mail(
 					$row["email"],
-					"Demande d'inscription à la liste de cadeaux - " . $fullname,
-					$fullname . " <" . $email . "> demande l'autorisation d'accéder à la liste de cadeaux.",
+					translateFormat("email.signup_request_subject", $fullname),
+					translateFormat("email.signup_request_body", $fullname, $email),
 					"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-				) or die("Courriel non accepté pour " . $row["email"]);
+				) or die(translate("error.mail") . $row["email"]);
 			}
 		}
 		else {
@@ -78,11 +78,10 @@ if (isset($_POST["action"]) && $_POST["action"] == "signup") {
 
 				mail(
 					$email,
-					"Votre compte de liste de cadeaux a été créé",
-					"Votre compte de liste de cadeaux a été créé.\r\n" .
-						"Votre nom d'utilisateur est $username et votre mot de passe est $pwd.",
+					translate("email.account_created_subject"),
+					translateFormat("email.account_created_body", $username, $pwd),
 					"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-				) or die("Courriel non accepté pour $email");
+				) or die(translate("error.mail") . $email);
 			}
 		}
 	}

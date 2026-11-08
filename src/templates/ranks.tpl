@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-	<title>Liste de cadeaux - Gérer les niveaux</title>
+	<title>Gift Registry - Manage Ranks</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -43,12 +43,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					title: {
-						required: "Le titre est obligatoire.",
-						maxlength: "Le titre ne doit pas dépasser 50 caractères."
+						required: "A title is required.", 
+						maxlength: "Title must be 50 characters or less."
 					},
 					rendered: {
-						required: "Le code HTML est obligatoire.",
-						maxlength: "Le code HTML ne doit pas dépasser 255 caractères."
+						required: "HTML is required.",
+						maxlength: "HTML must be 255 characters or less."
 					}
 				}
 			});
@@ -71,13 +71,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="well">
-					<h3>Niveaux</h3>
+					<h3>Ranks</h3>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Titre</th>
-								<th>Code HTML affiché</th>
-								<th>Ordre</th>
+								<th>Title</th>
+								<th>Rendered HTML</th>
+								<th>Rank Order</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -87,16 +87,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 									<td>{$row.rendered}</td>
 									<td>{$row.rankorder}</td>
 									<td>
-										<a href="ranks.php?action=edit&ranking={$row.ranking}#rankform"><img src="images/pencil.png" border="0" alt="Modifier le niveau" title="Modifier le niveau" /></a>
-										<a href="ranks.php?action=delete&ranking={$row.ranking}"><img src="images/bin.png" border="0" alt="Supprimer le niveau" title="Supprimer le niveau" /></a>
-										<a href="ranks.php?action=promote&ranking={$row.ranking}&rankorder={$row.rankorder}"><img src="images/arrow-up.png" border="0" alt="Monter" title="Monter" /></a>
-										<a href="ranks.php?action=demote&ranking={$row.ranking}&rankorder={$row.rankorder}"><img src="images/arrow-down.png" border="0" alt="Descendre" title="Descendre" /></a>
+										<a href="ranks.php?action=edit&ranking={$row.ranking}#rankform"><img src="images/pencil.png" border="0" alt="Edit Rank" title="Edit Rank" /></a>
+										<a href="ranks.php?action=delete&ranking={$row.ranking}"><img src="images/bin.png" border="0" alt="Delete Rank" title="Delete Rank" /></a>
+										<a href="ranks.php?action=promote&ranking={$row.ranking}&rankorder={$row.rankorder}"><img src="images/arrow-up.png" border="0" alt="Promote" title="Promote" /></a>
+										<a href="ranks.php?action=demote&ranking={$row.ranking}&rankorder={$row.rankorder}"><img src="images/arrow-down.png" border="0" alt="Demote" title="Demote" /></a>
 									</td>
 								</tr>
 							{/foreach}
 						</tbody>
 					</table>
-					<h5><a href="ranks.php#rankform">Ajouter un niveau</a></h5>
+					<h5><a href="ranks.php#rankform">Add a new rank</a></h5>
 				</div>
 			</div>
 		</div>
@@ -112,9 +112,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<input type="hidden" name="action" value="insert">
 					{/if}
 					<fieldset>
-						<legend>{if $action == "edit"}Modifier le niveau « {$title} »{else}Ajouter un niveau{/if}</legend>
+						<legend>{if $action == "edit"}Edit Rank '{$title}'{else}Add Rank{/if}</legend>
 						<div class="control-group {if isset($title_error)}warning{/if}">
-							<label class="control-label" for="title">Titre</label>
+							<label class="control-label" for="title">Title</label>
 							<div class="controls">
 								<input id="title" name="title" class="input-xlarge" type="text" value="{$title|escape:'htmlall'}" maxlength="255">
 								{if isset($title_error)}
@@ -132,8 +132,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}Ajouter{else}Modifier{/if}</button>
-							<button type="button" class="btn" onClick="document.location.href='ranks.php';">Annuler</button>
+							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}Add{else}Update{/if}</button>
+							<button type="button" class="btn" onClick="document.location.href='ranks.php';">Cancel</button>
 						</div>
 					</fieldset>
 				</form>

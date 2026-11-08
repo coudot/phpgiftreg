@@ -24,6 +24,9 @@ function getGlobalOptions() {
 		"pdo_username" => "giftreg",
 		"pdo_password" => "cn3Malk",
 
+		/* The interface language: "en" or "fr". */
+		"language" => "en",
+
 		/* The maximum number of days before an event which produces a notification. */
 		"event_threshold" => "60",
 
@@ -80,7 +83,7 @@ function getGlobalOptions() {
 
 		/* The date format used in DateTime::format()
 			http://php.net/manual/en/function.date.php */
-		"date_format" => "d/m/Y",
+		"date_format" => "m/d/Y",
 
 		/* If this is set to something other than "" then phpgiftreg will expect that
 			string to prefix all tables in this installation.  Useful for running
