@@ -20,8 +20,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<title>{$messages.tpl.mylist.title}</title>
  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-
 	<script language="JavaScript">
 		function printPage() {
 			window.print();
@@ -32,8 +30,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	 <div class="container" style="padding-top: 5px;">
 
 		<div class="row">
-			<div class="span12">
-				<div class="well">
+			<div class="col-12">
+				<div class="card p-3">
 					<p style="text-align: center">{$messages.tpl.mylist.wish_list|replace:'%s':$fullname|replace:'%s':$today|escape:'htmlall'}</p>
 					<table class="table table-bordered table-striped">
 						<thead>
@@ -72,6 +70,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

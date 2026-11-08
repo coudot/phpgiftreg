@@ -20,9 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<title>{$messages.tpl.home.title|replace:'%s':$fullname|escape:'htmlall'}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 	<link href="lightbox/css/jquery.lightbox-0.5.css" rel="stylesheet">
 	<script src="lightbox/js/jquery.lightbox-0.5.min.js"></script>
 	
@@ -35,7 +34,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				imageBtnNext: 'lightbox/images/lightbox-btn-next.gif',
 				imageBlank: 'lightbox/images/lightbox-blank.gif'
 			});
-			$('a[rel=popover]').removeAttr('href').popover();
+			document.querySelectorAll('[rel="popover"]').forEach(function (element) {
+				element.removeAttribute('href');
+				new bootstrap.Popover(element);
+			});
 			{if $opt.confirm_item_deletes}
 				$('a[rel=confirmitemdelete]').click(function(event) {
 					var desc = $(this).attr('data-content');
@@ -61,15 +63,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<div class="container" style="padding-top: 60px;">
 	{if isset($message)}
 		<div class="row">
-			<div class="span12">
-				<div class="alert alert-block">{$message|escape:'htmlall'}</div>
+			<div class="col-12">
+				<div class="alert alert-info">{$message|escape:'htmlall'}</div>
 			</div>
 		</div>
 	{/if}
 	{if $opt.show_helptext}
 		<section id="help">
 	 	<div class="row">
-			<div class="span12">
+			<div class="col-12">
 				<div class="alert alert-info">
 				<ul>
 					<li>{$messages.tpl.home.help_sort}</li>
@@ -83,8 +85,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		</section>
 	{/if}
 	<section id="myitems">
-		<div class="well">
-		<div class="page-header">
+		<div class="card p-3">
+		<div class="border-bottom mb-4">
 			<h1>{$messages.tpl.home.my_items}</h1>
 		</div>
 		<table class="table table-bordered table-striped">
@@ -103,7 +105,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<td>
 							{$row.description|escape:'htmlall'}
 							 {if $row.comment != ''}
-								<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="{$messages.tpl.home.comment|escape:'htmlall'}" data-content="{$row.comment|escape:'htmlall'}">...</a>
+								<a class="btn btn-secondary btn-sm" rel="popover" href="#" data-bs-placement="right" data-bs-title="{$messages.tpl.home.comment|escape:'htmlall'}" data-bs-content="{$row.comment|escape:'htmlall'}">...</a>
 							{/if}
 							{if $row.url != ''}
 								<a href="{$row.url|escape:'htmlall'}" target="_blank"><img src="images/link.png" border="0" alt="{$messages.tpl.home.url|escape:'htmlall'}" title="{$messages.tpl.home.url|escape:'htmlall'}"></a>
@@ -125,27 +127,27 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			</tbody>
 		</table>
 		{if $myitems_count > $opt.items_per_page}
-			<div class="pagination">
-				<ul>
+			<nav aria-label="Pagination">
+				<ul class="pagination">
 					{if $offset >= $opt.items_per_page}
-						<li><a href="index.php?offset={$offset - $opt.items_per_page}">&lt;</a></li>
+						<li class="page-item"><a class="page-link" href="index.php?offset={$offset - $opt.items_per_page}">&lt;</a></li>
 					{/if}
 					{for $i=0 to $myitems_count step $opt.items_per_page}
-						<li {if $offset >= $i && $offset < $i + $opt.items_per_page}class="active"{/if}><a href="index.php?offset={$i}">{$i + $opt.items_per_page}</a></li>
+						<li class="page-item {if $offset >= $i && $offset < $i + $opt.items_per_page}active{/if}"><a class="page-link" href="index.php?offset={$i}">{$i + $opt.items_per_page}</a></li>
 					{/for}
 					{if $offset + $opt.items_per_page < $myitems_count}
-						<li><a href="index.php?offset={$offset + $opt.items_per_page}">&gt;</a></li>
+						<li class="page-item"><a class="page-link" href="index.php?offset={$offset + $opt.items_per_page}">&gt;</a></li>
 					{/if}
 				</ul>
-			</div>
+			</nav>
 		{/if}
 		<h5><a href="item.php?action=add">{$messages.tpl.home.add_item}</a></h5>
 		</div>
 	</section>
 	<section id="otherstuff">
 		<div class="row">
-			<div class="span6">
-				<div class="well">
+			<div class="col-md-6">
+				<div class="card p-3">
 				<h3>{$messages.tpl.home.shopping_for}</h3>
 		<table class="table table-bordered table-striped">
 			<thead>
@@ -162,7 +164,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<td>
 							<a href="shop.php?shopfor={$row.userid}">{$row.fullname|escape:'htmlall'}</a>
 							{if $row.comment != ''}
-								<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="{$messages.tpl.home.comment|escape:'htmlall'}" data-content="{$row.comment|escape:'htmlall'}">...</a>
+								<a class="btn btn-secondary btn-sm" rel="popover" href="#" data-bs-placement="right" data-bs-title="{$messages.tpl.home.comment|escape:'htmlall'}" data-bs-content="{$row.comment|escape:'htmlall'}">...</a>
 							{/if}
 						</td>
 						<td align="right">{$row.list_stamp}</td>
@@ -184,8 +186,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		</table>
 			</div>
 			</div>
-			<div class="span6">
-				<div class="well">
+			<div class="col-md-6">
+				<div class="card p-3">
 				<h3>{$messages.tpl.home.not_shopping_for}</h3>
 					<table class="table table-bordered table-striped"> 
 						<thead>
@@ -221,8 +223,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	</section>
 	<section id="morestuffstill">
 		<div class="row">
-			<div class="span6">
-				<div class="well">
+			<div class="col-md-6">
+				<div class="card p-3">
 				<h3>{$messages.tpl.home.messages}</h3>
 				<table class="table table-bordered table-striped">
 					<thead>
@@ -249,8 +251,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					<h5><a href="message.php">{$messages.tpl.home.send_message}</a></h5>
 					</div>
 				</div>
-				<div class="span6">
-					<div class="well">
+				<div class="col-md-6">
+					<div class="card p-3">
 					<h3>{$messages.tpl.home.upcoming_events|replace:'%s':$opt.event_threshold}</h3>
 					<table class="table table-bordered table-striped">
 						<thead>
@@ -290,8 +292,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			{if $opt.shop_requires_approval || ($isadmin && $opt.newuser_requires_approval)}
 				<div class="row">
 					{if $opt.shop_requires_approval}
-						<div class="span6">
-							<div class="well">
+						<div class="col-md-6">
+							<div class="card p-3">
 								<h3>{$messages.tpl.home.people_want_shop}</h3>
 								<table class="table table-bordered table-striped">
 									<thead>
@@ -316,8 +318,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						</div>
 					{/if}
 					{if $isadmin && $opt.newuser_requires_approval}
-						<div class="span6">
-							<div class="well">
+						<div class="col-md-6">
+							<div class="card p-3">
 								<h3>{$messages.tpl.home.people_waiting}</h3>
 								<table class="table table-bordered table-striped">
 									<thead>

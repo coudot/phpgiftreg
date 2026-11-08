@@ -15,7 +15,7 @@ receive. Private reservations ensure gifts are not bought twice.
 
 ## Features
 
-* Built with Twitter Bootstrap, so it looks great on mobile and small-form
+* Built with Bootstrap 5, so it looks great on mobile and small-form
   factor devices.
 
 * Bootswatch integration, so you can replace the theme with a pre-built theme

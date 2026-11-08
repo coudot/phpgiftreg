@@ -21,9 +21,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<title>{$messages.tpl.profile.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="js/jquery.validate.min.js"></script>
 	<script src="js/giftreg.js"></script>
 
@@ -89,65 +88,67 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 	<div class="container" style="padding-top: 60px;">
 		<div class="row">
-			<div class="span8 offset2">
-<form name="changepwdform" id="changepwdform" action="profile.php" method="POST" class="well form-horizontal">
+			<div class="col-md-8 offset-md-2">
+<form name="changepwdform" id="changepwdform" action="profile.php" method="POST" class="card p-3">
 	<input type="hidden" name="action" value="changepwd">
 	<fieldset>
 		<legend>{$messages.tpl.profile.change_password}</legend>
-		<div class="control-group">
-			<label class="control-label" for="newpwd">{$messages.tpl.profile.new_password}</label>
-			<div class="controls">
-				<input type="password" id="newpwd" name="newpwd" class="input-xlarge">
+		<div class="row mb-3">
+			<label class="col-sm-3 col-form-label" for="newpwd">{$messages.tpl.profile.new_password}</label>
+			<div class="col-sm-9">
+				<input type="password" id="newpwd" name="newpwd" class="form-control">
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="confpwd">{$messages.tpl.profile.confirm_password}</label>
-			<div class="controls">
-				<input type="password" id="confpwd" name="confpwd" class="input-xlarge">
+		<div class="row mb-3">
+			<label class="col-sm-3 col-form-label" for="confpwd">{$messages.tpl.profile.confirm_password}</label>
+			<div class="col-sm-9">
+				<input type="password" id="confpwd" name="confpwd" class="form-control">
 			</div>
 		</div>
-		<div class="form-actions">
+		<div class="d-flex gap-2">
 			<button type="submit" class="btn btn-primary">{$messages.tpl.profile.change_password}</button>
-			<button type="button" class="btn" onclick="document.location.href='index.php';">{$messages.tpl.common.cancel}</button>
+			<button type="button" class="btn btn-secondary" onclick="document.location.href='index.php';">{$messages.tpl.common.cancel}</button>
 		</div>
 	</fieldset>
 </form>
 			</div>
 		</div>
 		<div class="row">
-			<div class="span8 offset2">
-<form name="profileform" id="profileform" action="profile.php" method="POST" class="well form-horizontal">
+			<div class="col-md-8 offset-md-2">
+<form name="profileform" id="profileform" action="profile.php" method="POST" class="card p-3">
 	<input type="hidden" name="action" value="save">
 	<fieldset>
 		<legend>{$messages.tpl.profile.update_profile}</legend>
-		<div class="control-group">
-			<label class="control-label" for="fullname">{$messages.tpl.profile.fullname}</label>
-			<div class="controls">
-				<input type="text" id="fullname" name="fullname" class="input-xlarge" value="{$fullname|escape:'htmlall'}">
+		<div class="row mb-3">
+			<label class="col-sm-3 col-form-label" for="fullname">{$messages.tpl.profile.fullname}</label>
+			<div class="col-sm-9">
+				<input type="text" id="fullname" name="fullname" class="form-control" value="{$fullname|escape:'htmlall'}">
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="email">{$messages.tpl.profile.email}</label>
-			<div class="controls">
-				<input type="text" id="email" name="email" class="input-xlarge" value="{$email|escape:'htmlall'}">
+		<div class="row mb-3">
+			<label class="col-sm-3 col-form-label" for="email">{$messages.tpl.profile.email}</label>
+			<div class="col-sm-9">
+				<input type="text" id="email" name="email" class="form-control" value="{$email|escape:'htmlall'}">
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="email_msgs">{$messages.tpl.profile.copy_msg}</label>
-			<div class="controls">
-				<input type="checkbox" id="email_msgs" name="email_msgs" {if $email_msgs}CHECKED{/if}>
-				{$messages.tpl.profile.email_copy}
+		<div class="row mb-3">
+			<label class="col-sm-3 col-form-label" for="email_msgs">{$messages.tpl.profile.copy_msg}</label>
+			<div class="col-sm-9">
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="email_msgs" name="email_msgs" {if $email_msgs}CHECKED{/if}>
+					<label class="form-check-label" for="email_msgs">{$messages.tpl.profile.email_copy}</label>
+				</div>
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="comment">{$messages.tpl.profile.comments}</label>
-			<div class="controls">
-				<textarea id="comment" name="comment" rows="5" cols="40">{$comment|escape:'htmlall'}</textarea>
+		<div class="row mb-3">
+			<label class="col-sm-3 col-form-label" for="comment">{$messages.tpl.profile.comments}</label>
+			<div class="col-sm-9">
+				<textarea class="form-control" id="comment" name="comment" rows="5" cols="40">{$comment|escape:'htmlall'}</textarea>
 			</div>
 		</div>
-		<div class="form-actions">
+		<div class="d-flex gap-2">
 			<button type="submit" class="btn btn-primary">{$messages.tpl.profile.update_profile}</button>
-			<button type="button" class="btn" onclick="document.location.href='index.php';">{$messages.tpl.common.cancel}</button>
+			<button type="button" class="btn btn-secondary" onclick="document.location.href='index.php';">{$messages.tpl.common.cancel}</button>
 		</div>
 	</fieldset>
 </form>

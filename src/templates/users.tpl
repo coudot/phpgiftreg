@@ -20,9 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<title>{$messages.tpl.users.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="js/jquery.validate.min.js"></script>
 	<script src="js/giftreg.js"></script>
 	
@@ -79,15 +78,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		
 		{if isset($message)}
 			<div class="row">
-				<div class="span12">
-    				<div class="alert alert-block">{$message|escape:'htmlall'}</div>
+				<div class="col-12">
+								<div class="alert alert-info">{$message|escape:'htmlall'}</div>
 				</div>
 			</div>
 		{/if}
 
 		<div class="row">
-			<div class="span12">
-				<div class="well">
+			<div class="col-12">
+				<div class="card p-3">
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
@@ -129,8 +128,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 		<a name="userform">
 		<div class="row">
-			<div class="span12">
-				<form name="theform" id="theform" method="get" action="users.php" class="well form-horizontal">	
+			<div class="col-12">
+				<form name="theform" id="theform" method="get" action="users.php" class="card p-3">
 					{if $action == "edit" || (isset($haserror) && $action == "update")}
 						<input type="hidden" name="userid" value="{$edituserid}">
 						<input type="hidden" name="action" value="update">
@@ -139,47 +138,53 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					{/if}
 					<fieldset>
 						<legend>{if $action == "edit" || $action == "update"}{$messages.tpl.users.edit}{else}{$messages.tpl.users.add_legend}{/if}</legend>
-						<div class="control-group {if isset($username_error)}warning{/if}">
-							<label class="control-label" for="username">{$messages.tpl.users.username}</label>
-							<div class="controls">
-								<input id="username" name="username" type="text" class="input-xlarge" value="{$username|escape:'htmlall'}" maxlength="255">
+						<div class="row mb-3 {if isset($username_error)}text-danger{/if}">
+							<label class="col-sm-3 col-form-label" for="username">{$messages.tpl.users.username}</label>
+							<div class="col-sm-9">
+								<input id="username" name="username" type="text" class="form-control" value="{$username|escape:'htmlall'}" maxlength="255">
 								{if isset($username_error)}
-									<span class="help-inline">{$username_error|escape:'htmlall'}</span>
+									<span class="invalid-feedback d-block">{$username_error|escape:'htmlall'}</span>
 								{/if}
 							</div>
 						</div>
-						<div class="control-group {if isset($fullname_error)}warning{/if}">
-							<label class="control-label" for="fullname">{$messages.tpl.users.fullname}</label>
-							<div class="controls">
-								<input id="fullname" name="fullname" type="text" class="input-xlarge" value="{$fullname|escape:'htmlall'}" maxlength="255">
+						<div class="row mb-3 {if isset($fullname_error)}text-danger{/if}">
+							<label class="col-sm-3 col-form-label" for="fullname">{$messages.tpl.users.fullname}</label>
+							<div class="col-sm-9">
+								<input id="fullname" name="fullname" type="text" class="form-control" value="{$fullname|escape:'htmlall'}" maxlength="255">
 								{if isset($fullname_error)}
-									<span class="help-inline">{$fullname_error|escape:'htmlall'}</span>
+									<span class="invalid-feedback d-block">{$fullname_error|escape:'htmlall'}</span>
 								{/if}
 							</div>
 						</div>
-						<div class="control-group {if isset($email_error)}warning{/if}">
-							<label class="control-label" for="email">{$messages.tpl.users.email}</label>
-							<div class="controls">
-								<input id="email" name="email" type="text" class="input-xlarge" value="{$email|escape:'htmlall'}" maxlength="255">
+						<div class="row mb-3 {if isset($email_error)}text-danger{/if}">
+							<label class="col-sm-3 col-form-label" for="email">{$messages.tpl.users.email}</label>
+							<div class="col-sm-9">
+								<input id="email" name="email" type="text" class="form-control" value="{$email|escape:'htmlall'}" maxlength="255">
 								{if isset($email_error)}
-									<span class="help-inline">{$email_error|escape:'htmlall'}</span>
+									<span class="invalid-feedback d-block">{$email_error|escape:'htmlall'}</span>
 								{/if}
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label">{$messages.tpl.users.flags}</label>
-							<div class="controls">
-								<input type="checkbox" name="email_msgs" {if $email_msgs}CHECKED{/if}>
-								{$messages.tpl.users.email_messages}
-								<input type="checkbox" name="approved" {if $approved}CHECKED{/if}>
-								{$messages.tpl.users.approved}
-								<input type="checkbox" name="admin" {if $userisadmin}CHECKED{/if}>
-								{$messages.tpl.users.administrator}
+						<div class="row mb-3">
+							<label class="col-sm-3 col-form-label">{$messages.tpl.users.flags}</label>
+							<div class="col-sm-9">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="email_msgs" name="email_msgs" {if $email_msgs}CHECKED{/if}>
+									<label class="form-check-label" for="email_msgs">{$messages.tpl.users.email_messages}</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="approved" name="approved" {if $approved}CHECKED{/if}>
+									<label class="form-check-label" for="approved">{$messages.tpl.users.approved}</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="admin" name="admin" {if $userisadmin}CHECKED{/if}>
+									<label class="form-check-label" for="admin">{$messages.tpl.users.administrator}</label>
+								</div>
 							</div>
 						</div>
-						<div class="form-actions">
+						<div class="d-flex gap-2">
 							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}{$messages.tpl.common.add}{else}{$messages.tpl.common.update}{/if}</button>
-							<button type="button" class="btn" onClick="document.location.href='users.php';">{$messages.tpl.common.cancel}</button>
+							<button type="button" class="btn btn-secondary" onClick="document.location.href='users.php';">{$messages.tpl.common.cancel}</button>
 						</div>
 					</fieldset>
 				</form>

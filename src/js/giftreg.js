@@ -1,9 +1,9 @@
 // based on http://alittlecode.com/files/jQuery-Validate-Demo/
 
 function validate_highlight(label) {
-	$(label).closest('.control-group').addClass('error');
+	$(label).addClass('invalid-feedback').closest('.mb-3').find(':input').addClass('is-invalid').removeClass('is-valid');
 }
 
 function validate_success(label) {
-	$(label).addClass('valid').closest('.control-group').removeClass('error');
+	$(label).removeClass('invalid-feedback').closest('.mb-3').find(':input').removeClass('is-invalid').addClass('is-valid');
 }
