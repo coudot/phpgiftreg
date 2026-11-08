@@ -20,8 +20,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<title>{$messages.tpl.shoplist.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-					 
 	<script language="JavaScript" type="text/javascript">
 		function printPage() {
 			window.print();
@@ -34,7 +32,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<div class="container" style="padding-top: 60px;">
 		{if $opt.show_helptext}
 			<div class="row">
-				<div class="span12">
+				<div class="col-12">
 					<div class="alert alert-info">
 						{$messages.tpl.shoplist.help}
 					</div>
@@ -43,8 +41,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		{/if}
 
 		<div class="row">
-			<div class="span12">
-				<div class="well">
+			<div class="col-12">
+				<div class="card p-3">
 					<h1>{$messages.tpl.shoplist.heading}</h1>
 					<table class="table table-bordered table-striped">
 						<thead>
@@ -74,8 +72,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		</div>
 
 		<div class="row">
-			<div class="span6">
-				<div class="well">
+			<div class="col-md-6">
+				<div class="card p-3">
 					<a onClick="printPage()" href="#">{$messages.tpl.shoplist.print}</a>
 				</div>
 			</div>
@@ -83,6 +81,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

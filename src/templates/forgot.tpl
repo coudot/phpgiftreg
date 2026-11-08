@@ -20,9 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<title>{$messages.tpl.forgot.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="js/jquery.validate.min.js"></script>
 	<script src="js/giftreg.js"></script>
 
@@ -50,8 +49,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 	{if isset($action) && $action == "forgot" && $error == ""}
 		<div class="row">
-			<div class="span12">
-				<div class="well">
+			<div class="col-12">
+				<div class="card p-3">
 					<p>{$messages.tpl.forgot.sent}</p>
 					<p>{$messages.tpl.forgot.login_link}</p>
 				</div>
@@ -59,26 +58,26 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		</div>
 	{else}
 		<div class="row">
-			<div class="span12">
-				<form name="forgotform" id="forgotform" method="post" action="forgot.php" class="well form-horizontal">	
+			<div class="col-12">
+				<form name="forgotform" id="forgotform" method="post" action="forgot.php" class="card p-3">
 					<input type="hidden" name="action" value="forgot">
 					<fieldset>
 						<legend>{$messages.tpl.forgot.legend}</legend>
-						<div class="control-group {if isset($error)}warning{/if}">
-							<label class="control-label" for="username">{$messages.tpl.forgot.username}</label>
-							<div class="controls">
-								<input id="username" name="username" type="text" class="input-xlarge" value="{$username|escape:'htmlall'}">
+						<div class="row mb-3 {if isset($error)}text-danger{/if}">
+							<label class="col-sm-3 col-form-label" for="username">{$messages.tpl.forgot.username}</label>
+							<div class="col-sm-9">
+								<input id="username" name="username" type="text" class="form-control" value="{$username|escape:'htmlall'}">
 								{if isset($error)}
-									<span class="help-inline">{$error|escape:'htmlall'}</span>
+									<span class="invalid-feedback d-block">{$error|escape:'htmlall'}</span>
 								{/if}
-								<p class="help-block">
+								<p class="form-text">
 									{$messages.tpl.forgot.help}
 								</p>
 							</p>
 						</div>
-						<div class="form-actions">
+						<div class="d-flex gap-2">
 							<button type="submit" class="btn btn-primary">{$messages.tpl.common.submit}</button>
-							<button type="button" class="btn" onClick="document.location.href='login.php';">{$messages.tpl.common.cancel}</button>
+							<button type="button" class="btn btn-secondary" onClick="document.location.href='login.php';">{$messages.tpl.common.cancel}</button>
 						</div>
 					</fieldset>
 				</form>

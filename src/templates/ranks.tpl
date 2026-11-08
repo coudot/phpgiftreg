@@ -20,9 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<title>{$messages.tpl.ranks.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="js/jquery.validate.min.js"></script>
 	<script src="js/giftreg.js"></script>
 
@@ -62,15 +61,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 		{if isset($message)}
 			<div class="row">
-				<div class="span12">
-					<div class="alert alert-block">{$message|escape:'htmlall'}</div>
+				<div class="col-12">
+					<div class="alert alert-info">{$message|escape:'htmlall'}</div>
 				</div>
 			</div>
 		{/if}
 
 		<div class="row">
-			<div class="span12">
-				<div class="well">
+			<div class="col-12">
+				<div class="card p-3">
 					<h3>{$messages.tpl.ranks.heading}</h3>
 					<table class="table table-bordered table-striped">
 						<thead>
@@ -103,8 +102,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 		<a name="rankform">
 		<div class="row">
-			<div class="span12">
-				<form name="theform" id="theform" method="get" action="ranks.php" class="well form-horizontal">	
+			<div class="col-12">
+				<form name="theform" id="theform" method="get" action="ranks.php" class="card p-3">
 					{if $action == "edit" || (isset($haserror) && $action == "update")}
 						<input type="hidden" name="ranking" value="{$ranking}">
 						<input type="hidden" name="action" value="update">
@@ -113,27 +112,27 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					{/if}
 					<fieldset>
 						<legend>{if $action == "edit"}{$messages.tpl.ranks.edit_legend|replace:'%s':$title|escape:'htmlall'}{else}{$messages.tpl.ranks.add_legend}{/if}</legend>
-						<div class="control-group {if isset($title_error)}warning{/if}">
-							<label class="control-label" for="title">{$messages.tpl.ranks.title_label}</label>
-							<div class="controls">
-								<input id="title" name="title" class="input-xlarge" type="text" value="{$title|escape:'htmlall'}" maxlength="255">
+						<div class="row mb-3 {if isset($title_error)}text-danger{/if}">
+							<label class="col-sm-3 col-form-label" for="title">{$messages.tpl.ranks.title_label}</label>
+							<div class="col-sm-9">
+								<input id="title" name="title" class="form-control" type="text" value="{$title|escape:'htmlall'}" maxlength="255">
 								{if isset($title_error)}
-									<span class="help-inline">{$title_error|escape:'htmlall'}</span>
+									<span class="invalid-feedback d-block">{$title_error|escape:'htmlall'}</span>
 								{/if}
 							</div>
 						</div>
-						<div class="control-group {if isset($rendered_error)}warning{/if}">
-							<label class="control-label" for="rendered">{$messages.tpl.ranks.html}</label>
-							<div class="controls">
-								<textarea id="rendered" name="rendered" class="input-xlarge" rows="4" cols="40">{$rendered|escape:'htmlall'}</textarea>
+						<div class="row mb-3 {if isset($rendered_error)}text-danger{/if}">
+							<label class="col-sm-3 col-form-label" for="rendered">{$messages.tpl.ranks.html}</label>
+							<div class="col-sm-9">
+								<textarea id="rendered" name="rendered" class="form-control" rows="4" cols="40">{$rendered|escape:'htmlall'}</textarea>
 								{if isset($rendered_error)}
-									<span class="help-inline">{$rendered_error|escape:'htmlall'}</span>
+									<span class="invalid-feedback d-block">{$rendered_error|escape:'htmlall'}</span>
 								{/if}
 							</div>
 						</div>
-						<div class="form-actions">
+						<div class="d-flex gap-2">
 							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}{$messages.tpl.common.add}{else}{$messages.tpl.common.update}{/if}</button>
-							<button type="button" class="btn" onClick="document.location.href='ranks.php';">{$messages.tpl.common.cancel}</button>
+							<button type="button" class="btn btn-secondary" onClick="document.location.href='ranks.php';">{$messages.tpl.common.cancel}</button>
 						</div>
 					</fieldset>
 				</form>

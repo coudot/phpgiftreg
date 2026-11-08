@@ -20,9 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<title>{$messages.tpl.shop.title|replace:'%s':$ufullname|escape:'htmlall'}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 	<link href="lightbox/css/jquery.lightbox-0.5.css" rel="stylesheet">
 	<script src="lightbox/js/jquery.lightbox-0.5.min.js"></script>
 
@@ -39,7 +38,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				imageBtnNext: 'lightbox/images/lightbox-btn-next.gif',
 				imageBlank: 'lightbox/images/lightbox-blank.gif'
 			});
-			$('a[rel=popover]').removeAttr('href').popover();
+			document.querySelectorAll('[rel="popover"]').forEach(function (element) {
+				element.removeAttribute('href');
+				new bootstrap.Popover(element);
+			});
 		});
 	</script>
 </head>
@@ -49,8 +51,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<div class="container" style="padding-top: 60px;">
 	{if isset($message)}
 		<div class="row">
-			<div class="span12">
-				<div class="alert alert-block">
+			<div class="col-12">
+				<div class="alert alert-info">
 					{$message|escape:'htmlall'}
 				</div>
 			</div>
@@ -61,7 +63,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	</div>
 	{if $opt.show_helptext}
 		<div class="row">
-			<div class="span12">
+			<div class="col-12">
 				<div class="alert alert-info">
 					<ul>
 						<li>{$messages.tpl.shop.help_reserve}</li>
@@ -75,15 +77,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		</div>
 	{/if}
 	<div class="row">
-		<div class="span6 offset6">
+		<div class="col-md-6 offset-md-6">
 			<div class="alert alert-info">
 		<img src="images/locked.png" alt="{$messages.tpl.shop.reserve|escape:'htmlall'}" title="{$messages.tpl.shop.reserve|escape:'htmlall'}"> = {$messages.tpl.shop.reserve}, <img src="images/unlocked.png" alt="{$messages.tpl.shop.release|escape:'htmlall'}" title="{$messages.tpl.shop.release|escape:'htmlall'}"> = {$messages.tpl.shop.release}, <img src="images/credit-card-3.png" alt="{$messages.tpl.shop.purchase|escape:'htmlall'}" title="{$messages.tpl.shop.purchase|escape:'htmlall'}"> = {$messages.tpl.shop.purchase}, <img src="images/return.png" alt="{$messages.tpl.shop.return|escape:'htmlall'}" title="{$messages.tpl.shop.return|escape:'htmlall'}"> = {$messages.tpl.shop.return}, <img src="images/split-2.png" alt="{$messages.tpl.shop.want_too|escape:'htmlall'}" title="{$messages.tpl.shop.want_too|escape:'htmlall'}"> = {$messages.tpl.shop.want_too}
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="span12">
-			<div class="well">
+		<div class="col-12">
+			<div class="card p-3">
 		<table class="table table-bordered table-striped">
 			<thead>
 			<tr>
@@ -103,7 +105,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					<td>
 						{$row.description|escape:'htmlall'}
 						{if $row.comment != ''}
-							<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="{$messages.tpl.shop.comment|escape:'htmlall'}" data-content="{$row.comment|escape:'htmlall'}">...</a>
+							<a class="btn btn-secondary btn-sm" rel="popover" href="#" data-bs-placement="right" data-bs-title="{$messages.tpl.shop.comment|escape:'htmlall'}" data-bs-content="{$row.comment|escape:'htmlall'}">...</a>
 						{/if}
 						{if $row.url != ''}
 							<a href="{$row.url}" target="_blank"><img src="images/link.png" border="0" alt="{$messages.tpl.shop.url|escape:'htmlall'}" title="{$messages.tpl.shop.url|escape:'htmlall'}"></a>
@@ -213,8 +215,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	</div>
 	</div>
 	<div class="row">
-		<div class="span6">
-			<div class="well">
+		<div class="col-md-6">
+			<div class="card p-3">
 				<a onClick="printPage()" href="#">{$messages.tpl.shop.print}</a>
 			</div>
 		</div>

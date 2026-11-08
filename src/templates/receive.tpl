@@ -20,9 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<title>{$messages.tpl.receive.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="js/jquery.validate.min.js"></script>
 	<script src="js/giftreg.js"></script>
 	
@@ -62,16 +61,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 	<div class="container" style="padding-top: 60px;">
 		<div class="row">
-			<div class="span8 offset2">
-<form name="receiverform" id="receiverform" method="get" action="receive.php" class="well form-horizontal">
+			<div class="col-md-8 offset-md-2">
+<form name="receiverform" id="receiverform" method="get" action="receive.php" class="card p-3">
 	<input type="hidden" name="action" value="receive">
 	<input type="hidden" name="itemid" value="{$itemid}">
 	<fieldset>
 		<legend>{$messages.tpl.receive.legend}</legend>
-		<div class="control-group">
-			<label class="control-label" for="buyer">{$messages.tpl.receive.buyer}</label>
-			<div class="controls">
-				<select id="buyer" name="buyer" class="input-xlarge">
+		<div class="row mb-3">
+			<label class="col-sm-3 col-form-label" for="buyer">{$messages.tpl.receive.buyer}</label>
+			<div class="col-sm-9">
+				<select id="buyer" name="buyer" class="form-select">
 					<option value="">{$messages.tpl.receive.select_buyer}</option>
 					{foreach from=$buyers item=row}
 						<option value="{$row.userid}">{$row.fullname|escape:'htmlall'}</option>
@@ -79,16 +78,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				</select>
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="quantity">{$messages.tpl.receive.quantity_label|replace:'%s':$quantity}</label>
-			<div class="controls">
+		<div class="row mb-3">
+			<label class="col-sm-3 col-form-label" for="quantity">{$messages.tpl.receive.quantity_label|replace:'%s':$quantity}</label>
+			<div class="col-sm-9">
 				<input type="text" id="quantity" name="quantity" value="1" maxlength="3">
-				<p class="help-block">{$messages.tpl.receive.help}</p>
+				<p class="form-text">{$messages.tpl.receive.help}</p>
 			</div>
 		</div>
-		<div class="form-actions">
+		<div class="d-flex gap-2">
 			<button type="submit" class="btn btn-primary">{$messages.tpl.receive.receive_button}</button>
-			<button type="button" class="btn" onClick="document.location.href='index.php';">{$messages.tpl.common.cancel}</button>
+			<button type="button" class="btn btn-secondary" onClick="document.location.href='index.php';">{$messages.tpl.common.cancel}</button>
 		</div>
 	</fieldset>
 </form>
