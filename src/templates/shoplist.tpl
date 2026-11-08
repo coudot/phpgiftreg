@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - My Shopping List</title>
+	<title>{$messages.tpl.shoplist.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -36,7 +36,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="row">
 				<div class="span12">
 					<div class="alert alert-info">
-						This is a list of all items you have <strong>reserved</strong>.  Once you've bought or decided not to buy an item, remember to return to the recipient's gift lists and mark it accordingly.
+						{$messages.tpl.shoplist.help}
 					</div>
 				</div>
 			</div>
@@ -45,15 +45,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="well">
-					<h1>My Shopping List</h1>
+					<h1>{$messages.tpl.shoplist.heading}</h1>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th><a href="shoplist.php?sort=recipient">Recipient</a></th>
-								<th><a href="shoplist.php?sort=description">Description</a></th>
-								<th><a href="shoplist.php?sort=ranking">Ranking</a></th>
-								<th><a href="shoplist.php?sort=source">Source</a></th>
-								<th><a href="shoplist.php?sort=price">Price</a></th>
+								<th><a href="shoplist.php?sort=recipient">{$messages.tpl.shoplist.recipient}</a></th>
+								<th><a href="shoplist.php?sort=description">{$messages.tpl.shoplist.description}</a></th>
+								<th><a href="shoplist.php?sort=ranking">{$messages.tpl.shoplist.ranking}</a></th>
+								<th><a href="shoplist.php?sort=source">{$messages.tpl.shoplist.source}</a></th>
+								<th><a href="shoplist.php?sort=price">{$messages.tpl.shoplist.price}</a></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -68,7 +68,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							{/foreach}
 						</tbody>
 					</table>
-					<h5>{$itemcount} item(s), {$totalprice} total.</h5>
+					<h5>{$messages.tpl.shoplist.summary|replace:'%s':$itemcount|replace:'%s':$totalprice}</h5>
 				</div>
 			</div>
 		</div>
@@ -76,7 +76,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span6">
 				<div class="well">
-					<a onClick="printPage()" href="#">Send to printer</a>
+					<a onClick="printPage()" href="#">{$messages.tpl.shoplist.print}</a>
 				</div>
 			</div>
 		</div>

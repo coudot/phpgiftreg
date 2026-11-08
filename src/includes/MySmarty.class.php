@@ -11,11 +11,7 @@ class MySmarty extends Smarty {
 
 		$opt = $this->opt();
 		$messages = getLanguageMessages($opt["language"]);
-		$templateDir = dirname(__FILE__) . "/../templates";
-		if ($opt["language"] == "fr") {
-			$templateDir .= "/fr";
-		}
-		$this->setTemplateDir($templateDir);
+		$this->setTemplateDir(dirname(__FILE__) . "/../templates");
 		parent::assign('messages', $messages);
 		parent::assign('datepicker_json', json_encode($messages["datepicker"], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP));
 		date_default_timezone_set("GMT+0");

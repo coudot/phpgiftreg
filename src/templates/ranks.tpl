@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Manage Ranks</title>
+	<title>{$messages.tpl.ranks.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -43,12 +43,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					title: {
-						required: "A title is required.", 
-						maxlength: "Title must be 50 characters or less."
+						required: "{$messages.tpl.ranks.title_required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.ranks.title_maxlength|escape:'javascript'}"
 					},
 					rendered: {
-						required: "HTML is required.",
-						maxlength: "HTML must be 255 characters or less."
+						required: "{$messages.tpl.ranks.html_required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.ranks.html_maxlength|escape:'javascript'}"
 					}
 				}
 			});
@@ -71,13 +71,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="well">
-					<h3>Ranks</h3>
+					<h3>{$messages.tpl.ranks.heading}</h3>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Title</th>
-								<th>Rendered HTML</th>
-								<th>Rank Order</th>
+								<th>{$messages.tpl.ranks.title_label}</th>
+								<th>{$messages.tpl.ranks.html_label}</th>
+								<th>{$messages.tpl.ranks.order}</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -87,16 +87,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 									<td>{$row.rendered}</td>
 									<td>{$row.rankorder}</td>
 									<td>
-										<a href="ranks.php?action=edit&ranking={$row.ranking}#rankform"><img src="images/pencil.png" border="0" alt="Edit Rank" title="Edit Rank" /></a>
-										<a href="ranks.php?action=delete&ranking={$row.ranking}"><img src="images/bin.png" border="0" alt="Delete Rank" title="Delete Rank" /></a>
-										<a href="ranks.php?action=promote&ranking={$row.ranking}&rankorder={$row.rankorder}"><img src="images/arrow-up.png" border="0" alt="Promote" title="Promote" /></a>
-										<a href="ranks.php?action=demote&ranking={$row.ranking}&rankorder={$row.rankorder}"><img src="images/arrow-down.png" border="0" alt="Demote" title="Demote" /></a>
+										<a href="ranks.php?action=edit&ranking={$row.ranking}#rankform"><img src="images/pencil.png" border="0" alt="{$messages.tpl.ranks.edit|escape:'htmlall'}" title="{$messages.tpl.ranks.edit|escape:'htmlall'}" /></a>
+										<a href="ranks.php?action=delete&ranking={$row.ranking}"><img src="images/bin.png" border="0" alt="{$messages.tpl.ranks.delete|escape:'htmlall'}" title="{$messages.tpl.ranks.delete|escape:'htmlall'}" /></a>
+										<a href="ranks.php?action=promote&ranking={$row.ranking}&rankorder={$row.rankorder}"><img src="images/arrow-up.png" border="0" alt="{$messages.tpl.ranks.promote|escape:'htmlall'}" title="{$messages.tpl.ranks.promote|escape:'htmlall'}" /></a>
+										<a href="ranks.php?action=demote&ranking={$row.ranking}&rankorder={$row.rankorder}"><img src="images/arrow-down.png" border="0" alt="{$messages.tpl.ranks.demote|escape:'htmlall'}" title="{$messages.tpl.ranks.demote|escape:'htmlall'}" /></a>
 									</td>
 								</tr>
 							{/foreach}
 						</tbody>
 					</table>
-					<h5><a href="ranks.php#rankform">Add a new rank</a></h5>
+					<h5><a href="ranks.php#rankform">{$messages.tpl.ranks.add_link}</a></h5>
 				</div>
 			</div>
 		</div>
@@ -112,9 +112,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<input type="hidden" name="action" value="insert">
 					{/if}
 					<fieldset>
-						<legend>{if $action == "edit"}Edit Rank '{$title}'{else}Add Rank{/if}</legend>
+						<legend>{if $action == "edit"}{$messages.tpl.ranks.edit_legend|replace:'%s':$title|escape:'htmlall'}{else}{$messages.tpl.ranks.add_legend}{/if}</legend>
 						<div class="control-group {if isset($title_error)}warning{/if}">
-							<label class="control-label" for="title">Title</label>
+							<label class="control-label" for="title">{$messages.tpl.ranks.title_label}</label>
 							<div class="controls">
 								<input id="title" name="title" class="input-xlarge" type="text" value="{$title|escape:'htmlall'}" maxlength="255">
 								{if isset($title_error)}
@@ -123,7 +123,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							</div>
 						</div>
 						<div class="control-group {if isset($rendered_error)}warning{/if}">
-							<label class="control-label" for="rendered">HTML</label>
+							<label class="control-label" for="rendered">{$messages.tpl.ranks.html}</label>
 							<div class="controls">
 								<textarea id="rendered" name="rendered" class="input-xlarge" rows="4" cols="40">{$rendered|escape:'htmlall'}</textarea>
 								{if isset($rendered_error)}
@@ -132,8 +132,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}Add{else}Update{/if}</button>
-							<button type="button" class="btn" onClick="document.location.href='ranks.php';">Cancel</button>
+							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}{$messages.tpl.common.add}{else}{$messages.tpl.common.update}{/if}</button>
+							<button type="button" class="btn" onClick="document.location.href='ranks.php';">{$messages.tpl.common.cancel}</button>
 						</div>
 					</fieldset>
 				</form>

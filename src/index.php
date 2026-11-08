@@ -309,7 +309,7 @@ $smarty->assign('myitems_count', $myitems_count);
 $smarty->assign('offset', $offset);
 $smarty->assign('shoppees', $shoppees);
 $smarty->assign('prospects', $prospects);
-$smarty->assign('messages', $messages);
+$smarty->assign('notifications', $messages);
 $smarty->assign('events', $events);
 if (isset($pending)) {
 	$smarty->assign('pending', $pending);

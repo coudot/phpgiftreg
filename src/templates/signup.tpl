@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Sign Up</title>
+	<title>{$messages.tpl.signup.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -51,15 +51,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					username: {
-						required: "A username is required.",
-						maxlength: "Username must be 20 characters or less."
+						required: "{$messages.tpl.signup.username_required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.signup.username_maxlength|escape:'javascript'}"
 					},
 					fullname: {
-						required: "Your full name is required.",
-						maxlength: "Your full name must be 50 characteres or less."
+						required: "{$messages.tpl.signup.fullname_required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.signup.fullname_maxlength|escape:'javascript'}"
 					},
-					email: "A valid e-mail address is required.",
-					familyid: "Please select a family."
+					email: "{$messages.tpl.signup.email_required|escape:'javascript'}",
+					familyid: "{$messages.tpl.signup.family_required|escape:'javascript'}"
 				}
 			});
 		});
@@ -78,13 +78,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="row">
 				<div class="span8 offset2">
 					<div class="well">
-						<p>Thank you for signing up.</p>
+						<p>{$messages.tpl.signup.success}</p>
 						{if $opt.newuser_requires_approval}
-							<p>The administrators have been informed of your request and you will receive an e-mail once they've made a decision.</p>
+							<p>{$messages.tpl.signup.approval_notice}</p>
 						{else}
-							<p>Shortly, you will receive an e-mail with your initial password.</p>
+							<p>{$messages.tpl.signup.password_notice}</p>
 						{/if}
-						<p>Once you've received your password, click <a href="login.php">here</a> to login.</p>
+						<p>{$messages.tpl.signup.login_link}</p>
 					</div>
 				</div>
 			</div>
@@ -92,13 +92,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="row">
 				<div class="span8 offset2">
 					<div class="alert alert-info">
-						<p>Complete the form below and click Submit.</p>
+						<p>{$messages.tpl.signup.intro}</p>
 						{if $opt.newuser_requires_approval}
-							<p>The list administrators will be notified of your request by e-mail and will approve or decline your request.
-</p>
-							<p>If the e-mail address you supply is valid, you will be notified once a decision is made.</p>
+							<p>{$messages.tpl.signup.approval_help}</p>
+							<p>{$messages.tpl.signup.decision_help}</p>
 						{else}
-							<p>If the e-mail address you supply is valid, you will shortly receive an e-mail with your initial password.</p>
+							<p>{$messages.tpl.signup.password_help}</p>
 						{/if}
 					</div>
 				</div>
@@ -109,31 +108,31 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					<form name="signupform" id="signupform" method="post" action="signup.php" class="well form-horizontal">	
 						<input type="hidden" name="action" value="signup">
 						<fieldset>
-							<legend>Sign Up for the Gift Registry</legend>
+							<legend>{$messages.tpl.signup.legend}</legend>
 							<div class="control-group">
-								<label class="control-label" for="username">Username</label>
+								<label class="control-label" for="username">{$messages.tpl.signup.username}</label>
 								<div class="controls">
-									<input id="username" name="username" type="text" class="input-xlarge" value="{$username|escape:'htmlall'}" placeholder="Username">
+									<input id="username" name="username" type="text" class="input-xlarge" value="{$username|escape:'htmlall'}" placeholder="{$messages.tpl.signup.username|escape:'htmlall'}">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="fullname">Full name</label>
+								<label class="control-label" for="fullname">{$messages.tpl.signup.fullname}</label>
 								<div class="controls">
-									<input id="fullname" name="fullname" type="text" class="input-xlarge" value="{$fullname|escape:'htmlall'}" placeholder="Full name">
+									<input id="fullname" name="fullname" type="text" class="input-xlarge" value="{$fullname|escape:'htmlall'}" placeholder="{$messages.tpl.signup.fullname|escape:'htmlall'}">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="email">E-mail address</label>
+								<label class="control-label" for="email">{$messages.tpl.signup.email}</label>
 								<div class="controls">
-									<input id="email" name="email" type="text" class="input-xlarge" value="{$email|escape:'htmlall'}" placeholder="you@somewhere.com">
+									<input id="email" name="email" type="text" class="input-xlarge" value="{$email|escape:'htmlall'}" placeholder="{$messages.tpl.signup.email_placeholder|escape:'htmlall'}">
 								</div>
 							</div>
 							{if $familycount > 1}
 								<div class="control-group">
-									<label class="control-label" for="familyid">Family</label>
+									<label class="control-label" for="familyid">{$messages.tpl.signup.family}</label>
 									<div class="controls">
 										<select name="familyid">
-											<option value="">(select one)</option>
+											<option value="">{$messages.tpl.signup.select_family}</option>
 											{foreach from=$families item=row}
 												<option value="{$row.familyid}">{$row.familyname|escape:'htmlall'}</option>
 											{/foreach}
@@ -144,8 +143,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 								<input type="hidden" name="familyid" value="{$familyid}">
 							{/if}
 							<div class="form-actions">
-								<button type="submit" class="btn btn-primary">Submit</button>
-								<button type="button" class="btn" onClick="document.location.href='login.php';">Cancel</button>
+								<button type="submit" class="btn btn-primary">{$messages.tpl.common.submit}</button>
+								<button type="button" class="btn" onClick="document.location.href='login.php';">{$messages.tpl.common.cancel}</button>
 							</div>
 						</fieldset>
 					</form>

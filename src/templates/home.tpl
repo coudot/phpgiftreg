@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Home Page for {$fullname|escape:'htmlall'}</title>
+	<title>{$messages.tpl.home.title|replace:'%s':$fullname|escape:'htmlall'}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -39,7 +39,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			{if $opt.confirm_item_deletes}
 				$('a[rel=confirmitemdelete]').click(function(event) {
 					var desc = $(this).attr('data-content');
-					if (!window.confirm('Are you sure you want to delete "' + desc + '"?')) {
+					if (!window.confirm('{$messages.tpl.home.confirm_delete_before|escape:'javascript'}' + desc + '{$messages.tpl.home.confirm_delete_after|escape:'javascript'}')) {
 						event.preventDefault();
 					}
 				});
@@ -47,7 +47,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			{if $opt.shop_requires_approval}
 				$('a[rel=confirmunshop]').click(function(event) {
 					var fn = $(this).attr('data-content');
-					if (!window.confirm('Are you sure you no longer wish to shop for ' + fn + '?')) {
+					if (!window.confirm('{$messages.tpl.home.confirm_unshop_before|escape:'javascript'}' + fn + '{$messages.tpl.home.confirm_unshop_after|escape:'javascript'}')) {
 						event.preventDefault();
 					}
 				});
@@ -72,10 +72,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="span12">
 				<div class="alert alert-info">
 				<ul>
-					<li>You can click the column headers to sort by that attribute.</li>
-					<li>List each item seperately on your list - do not combine items. (i.e. list each book of a 4-part series separately.)</li>
-					<li>Once you've bought or decided not to buy an item, remember to return to the recipient's gift lists and mark it accordingly.</li>
-					<li>If someone purchases an item on your list, click <img src="images/return.png" /> to mark it as received.</li>
+					<li>{$messages.tpl.home.help_sort}</li>
+					<li>{$messages.tpl.home.help_list}</li>
+					<li>{$messages.tpl.home.help_purchase}</li>
+					<li>{$messages.tpl.home.help_received}</li>
 				</ul>
 				</div>
 			</div>
@@ -85,15 +85,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<section id="myitems">
 		<div class="well">
 		<div class="page-header">
-			<h1>My Items</h1>
+			<h1>{$messages.tpl.home.my_items}</h1>
 		</div>
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th class="colheader"><a href="index.php?mysort=description">Description</a></th>
-					<th class="colheader"><a href="index.php?mysort=ranking">Ranking</a></th>
-					<th class="colheader"><a href="index.php?mysort=category">Category</a></th>
-					<th class="rcolheader"><a href="index.php?mysort=price">Price</a></th>
+					<th class="colheader"><a href="index.php?mysort=description">{$messages.tpl.home.description}</a></th>
+					<th class="colheader"><a href="index.php?mysort=ranking">{$messages.tpl.home.ranking}</a></th>
+					<th class="colheader"><a href="index.php?mysort=category">{$messages.tpl.home.category}</a></th>
+					<th class="rcolheader"><a href="index.php?mysort=price">{$messages.tpl.home.price}</a></th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -103,22 +103,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<td>
 							{$row.description|escape:'htmlall'}
 							 {if $row.comment != ''}
-								<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="Comment" data-content="{$row.comment|escape:'htmlall'}">...</a>
+								<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="{$messages.tpl.home.comment|escape:'htmlall'}" data-content="{$row.comment|escape:'htmlall'}">...</a>
 							{/if}
 							{if $row.url != ''}
-								<a href="{$row.url|escape:'htmlall'}" target="_blank"><img src="images/link.png" border="0" alt="URL" title="URL"></a>
+								<a href="{$row.url|escape:'htmlall'}" target="_blank"><img src="images/link.png" border="0" alt="{$messages.tpl.home.url|escape:'htmlall'}" title="{$messages.tpl.home.url|escape:'htmlall'}"></a>
 							{/if}
 							{if $row.image_filename != '' && $opt.allow_images}
-								<a rel="lightbox" href="{$opt.image_subdir}/{$row.image_filename}" title="{$row.description|escape:'htmlall'}"><img src="images/image.png" border="0" alt="Image" /></a>
+								<a rel="lightbox" href="{$opt.image_subdir}/{$row.image_filename}" title="{$row.description|escape:'htmlall'}"><img src="images/image.png" border="0" alt="{$messages.tpl.home.image|escape:'htmlall'}" /></a>
 							{/if}
 						</td>
 						<td nowrap>{$row.rendered}</td>
 						<td>{$row.category|default:"&nbsp;"}</td>
 						<td align="right">{$row.price}</td>
 						<td align="right" nowrap>
-							<a href="receive.php?itemid={$row.itemid}"><img alt="Mark Item Received" src="images/return.png" border="0" title="Mark Item Received" /></a>&nbsp;
-							<a href="item.php?action=edit&itemid={$row.itemid}"><img alt="Edit Item" src="images/pencil.png" border="0" title="Edit Item" /></a>&nbsp;
-							<a rel="confirmitemdelete" data-content="{$row.description|escape:'htmlall'}" href="item.php?action=delete&itemid={$row.itemid}"><img alt="Delete Item" src="images/bin.png" border="0" alt="Delete" title="Delete Item" /></a>
+							<a href="receive.php?itemid={$row.itemid}"><img alt="{$messages.tpl.home.mark_received|escape:'htmlall'}" src="images/return.png" border="0" title="{$messages.tpl.home.mark_received|escape:'htmlall'}" /></a>&nbsp;
+							<a href="item.php?action=edit&itemid={$row.itemid}"><img alt="{$messages.tpl.home.edit_item|escape:'htmlall'}" src="images/pencil.png" border="0" title="{$messages.tpl.home.edit_item|escape:'htmlall'}" /></a>&nbsp;
+							<a rel="confirmitemdelete" data-content="{$row.description|escape:'htmlall'}" href="item.php?action=delete&itemid={$row.itemid}"><img alt="{$messages.tpl.home.delete_item|escape:'htmlall'}" src="images/bin.png" border="0" title="{$messages.tpl.home.delete_item|escape:'htmlall'}" /></a>
 						</td>
 					</tr>
 				{/foreach}
@@ -139,20 +139,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				</ul>
 			</div>
 		{/if}
-		<h5><a href="item.php?action=add">Add a new item</a></h5>
+		<h5><a href="item.php?action=add">{$messages.tpl.home.add_item}</a></h5>
 		</div>
 	</section>
 	<section id="otherstuff">
 		<div class="row">
 			<div class="span6">
 				<div class="well">
-				<h3>People I'm shopping for</h3>
+				<h3>{$messages.tpl.home.shopping_for}</h3>
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th class="colheader">Name</th>
-					<th class="rcolheader">Last Updated</th>
-					<th class="rcolheader"># Items</th>
+					<th class="colheader">{$messages.tpl.home.name}</th>
+					<th class="rcolheader">{$messages.tpl.home.last_updated}</th>
+					<th class="rcolheader">{$messages.tpl.home.item_count}</th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -162,21 +162,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<td>
 							<a href="shop.php?shopfor={$row.userid}">{$row.fullname|escape:'htmlall'}</a>
 							{if $row.comment != ''}
-								<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="Comment" data-content="{$row.comment|escape:'htmlall'}">...</a>
+								<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="{$messages.tpl.home.comment|escape:'htmlall'}" data-content="{$row.comment|escape:'htmlall'}">...</a>
 							{/if}
 						</td>
 						<td align="right">{$row.list_stamp}</td>
 						<td align="right">{$row.itemcount}</td>
 						<td align="right" nowrap>
 							{if $row.itemcount > 0}
-								<a href="shop.php?shopfor={$row.userid}"><img alt="Shop for {$row.fullname|escape:'htmlall'}" src="images/store.png" border="0" title="Shop for {$row.fullname|escape:'htmlall'}"></a>
+								<a href="shop.php?shopfor={$row.userid}"><img alt="{$messages.tpl.home.shop_for|replace:'%s':$row.fullname|escape:'htmlall'}" src="images/store.png" border="0" title="{$messages.tpl.home.shop_for|replace:'%s':$row.fullname|escape:'htmlall'}"></a>
 							{/if}
 							{if !$row.is_unsubscribed}
-								<a href="index.php?action=unsubscribe&shoppee={$row.userid}"><img alt="Unsubscribe from {$row.fullname|escape:'htmlall'}'s updates" src="images/delete.png" border="0" title="Unsubscribe from {$row.fullname|escape:'htmlall'}'s updates"></a>
+								<a href="index.php?action=unsubscribe&shoppee={$row.userid}"><img alt="{$messages.tpl.home.unsubscribe|replace:'%s':$row.fullname|escape:'htmlall'}" src="images/delete.png" border="0" title="{$messages.tpl.home.unsubscribe|replace:'%s':$row.fullname|escape:'htmlall'}"></a>
 							{else}
-								<a href="index.php?action=subscribe&shoppee={$row.userid}"><img alt="Subscribe to {$row.fullname|escape:'htmlall'}'s updates" src="images/podcast.png" border="0" title="Subscribe to {$row.fullname|escape:'htmlall'}'s updates"></a>
+								<a href="index.php?action=subscribe&shoppee={$row.userid}"><img alt="{$messages.tpl.home.subscribe|replace:'%s':$row.fullname|escape:'htmlall'}" src="images/podcast.png" border="0" title="{$messages.tpl.home.subscribe|replace:'%s':$row.fullname|escape:'htmlall'}"></a>
 							{/if}
-							<a rel="confirmunshop" data-content="{$row.fullname|escape:'htmlall'}" href="index.php?action=cancel&shopfor={$row.userid}"><img src="images/bin.png" border="0" alt="Don't shop for {$row.fullname|escape:'htmlall'} anymore" title="Don't shop for {$row.fullname|escape:'htmlall'} anymore" /></a>
+							<a rel="confirmunshop" data-content="{$row.fullname|escape:'htmlall'}" href="index.php?action=cancel&shopfor={$row.userid}"><img src="images/bin.png" border="0" alt="{$messages.tpl.home.not_shop_for|replace:'%s':$row.fullname|escape:'htmlall'}" title="{$messages.tpl.home.not_shop_for|replace:'%s':$row.fullname|escape:'htmlall'}" /></a>
 						</td>
 					</tr>
 				{/foreach}
@@ -186,11 +186,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			</div>
 			<div class="span6">
 				<div class="well">
-				<h3>People I'm not shopping for</h3>
+				<h3>{$messages.tpl.home.not_shopping_for}</h3>
 					<table class="table table-bordered table-striped"> 
 						<thead>
 						<tr>
-							<th class="colheader">Name</th>
+							<th class="colheader">{$messages.tpl.home.name}</th>
 							<th>&nbsp;</th>
 						</tr>
 						</thead>
@@ -200,13 +200,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 								<td>{$row.fullname|escape:'htmlall'}</td>
 								<td align="right" nowrap>
 									{if $row.pending}
-										<a href="index.php?action=cancel&shopfor={$row.userid}"><img src="images/delete.png" border="0" alt="Cancel" title="Cancel" /></a>
+										<a href="index.php?action=cancel&shopfor={$row.userid}"><img src="images/delete.png" border="0" alt="{$messages.tpl.home.cancel|escape:'htmlall'}" title="{$messages.tpl.home.cancel|escape:'htmlall'}" /></a>
 									{else}
 										<a href="index.php?action=request&shopfor={$row.userid}">
 											{if $opt.shop_requires_approval}
-												<img src="images/cloud-add.png" border="0" alt="Request" title="Request" />
+												<img src="images/cloud-add.png" border="0" alt="{$messages.tpl.home.request|escape:'htmlall'}" title="{$messages.tpl.home.request|escape:'htmlall'}" />
 											{else}
-												<img src="images/cloud-add.png" border="0" alt="Add" title="Add" />	
+												<img src="images/cloud-add.png" border="0" alt="{$messages.tpl.home.add|escape:'htmlall'}" title="{$messages.tpl.home.add|escape:'htmlall'}" />
 											{/if}
 										</a>
 									{/if}
@@ -223,42 +223,42 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span6">
 				<div class="well">
-				<h3>Messages</h3>
+				<h3>{$messages.tpl.home.messages}</h3>
 				<table class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th class="colheader">Date</th>
-							<th class="colheader">Sender</th>
-							<th class="colheader">Message</th>
+							<th class="colheader">{$messages.tpl.home.date}</th>
+							<th class="colheader">{$messages.tpl.home.sender}</th>
+							<th class="colheader">{$messages.tpl.home.message}</th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
-						{foreach from=$messages item=row}
+						{foreach from=$notifications item=row}
 							<tr>
 								<td>{$row.created}</td>
 								<td>{$row.fullname|escape:'htmlall'}</td>
 								<td>{$row.message|escape:'htmlall'}</td>
 								<td align="right">
-									<a href="index.php?action=ack&messageid={$row.messageid}"><img alt="Acknowledge" title="Acknowledge" src="images/delete.png" border="0"></a>
+									<a href="index.php?action=ack&messageid={$row.messageid}"><img alt="{$messages.tpl.home.acknowledge|escape:'htmlall'}" title="{$messages.tpl.home.acknowledge|escape:'htmlall'}" src="images/delete.png" border="0"></a>
 								</td>
 							</tr>
 						{/foreach}
 					</tbody>
 					</table>
-					<h5><a href="message.php">Send a message</a></h5>
+					<h5><a href="message.php">{$messages.tpl.home.send_message}</a></h5>
 					</div>
 				</div>
 				<div class="span6">
 					<div class="well">
-					<h3>Upcoming events (within {$opt.event_threshold} days)</h3>
+					<h3>{$messages.tpl.home.upcoming_events|replace:'%s':$opt.event_threshold}</h3>
 					<table class="table table-bordered table-striped">
 						<thead>
 						<tr>
-							<th class="colheader">Name</th>
-							<th class="colheader">Event</th>
-							<th class="colheader">Date</th>
-							<th class="colheader">Days left</th>
+							<th class="colheader">{$messages.tpl.home.name}</th>
+							<th class="colheader">{$messages.tpl.home.event}</th>
+							<th class="colheader">{$messages.tpl.home.date}</th>
+							<th class="colheader">{$messages.tpl.home.days_left}</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -266,7 +266,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							<tr>
 								<td>
 									{if $row.fullname == ''}
-										<i>System event</i>
+										<i>{$messages.tpl.home.system_event}</i>
 									{else}
 										{$row.fullname|escape:'htmlall'}
 									{/if}
@@ -275,7 +275,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 								<td>{$row.date}</td>
 								<td>
 									{if $row.daysleft == 0}
-										<b>Today</b>
+										<b>{$messages.tpl.home.today}</b>
 									{else}
 										{$row.daysleft}
 									{/if}
@@ -292,11 +292,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					{if $opt.shop_requires_approval}
 						<div class="span6">
 							<div class="well">
-								<h3>People who want to shop for me</h3>
+								<h3>{$messages.tpl.home.people_want_shop}</h3>
 								<table class="table table-bordered table-striped">
 									<thead>
 										<tr>	
-											<th class="colheader">Name</th>
+											<th class="colheader">{$messages.tpl.home.name}</th>
 											<th>&nbsp;</th>
 										</tr>
 									</thead>
@@ -305,8 +305,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 											<tr>
 												<td>{$row.fullname|escape:'htmlall'}</td>
 												<td align="right">
-													<a href="index.php?action=approve&shopper={$row.userid}">Approve</a>&nbsp;/
-													<a href="index.php?action=decline&shopper={$row.userid}">Decline</a>
+													<a href="index.php?action=approve&shopper={$row.userid}">{$messages.tpl.home.approve}</a>&nbsp;/
+													<a href="index.php?action=decline&shopper={$row.userid}">{$messages.tpl.home.decline}</a>
 												</td>
 											</tr>
 										{/foreach}
@@ -318,12 +318,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					{if $isadmin && $opt.newuser_requires_approval}
 						<div class="span6">
 							<div class="well">
-								<h3>People waiting for approval</h3>
+								<h3>{$messages.tpl.home.people_waiting}</h3>
 								<table class="table table-bordered table-striped">
 									<thead>
 										<tr>
-											<th class="colheader">Name</th>
-											<th class="colheader">Family</th>
+											<th class="colheader">{$messages.tpl.home.name}</th>
+											<th class="colheader">{$messages.tpl.home.family}</th>
 											<th>&nbsp;</th>
 										</tr>
 									</thead>
@@ -333,8 +333,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 												<td>{$row.fullname|escape:'htmlall'} &lt;<a href="mailto:{$row.email|escape:'htmlall'}">{$row.email|escape:'htmlall'}</a>&gt;</td>
 												<td>{$row.familyname|escape:'htmlall'}</td>
 												<td align="right">
-													<a href="admin.php?action=approve&userid={$row.userid}&familyid={$row.initialfamilyid}">Approve</a>&nbsp;/
-													<a href="admin.php?action=reject&userid={$row.userid}">Reject</a>
+													<a href="admin.php?action=approve&userid={$row.userid}&familyid={$row.initialfamilyid}">{$messages.tpl.home.approve}</a>&nbsp;/
+													<a href="admin.php?action=reject&userid={$row.userid}">{$messages.tpl.home.reject}</a>
 												</td>
 											</tr>
 										{/foreach}

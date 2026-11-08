@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Receive an Item</title>
+	<title>{$messages.tpl.receive.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -44,13 +44,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					buyer: {
-						required: "Please select a buyer."
+						required: "{$messages.tpl.receive.buyer_required|escape:'javascript'}"
 					},
 					quantity: {
-						required: "Please enter the quantity you received.",
-						digits: "Quantity must be a valid number.",
-						min: "Quantity must be 1 or greater.",
-						max: "Quantity must be {$quantity} or less."
+						required: "{$messages.tpl.receive.quantity_required|escape:'javascript'}",
+						digits: "{$messages.tpl.receive.quantity_digits|escape:'javascript'}",
+						min: "{$messages.tpl.receive.quantity_min|escape:'javascript'}",
+						max: "{$messages.tpl.receive.quantity_max|replace:'%s':$quantity|escape:'javascript'}"
 					}
 				}
 			});
@@ -67,12 +67,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<input type="hidden" name="action" value="receive">
 	<input type="hidden" name="itemid" value="{$itemid}">
 	<fieldset>
-		<legend>Select the buyer and quantity</legend>
+		<legend>{$messages.tpl.receive.legend}</legend>
 		<div class="control-group">
-			<label class="control-label" for="buyer">Buyer</label>
+			<label class="control-label" for="buyer">{$messages.tpl.receive.buyer}</label>
 			<div class="controls">
 				<select id="buyer" name="buyer" class="input-xlarge">
-					<option value="">(select buyer)</option>
+					<option value="">{$messages.tpl.receive.select_buyer}</option>
 					{foreach from=$buyers item=row}
 						<option value="{$row.userid}">{$row.fullname|escape:'htmlall'}</option>
 					{/foreach}
@@ -80,15 +80,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="quantity">Quantity received (maximum of {$quantity})</label>
+			<label class="control-label" for="quantity">{$messages.tpl.receive.quantity_label|replace:'%s':$quantity}</label>
 			<div class="controls">
 				<input type="text" id="quantity" name="quantity" value="1" maxlength="3">
-				<p class="help-block">Once you have received all of an item, it will be deleted.</p>
+				<p class="help-block">{$messages.tpl.receive.help}</p>
 			</div>
 		</div>
 		<div class="form-actions">
-			<button type="submit" class="btn btn-primary">Receive Item</button>
-			<button type="button" class="btn" onClick="document.location.href='index.php';">Cancel</button>
+			<button type="submit" class="btn btn-primary">{$messages.tpl.receive.receive_button}</button>
+			<button type="button" class="btn" onClick="document.location.href='index.php';">{$messages.tpl.common.cancel}</button>
 		</div>
 	</fieldset>
 </form>

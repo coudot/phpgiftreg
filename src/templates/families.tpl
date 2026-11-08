@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Manage Families</title>
+	<title>{$messages.tpl.families.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -39,8 +39,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					familyname: {
-						required: "Family name is required.",
-						maxlength: "Family name must be 255 characters or less."
+						required: "{$messages.tpl.families.required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.families.maxlength|escape:'javascript'}"
 					}
 				}
 			});
@@ -64,8 +64,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="row">
 				<div class="span12">
 					<div class="alert alert-info">
-						Here you can specify families that will use your gift registry.  Members may belong to one or more family circles.
-						After adding a new family, click Edit to add members to it.
+						{$messages.tpl.families.help}
+						{$messages.tpl.families.help_edit}
 					</div>
 				</div>
 			</div>
@@ -77,8 +77,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Family</th>
-								<th># Members</th>
+								<th>{$messages.tpl.families.family}</th>
+								<th>{$messages.tpl.families.member_count}</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
@@ -88,14 +88,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 									<td>{$row.familyname|escape:'htmlall'}</td>
 									<td>{$row.members}</td>
 									<td>
-										<a href="families.php?action=edit&familyid={$row.familyid}#familyform"><img src="images/pencil.png" alt="Edit Family" title="Edit Family" border="0" /></a>
-										<a href="families.php?action=delete&familyid={$row.familyid}"><img src="images/bin.png" alt="Delete Family" title="Delete Family" border="0" /></a>
+										<a href="families.php?action=edit&familyid={$row.familyid}#familyform"><img src="images/pencil.png" alt="{$messages.tpl.families.edit|escape:'htmlall'}" title="{$messages.tpl.families.edit|escape:'htmlall'}" border="0" /></a>
+										<a href="families.php?action=delete&familyid={$row.familyid}"><img src="images/bin.png" alt="{$messages.tpl.families.delete|escape:'htmlall'}" title="{$messages.tpl.families.delete|escape:'htmlall'}" border="0" /></a>
 									</td>
 								</tr>
 							{/foreach}
 						</tbody>
 					</table>
-					<h5><a href="families.php">Add a new family</a></h5>
+					<h5><a href="families.php">{$messages.tpl.families.add_link}</a></h5>
 				</div>
 			</div>
 		</div>
@@ -111,9 +111,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<input type="hidden" name="action" value="insert">
 					{/if}
 					<fieldset>
-						<legend>{if $action == "edit" || $action == "update"}Edit family '{$familyname|escape:'htmlall'}'{else}Add Family{/if}</legend>
+						<legend>{if $action == "edit" || $action == "update"}{$messages.tpl.families.edit_legend|replace:'%s':$familyname|escape:'htmlall'}{else}{$messages.tpl.families.add_legend}{/if}</legend>
 						<div class="control-group {if isset($familyname_error)}warning{/if}">
-							<label class="control-label" for="familyname">Family name</label>
+							<label class="control-label" for="familyname">{$messages.tpl.families.field}</label>
 							<div class="controls">
 								<input id="familyname" name="familyname" type="text" class="input-xlarge" value="{$familyname|escape:'htmlall'}" maxlength="255">
 								{if isset($familyname_error)}
@@ -122,8 +122,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert" || $action == "update"}Add{else}Update{/if}</button>
-							<button type="button" class="btn" onClick="document.location.href='families.php';">Cancel</button>
+							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert" || $action == "update"}{$messages.tpl.common.add}{else}{$messages.tpl.common.update}{/if}</button>
+							<button type="button" class="btn" onClick="document.location.href='families.php';">{$messages.tpl.common.cancel}</button>
 						</div>
 					</fieldset>
 				</form>
@@ -135,21 +135,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<input type="hidden" name="familyid" value="{$familyid}">
 						<input type="hidden" name="action" value="members">
 						<fieldset>
-							<legend>Members of '{$familyname|escape:'htmlall'}'</legend>
+							<legend>{$messages.tpl.families.members_legend|replace:'%s':$familyname|escape:'htmlall'}</legend>
 							<div class="control-group">
-								<label class="control-label" for="members[]">Members</label>
+								<label class="control-label" for="members[]">{$messages.tpl.families.members}</label>
 								<div class="controls">
 									<select name="members[]" size="10" multiple>
 										{foreach from=$nonmembers item=row}
 											<option value="{$row.userid}" {if $row.familyid != ''}SELECTED{/if}>{$row.fullname|escape:'htmlall'}</option>
 										{/foreach}
 									</select>
-									<p class="help-block">(Hold CTRL while clicking to select multiple users.)</p>
+									<p class="help-block">{$messages.tpl.families.select_help}</p>
 								</div>
 							</div>
 							<div class="form-actions">
-								<button type="submit" class="btn btn-primary">Save</button>
-								<button type="button" class="btn" onClick="document.location.href='families.php';">Cancel</button>
+								<button type="submit" class="btn btn-primary">{$messages.tpl.common.save}</button>
+								<button type="button" class="btn" onClick="document.location.href='families.php';">{$messages.tpl.common.cancel}</button>
 							</div>
 						</fieldset>
 					</form>
