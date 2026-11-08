@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-	<title>Gift Registry - Manage Categories</title>
+	<title>Liste de cadeaux - Gérer les catégories</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -39,8 +39,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					category: {
-						required: "Category name is required.",
-						maxlength: "Category name must be 50 characters or less."
+						required: "Le nom de la catégorie est obligatoire.",
+						maxlength: "Le nom de la catégorie ne doit pas dépasser 50 caractères."
 					}
 				}
 			});
@@ -64,8 +64,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="row">
 				<div class="span12">
 					<div class="alert alert-info">
-						Here you can specify categories <strong>of your own</strong>, like &quot;Motorcycle stuff&quot; or &quot;Collectibles&quot;.  This will help you categorize your gifts.
-						Warning: deleting a category will uncategorize all items that used that category.
+						Vous pouvez créer vos propres catégories, comme « Accessoires de moto » ou « Objets de collection », afin de classer vos cadeaux.
+						Attention : la suppression d'une catégorie retirera cette catégorie de tous les articles qui l'utilisent.
 					</div>
 				</div>
 			</div>
@@ -74,12 +74,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="well">
-					<h3>Categories</h3>
+					<h3>Catégories</h3>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Category</th>
-								<th># Items</th>
+								<th>Catégorie</th>
+								<th>Nombre d'articles</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
@@ -89,14 +89,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 									<td>{$row.category|escape:'htmlall'}</td>
 									<td>{$row.itemsin}</td>
 									<td>
-										<a href="categories.php?action=edit&categoryid={$row.categoryid}#catform"><img src="images/pencil.png" border="0" title="Edit Category" alt="Edit Category" /></a>
-										<a href="categories.php?action=delete&categoryid={$row.categoryid}"><img src="images/bin.png" border="0" title="Delete Category" alt="Delete Category" /></a>
+										<a href="categories.php?action=edit&categoryid={$row.categoryid}#catform"><img src="images/pencil.png" border="0" title="Modifier la catégorie" alt="Modifier la catégorie" /></a>
+										<a href="categories.php?action=delete&categoryid={$row.categoryid}"><img src="images/bin.png" border="0" title="Supprimer la catégorie" alt="Supprimer la catégorie" /></a>
 									</td>
 								</tr>
 							{/foreach}
 						</tbody>
 					</table>
-					<h5><a href="categories.php#catform">Add a new category</a></h5>
+					<h5><a href="categories.php#catform">Ajouter une catégorie</a></h5>
 				</div>
 			</div>
 		</div>
@@ -114,9 +114,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						{/if}
 					{/if}
 					<fieldset>
-						<legend>{if $action == "edit"}Edit Category '{$category|escape:'htmlall'}'{else}Add Category{/if}</legend>
+						<legend>{if $action == "edit"}Modifier la catégorie « {$category|escape:'htmlall'} »{else}Ajouter une catégorie{/if}</legend>
 						<div class="control-group {if isset($category_error)}warning{/if}">
-							<label class="control-label" for="category">Category name</label>
+							<label class="control-label" for="category">Nom de la catégorie</label>
 							<div class="controls">
 								<input id="category" name="category" type="text" class="input-xlarge" value="{$category|escape:'htmlall'}" maxlength="255">
 								{if isset($category_error)}
@@ -125,8 +125,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}Add{else}Update{/if}</button>
-							<button type="button" class="btn" onClick="document.location.href='categories.php';">Cancel</button>
+							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}Ajouter{else}Modifier{/if}</button>
+							<button type="button" class="btn" onClick="document.location.href='categories.php';">Annuler</button>
 						</div>
 					</fieldset>
 				</form>

@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-	<title>Gift Registry - Login</title>
+	<title>Liste de cadeaux - Connexion</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -41,10 +41,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					username: {
-						required: "Username is required."
+						required: "Le nom d'utilisateur est obligatoire."
 					},
 					password: {
-						required: "Password is required."
+						required: "Le mot de passe est obligatoire."
 					}
 				}
 			});
@@ -55,26 +55,26 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<div class="container" style="padding-top: 30px;">
 		<div class="row">
 			<div class="span8 offset2">
-			<h1>Gift Registry</h1>
+			<h1>Liste de cadeaux</h1>
 		<form name="loginform" id="loginform" method="post" action="login.php" class="well form-horizontal">
 			<fieldset>
 				{if isset($username)}
-					<div class="alert alert-error">Bad login.</div>
+					<div class="alert alert-error">Identifiants incorrects.</div>
 				{/if}
 				<div class="control-group">
-					<label class="control-label" for="username">Username</label>
+					<label class="control-label" for="username">Nom d'utilisateur</label>
 					<div class="controls">
 						<input id="username" name="username" type="text" class="input-xlarge" placeholder="username" />
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="password">Password</label>
+					<label class="control-label" for="password">Mot de passe</label>
 					<div class="controls">
 						<input id="password" name="password" type="password" class="input-xlarge" placeholder="password" />
 					</div>
 				</div>
 				<div class="form-actions">
-					<button type="submit" class="btn btn-primary">Login</button>
+					<button type="submit" class="btn btn-primary">Se connecter</button>
 				</div>
 			</fieldset>
 		</form>
@@ -83,12 +83,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span4 offset2">
 				<div class="well">
-					<a href="signup.php">Need an account?</a>
+					<a href="signup.php">Créer un compte</a>
 				</div>
 			</div>
 			<div class="span4">
 				<div class="well">
-					<a href="forgot.php">Forgot your password?</a>
+					<a href="forgot.php">Mot de passe oublié ?</a>
 				</div>
 			</div>
 		</div>

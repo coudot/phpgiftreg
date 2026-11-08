@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-	<title>Gift Registry - Compose a Message</title>
+	<title>Liste de cadeaux - Rédiger un message</title>
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 </head>
@@ -30,16 +30,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				<form name="message" method="get" action="message.php" class="well form-horizontal">
 					<input type="hidden" name="action" value="send">
 					<fieldset>
-						<legend>Send a message</legend>
+						<legend>Envoyer un message</legend>
 						<div class="control-group">
-							<label class="control-label" for="recipients[]">Recipients</label>
+							<label class="control-label" for="recipients[]">Destinataires</label>
 							<div class="controls">
 								<select name="recipients[]" size="{$rcount}" MULTIPLE class="input-xlarge">
 									{foreach from=$recipients item=row}
 										<option value="{$row.userid}">{$row.fullname|escape:'htmlall'}</option>
 									{/foreach}
 								</select>
-					 			<p class="help-block">(Hold CTRL while clicking to select multiple names.)</p>
+					 			<p class="help-block">(Maintenez la touche CTRL enfoncée pour sélectionner plusieurs noms.)</p>
 							</div>
 						</div>
 						<div class="control-group">
@@ -49,8 +49,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">Send Message</button>
-							<button type="button" class="btn" onClick="document.location.href='index.php';">Cancel</button>
+							<button type="submit" class="btn btn-primary">Envoyer le message</button>
+							<button type="button" class="btn" onClick="document.location.href='index.php';">Annuler</button>
 						</div>
 					</fieldset>
 				</form>

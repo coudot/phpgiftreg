@@ -16,9 +16,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-	<title>Gift Registry - Update Profile</title>
+	<title>Liste de cadeaux - Modifier mon profil</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -45,13 +45,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					newpwd: {
-						required: "Password is required.",
-						maxlength: "Password must be 50 characters or less."
+						required: "Le mot de passe est obligatoire.",
+						maxlength: "Le mot de passe ne doit pas dépasser 50 caractères."
 					},
 					confpwd: {
-						required: "Confirmation is required.",
-						maxlength: "Confirmation must be 50 characters or less.",
-						equalTo: "Passwords don't match."
+						required: "La confirmation est obligatoire.",
+						maxlength: "La confirmation ne doit pas dépasser 50 caractères.",
+						equalTo: "Les mots de passe ne correspondent pas."
 					}
 				}
 			});
@@ -71,13 +71,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					fullname: {
-						required: "Full name is required.",
-						maxlength: "Full name must be 50 characters or less."
+						required: "Le nom complet est obligatoire.",
+						maxlength: "Le nom complet ne doit pas dépasser 50 caractères."
 					},
 					email: {
-						required: "E-mail address is required.",
-						maxlength: "E-mail address must be 255 characters or less.",
-						email: "E-mail address must be a valid address."
+						required: "L'adresse courriel est obligatoire.",
+						maxlength: "L'adresse courriel ne doit pas dépasser 255 caractères.",
+						email: "L'adresse courriel n'est pas valide."
 					}
 				}
 			});
@@ -93,22 +93,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 <form name="changepwdform" id="changepwdform" action="profile.php" method="POST" class="well form-horizontal">
 	<input type="hidden" name="action" value="changepwd">
 	<fieldset>
-		<legend>Change Password</legend>
+		<legend>Modifier le mot de passe</legend>
 		<div class="control-group">
-			<label class="control-label" for="newpwd">New password</label>
+			<label class="control-label" for="newpwd">Nouveau mot de passe</label>
 			<div class="controls">
 				<input type="password" id="newpwd" name="newpwd" class="input-xlarge">
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="confpwd">Confirm password</label>
+			<label class="control-label" for="confpwd">Confirmer le mot de passe</label>
 			<div class="controls">
 				<input type="password" id="confpwd" name="confpwd" class="input-xlarge">
 			</div>
 		</div>
 		<div class="form-actions">
-			<button type="submit" class="btn btn-primary">Change Password</button>
-			<button type="button" class="btn" onclick="document.location.href='index.php';">Cancel</button>
+			<button type="submit" class="btn btn-primary">Modifier le mot de passe</button>
+			<button type="button" class="btn" onclick="document.location.href='index.php';">Annuler</button>
 		</div>
 	</fieldset>
 </form>
@@ -119,35 +119,35 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 <form name="profileform" id="profileform" action="profile.php" method="POST" class="well form-horizontal">
 	<input type="hidden" name="action" value="save">
 	<fieldset>
-		<legend>Update Profile</legend>
+		<legend>Modifier mon profil</legend>
 		<div class="control-group">
-			<label class="control-label" for="fullname">Full name</label>
+			<label class="control-label" for="fullname">Nom complet</label>
 			<div class="controls">
 				<input type="text" id="fullname" name="fullname" class="input-xlarge" value="{$fullname|escape:'htmlall'}">
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="email">E-mail address</label>
+			<label class="control-label" for="email">Adresse courriel</label>
 			<div class="controls">
 				<input type="text" id="email" name="email" class="input-xlarge" value="{$email|escape:'htmlall'}">
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="email_msgs">Copy on msg</label>
+			<label class="control-label" for="email_msgs">Copie des messages</label>
 			<div class="controls">
 				<input type="checkbox" id="email_msgs" name="email_msgs" {if $email_msgs}CHECKED{/if}>
-				E-mail me a copy of every message
+				Recevoir une copie de chaque message par courriel
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="comment">Comments / shipping address / etc. (optional)</label>
+			<label class="control-label" for="comment">Commentaires, adresse de livraison, etc. (facultatif)</label>
 			<div class="controls">
 				<textarea id="comment" name="comment" rows="5" cols="40">{$comment|escape:'htmlall'}</textarea>
 			</div>
 		</div>
 		<div class="form-actions">
-			<button type="submit" class="btn btn-primary">Update Profile</button>
-			<button type="button" class="btn" onclick="document.location.href='index.php';">Cancel</button>
+			<button type="submit" class="btn btn-primary">Modifier le profil</button>
+			<button type="button" class="btn" onclick="document.location.href='index.php';">Annuler</button>
 		</div>
 	</fieldset>
 </form>

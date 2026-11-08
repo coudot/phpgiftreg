@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-	<title>Gift Registry - Forgot Password</title>
+	<title>Liste de cadeaux - Mot de passe oublié</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -38,7 +38,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					username: {
-						required: "Username is required."
+						required: "Le nom d'utilisateur est obligatoire."
 					}
 				}
 			});
@@ -52,8 +52,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="well">
-					<p>Shortly, you will receive an e-mail with your new password.</p>
-					<p>Once you've received your password, click <a href="login.php">here</a> to login.</p>
+					<p>Vous recevrez bientôt un courriel contenant votre nouveau mot de passe.</p>
+					<p>Une fois votre mot de passe reçu, cliquez <a href="login.php">ici</a> pour vous connecter.</p>
 				</div>
 			</div>
 		</div>
@@ -63,23 +63,23 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				<form name="forgotform" id="forgotform" method="post" action="forgot.php" class="well form-horizontal">	
 					<input type="hidden" name="action" value="forgot">
 					<fieldset>
-						<legend>Reset Your Password</legend>
+						<legend>Réinitialiser votre mot de passe</legend>
 						<div class="control-group {if isset($error)}warning{/if}">
-							<label class="control-label" for="username">Username</label>
+							<label class="control-label" for="username">Nom d'utilisateur</label>
 							<div class="controls">
 								<input id="username" name="username" type="text" class="input-xlarge" value="{$username|escape:'htmlall'}">
 								{if isset($error)}
 									<span class="help-inline">{$error|escape:'htmlall'}</span>
 								{/if}
 								<p class="help-block">
-									Supply your username and click Submit.<br /> 
-									Your password will be reset and the new password will be sent to the e-mail address you have associated with your account.
+									Saisissez votre nom d'utilisateur et cliquez sur Envoyer.<br />
+									Votre mot de passe sera réinitialisé et le nouveau mot de passe sera envoyé à l'adresse courriel associée à votre compte.
 								</p>
 							</p>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">Submit</button>
-							<button type="button" class="btn" onClick="document.location.href='login.php';">Cancel</button>
+							<button type="submit" class="btn btn-primary">Envoyer</button>
+							<button type="button" class="btn" onClick="document.location.href='login.php';">Annuler</button>
 						</div>
 					</fieldset>
 				</form>
