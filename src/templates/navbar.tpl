@@ -22,30 +22,30 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<a class="brand" href="index.php">Gift Registry</a>
+			<a class="brand" href="index.php">{$messages.tpl.gift_registry}</a>
 			<div id="main-menu" class="nav-collapse">
 				<ul id="main-menu-left" class="nav">
-					<li><a href="shoplist.php">My Shopping List</a></li>
-					<li><a href="mylist.php">My Items (printable)</a></li>
+					<li><a href="shoplist.php">{$messages.tpl.navbar.shopping_list}</a></li>
+					<li><a href="mylist.php">{$messages.tpl.navbar.my_items}</a></li>
 				</ul>
 				<ul id="main-menu-right" class="nav pull-right">
-					<li><a href="profile.php">Update Profile</a></li>
-					<li><a href="event.php">Manage Events</a></li>
+					<li><a href="profile.php">{$messages.tpl.navbar.update_profile}</a></li>
+					<li><a href="event.php">{$messages.tpl.navbar.manage_events}</a></li>
 					{if $isadmin}
 						<li class="dropdown">
 							<a class="dropdown-toggle" href="#" data-toggle="dropdown">
-								Admin
+								{$messages.tpl.navbar.admin}
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="users.php">Manage Users</a></li>
-								<li><a href="families.php">Manage Families</a></li>
-								<li><a href="categories.php">Manage Categories</a></li>
-								<li><a href="ranks.php">Manage Ranks</a></li>
+								<li><a href="users.php">{$messages.tpl.navbar.manage_users}</a></li>
+								<li><a href="families.php">{$messages.tpl.navbar.manage_families}</a></li>
+								<li><a href="categories.php">{$messages.tpl.navbar.manage_categories}</a></li>
+								<li><a href="ranks.php">{$messages.tpl.navbar.manage_ranks}</a></li>
 							</ul>
 						</li>
 					{/if}
-					<li><a href="login.php?action=logout">Logout</a></li>
+					<li><a href="login.php?action=logout">{$messages.tpl.navbar.logout}</a></li>
 				</ul>
 			</div>
 		</div>

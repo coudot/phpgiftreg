@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Manage Categories</title>
+	<title>{$messages.tpl.categories.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -39,8 +39,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					category: {
-						required: "Category name is required.",
-						maxlength: "Category name must be 50 characters or less."
+						required: "{$messages.tpl.categories.required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.categories.maxlength|escape:'javascript'}"
 					}
 				}
 			});
@@ -64,8 +64,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="row">
 				<div class="span12">
 					<div class="alert alert-info">
-						Here you can specify categories <strong>of your own</strong>, like &quot;Motorcycle stuff&quot; or &quot;Collectibles&quot;.  This will help you categorize your gifts.
-						Warning: deleting a category will uncategorize all items that used that category.
+						{$messages.tpl.categories.help}
+						{$messages.tpl.categories.warning}
 					</div>
 				</div>
 			</div>
@@ -74,12 +74,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="well">
-					<h3>Categories</h3>
+					<h3>{$messages.tpl.categories.heading}</h3>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Category</th>
-								<th># Items</th>
+								<th>{$messages.tpl.categories.category}</th>
+								<th>{$messages.tpl.categories.item_count}</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
@@ -89,14 +89,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 									<td>{$row.category|escape:'htmlall'}</td>
 									<td>{$row.itemsin}</td>
 									<td>
-										<a href="categories.php?action=edit&categoryid={$row.categoryid}#catform"><img src="images/pencil.png" border="0" title="Edit Category" alt="Edit Category" /></a>
-										<a href="categories.php?action=delete&categoryid={$row.categoryid}"><img src="images/bin.png" border="0" title="Delete Category" alt="Delete Category" /></a>
+										<a href="categories.php?action=edit&categoryid={$row.categoryid}#catform"><img src="images/pencil.png" border="0" title="{$messages.tpl.categories.edit|escape:'htmlall'}" alt="{$messages.tpl.categories.edit|escape:'htmlall'}" /></a>
+										<a href="categories.php?action=delete&categoryid={$row.categoryid}"><img src="images/bin.png" border="0" title="{$messages.tpl.categories.delete|escape:'htmlall'}" alt="{$messages.tpl.categories.delete|escape:'htmlall'}" /></a>
 									</td>
 								</tr>
 							{/foreach}
 						</tbody>
 					</table>
-					<h5><a href="categories.php#catform">Add a new category</a></h5>
+					<h5><a href="categories.php#catform">{$messages.tpl.categories.add_link}</a></h5>
 				</div>
 			</div>
 		</div>
@@ -114,9 +114,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						{/if}
 					{/if}
 					<fieldset>
-						<legend>{if $action == "edit"}Edit Category '{$category|escape:'htmlall'}'{else}Add Category{/if}</legend>
+						<legend>{if $action == "edit"}{$messages.tpl.categories.edit_legend|replace:'%s':$category|escape:'htmlall'}{else}{$messages.tpl.categories.add_legend}{/if}</legend>
 						<div class="control-group {if isset($category_error)}warning{/if}">
-							<label class="control-label" for="category">Category name</label>
+							<label class="control-label" for="category">{$messages.tpl.categories.field}</label>
 							<div class="controls">
 								<input id="category" name="category" type="text" class="input-xlarge" value="{$category|escape:'htmlall'}" maxlength="255">
 								{if isset($category_error)}
@@ -125,8 +125,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}Add{else}Update{/if}</button>
-							<button type="button" class="btn" onClick="document.location.href='categories.php';">Cancel</button>
+							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}{$messages.tpl.common.add}{else}{$messages.tpl.common.update}{/if}</button>
+							<button type="button" class="btn" onClick="document.location.href='categories.php';">{$messages.tpl.common.cancel}</button>
 						</div>
 					</fieldset>
 				</form>

@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Edit Item</title>
+	<title>{$messages.tpl.item.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -66,31 +66,31 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					description: {
-						required: "The item's description is required.",
-						maxlength: "The item's description must be 255 characters or less."
+						required: "{$messages.tpl.item.description_required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.item.description_maxlength|escape:'javascript'}"
 					},
 					/*category: {
-						required: "A category must be selected."
+						required: "{$messages.tpl.item.category_required|escape:'javascript'}"
 					},*/
 					price: {
-						required: "The item's price is required.",
-						min: "Price can't be a negative number.",
-						"number": "Price must be a valid number."
+						required: "{$messages.tpl.item.price_required|escape:'javascript'}",
+						min: "{$messages.tpl.item.price_min|escape:'javascript'}",
+						"number": "{$messages.tpl.item.price_number|escape:'javascript'}"
 					},
 					source: {
-						required: "A source to buy the item is required.",
-						maxlength: "The source must be 255 characters or less."
+						required: "{$messages.tpl.item.source_required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.item.source_maxlength|escape:'javascript'}"
 					},
 					ranking: {
-						required: "A ranking is required."
+						required: "{$messages.tpl.item.ranking_required|escape:'javascript'}"
 					},
 					quantity: {
-						required: "A quantity is required.",
-						digits: "Quantity must be a valid number.",
-						min: "Quantity can't be negative"
+						required: "{$messages.tpl.item.quantity_required|escape:'javascript'}",
+						digits: "{$messages.tpl.item.quantity_digits|escape:'javascript'}",
+						min: "{$messages.tpl.item.quantity_min|escape:'javascript'}"
 					},
 					url: {
-						url: "If specified, URL must be valid."
+						url: "{$messages.tpl.item.url_invalid|escape:'javascript'}"
 					}
 				}
 			});
@@ -105,14 +105,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="alert alert-info">
-		Helpful hints:
+		{$messages.tpl.item.help_title}
 		<ul>
-			<li>Include a URL copied &amp; pasted from the address bar of your browser so that potential buyers can see exactly what you want.</li>
-			<li>If the item description and URL can't describe exactly what you want, use the <strong>Comment</strong> area to mention anything you feel is necessary.  It doesn't mean the shopper has to buy the item from that website.</li>
-			<li>If you don't know the price of the item, simply enter <strong>0</strong>.</li>
-			<li>Try not to set all your items at the same ranking level.  When someone is shopping for you, they'll rely on the ranking to know what you want the most.  If you don't think there are enough levels, or the descriptions aren't adequate, ask an administrator to add or change them.</li>
+			<li>{$messages.tpl.item.help_url}</li>
+			<li>{$messages.tpl.item.help_comment}</li>
+			<li>{$messages.tpl.item.help_price}</li>
+			<li>{$messages.tpl.item.help_ranking}</li>
 			{if $opt.allow_multiples}
-				<li>The quantity field indicates the number of that item that you want.  Once that many are bought or reserved, no more will be available.  If you have no limit on how many you want, enter 999 (for example).</li>
+				<li>{$messages.tpl.item.help_quantity}</li>
 			{/if}
 		</ul>
 				</div>
@@ -123,7 +123,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="span8 offset2">
 			<form name="itemform" id="itemform" method="POST" action="item.php" enctype="multipart/form-data" class="well form-horizontal">
 				<fieldset>
-					<legend>{if $action == 'edit' || (isset($haserror) && $action == 'update')}Edit Item{else}Add Item{/if}</legend>
+					<legend>{if $action == 'edit' || (isset($haserror) && $action == 'update')}{$messages.tpl.item.edit_legend}{else}{$messages.tpl.item.add_legend}{/if}</legend>
 					{if $action == 'edit' || (isset($haserror) && $action == 'update')}
 						<input type="hidden" name="itemid" value="{$itemid}">
 						<input type="hidden" name="action" value="update">
@@ -131,19 +131,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<input type="hidden" name="action" value="insert">
 					{/if}
 					<div class="control-group {if isset($description_error)}warning{/if}">
-						<label class="control-label" for="description">Description</label>
+						<label class="control-label" for="description">{$messages.tpl.item.description}</label>
 						<div class="controls">
-							<input id="description" name="description" type="text" value="{$description|escape:'htmlall'}" class="input-xlarge" placeholder="Description" maxlength="255">
+							<input id="description" name="description" type="text" value="{$description|escape:'htmlall'}" class="input-xlarge" placeholder="{$messages.tpl.item.description|escape:'htmlall'}" maxlength="255">
 							{if isset($description_error)}
 								<span class="help-inline">{$description_error}</span>
 							{/if}
 						</div>
 					</div>
 					<div class="control-group {if isset($category_error)}warning{/if}">
-						<label class="control-label" for="category">Category</label>
+						<label class="control-label" for="category">{$messages.tpl.item.category}</label>
 						<div class="controls">
 							<select id="category" name="category" class="input-xlarge">
-								<option value="" {if $category == NULL}SELECTED{/if}>Uncategorized</option>
+								<option value="" {if $category == NULL}SELECTED{/if}>{$messages.tpl.item.uncategorized}</option>
 								{foreach from=$categories item=row}
 									<option value="{$row.categoryid}" {if $row.categoryid == $category}SELECTED{/if}>{$row.category|escape:'htmlall'}</option>
 								{/foreach}
@@ -154,7 +154,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						</div>
 					</div>
 					<div class="control-group {if isset($price_error)}warning{/if}">
-						<label class="control-label" for="price">Price ({$opt.currency_symbol})</label>
+						<label class="control-label" for="price">{$messages.tpl.item.price} ({$opt.currency_symbol})</label>
 						<div class="controls">
 							<input id="price" name="price" type="text" value="{$price|escape:'htmlall'}" class="input-xlarge" placeholder="0.00">
 							{if isset($price_error)}
@@ -163,16 +163,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						</div>
 					</div>
 					<div class="control-group {if isset($source_error)}warning{/if}">
-						<label class="control-label" for="source">Store/Retailer</label>
+						<label class="control-label" for="source">{$messages.tpl.item.source}</label>
 						<div class="controls">
-							<input id="source" name="source" type="text" value="{$source|escape:'htmlall'}" class="input-xlarge" maxlength="255" placeholder="Source">
+							<input id="source" name="source" type="text" value="{$source|escape:'htmlall'}" class="input-xlarge" maxlength="255" placeholder="{$messages.tpl.item.source_placeholder|escape:'htmlall'}">
 							{if isset($source_error)}
 								<span class="help-inline">{$source_error}</span>
 							{/if}
 						</div>
 					</div>
 					<div class="control-group {if isset($ranking_error)}warning{/if}">
-						<label class="control-label" for="ranking">Ranking</label>
+						<label class="control-label" for="ranking">{$messages.tpl.item.ranking}</label>
 						<div class="controls">
 							<select id="ranking" name="ranking" multiple="multiple" class="input-xlarge">
 								{foreach from=$ranks item=row}
@@ -186,7 +186,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					</div>
 					{if $opt.allow_multiples}
 						<div class="control-group {if isset($quantity_error)}warning{/if}">
-							<label class="control-label" for="quantity">Quantity</label>
+							<label class="control-label" for="quantity">{$messages.tpl.item.quantity}</label>
 							<div class="controls">
 								<input id="quantity" name="quantity" type="text" value="{$quantity|escape:'htmlall'}" class="input-xlarge" maxlength="3">
 								{if isset($quantity_error)}
@@ -198,7 +198,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<input type="hidden" name="quantity" value="1">
 					{/if}
 					<div class="control-group {if isset($url_error)}warning{/if}">
-						<label class="control-label" for="url">URL (optional)</label>
+						<label class="control-label" for="url">{$messages.tpl.item.url_optional}</label>
 						<div class="controls">
 							<input id="url" name="url" type="text" value="{$url|escape:'htmlall'}" class="input-xlarge" maxlength="255">
 							{if isset($url_error)}
@@ -208,35 +208,35 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					</div>
 					{if $opt.allow_images}
 						<div class="control-group">
-							<label class="control-label" for="image">Image (optional)</label>
+							<label class="control-label" for="image">{$messages.tpl.item.image_optional}</label>
 							<div class="controls">
 								{if $image_filename == ''}
 									<input type="radio" name="image" value="none" CHECKED>
-									No image.<br />
+									{$messages.tpl.item.no_image}<br />
 									<input type="radio" name="image" value="upload" id="ifnew">
-									Upload image:
+									{$messages.tpl.item.upload_image}
 									<input type="file" id="imagefile" name="imagefile">
 								{else}
 									<input type="radio" name="image" value="remove">
-									Remove existing image.<br />
+									{$messages.tpl.item.remove_image}<br />
 									<input type="radio" name="image" value="keep" CHECKED>
-									Keep existing image.<br />
+									{$messages.tpl.item.keep_image}<br />
 									<input type="radio" name="image" value="replace" id="ifreplace">
-									Replace existing image:
+									{$messages.tpl.item.replace_image}
 									<input type="file" id="imagefile" name="imagefile">
 								{/if}
 							</div>
 						</div>
 					{/if}
 					<div class="control-group">
-						<label class="control-label" for="comment">Comment</label>
+						<label class="control-label" for="comment">{$messages.tpl.item.comment}</label>
 						<div class="controls">
 							<textarea id="comment" name="comment" class="input-xlarge" rows="2" cols="40">{$comment|escape:'htmlall'}</textarea>
 						</div>
 					</div>
 					<div class="form-actions">
-						<button type="submit" class="btn btn-primary">Save</button>
-						<button type="button" class="btn" onclick="document.location.href='index.php';">Cancel</button>
+						<button type="submit" class="btn btn-primary">{$messages.tpl.common.save}</button>
+						<button type="button" class="btn" onclick="document.location.href='index.php';">{$messages.tpl.common.cancel}</button>
 					</div>
 				</fieldset>
 			</form>

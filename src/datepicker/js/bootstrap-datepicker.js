@@ -23,6 +23,7 @@
 	
 	var Datepicker = function(element, options){
 		this.element = $(element);
+		this.dates = options.dates || DPGlobal.dates;
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
 		this.picker = $(DPGlobal.template)
 							.appendTo('body')
@@ -163,7 +164,7 @@
 			var dowCnt = this.weekStart;
 			var html = '<tr>';
 			while (dowCnt < this.weekStart + 7) {
-				html += '<th class="dow">'+DPGlobal.dates.daysMin[(dowCnt++)%7]+'</th>';
+				html += '<th class="dow">'+this.dates.daysMin[(dowCnt++)%7]+'</th>';
 			}
 			html += '</tr>';
 			this.picker.find('.datepicker-days thead').append(html);
@@ -173,7 +174,7 @@
 			var html = '';
 			var i = 0
 			while (i < 12) {
-				html += '<span class="month">'+DPGlobal.dates.monthsShort[i++]+'</span>';
+				html += '<span class="month">'+this.dates.monthsShort[i++]+'</span>';
 			}
 			this.picker.find('.datepicker-months td').append(html);
 		},
@@ -184,7 +185,7 @@
 				month = d.getMonth(),
 				currentDate = this.date.valueOf();
 			this.picker.find('.datepicker-days th:eq(1)')
-						.text(DPGlobal.dates.months[month]+' '+year);
+						.text(this.dates.months[month]+' '+year);
 			var prevMonth = new Date(year, month-1, 28,0,0,0,0),
 				day = DPGlobal.getDaysInMonth(prevMonth.getFullYear(), prevMonth.getMonth());
 			prevMonth.setDate(day);

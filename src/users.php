@@ -28,7 +28,7 @@ else {
 }
 
 if ($_SESSION["admin"] != 1) {
-	echo "You don't have admin privileges.";
+	echo translate("error.admin_required");
 	exit;
 }
 
@@ -53,15 +53,15 @@ if ($action == "insert" || $action == "update") {
 	$haserror = false;
 	if ($username == "") {
 		$haserror = true;
-		$username_error = "A username is required.";
+		$username_error = translate("validation.username_required");
 	}
 	if ($fullname == "") {
 		$haserror = true;
-		$fullname_error = "A full name is required.";
+		$fullname_error = translate("validation.fullname_required");
 	}
 	if ($email == "") {
 		$haserror = true;
-		$email_error = "An e-mail address is required.";
+		$email_error = translate("validation.email_required");
 	}
 
 }
@@ -94,7 +94,7 @@ if ($action == "delete") {
 	$stmt->bindParam(1, $deluserid, PDO::PARAM_INT);
 	$stmt->execute();
 	
-	header("Location: " . getFullPath("users.php?message=User+deleted."));
+	header("Location: " . getFullPath("users.php?message=" . urlencode(translate("message.user_deleted"))));
 	exit;
 }
 else if ($action == "edit") {
@@ -134,12 +134,11 @@ else if ($action == "insert") {
 
 		mail(
 			$email,
-			"Gift Registry account created",
-			"Your Gift Registry account was created.\r\n" . 
-				"Your username is $username and your password is $pwd.",
+			translate("email.account_created_subject"),
+			translateFormat("email.account_created_body", $username, $pwd),
 			"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-		) or die("Mail not accepted for $email");	
-		header("Location: " . getFullPath("users.php?message=User+added+and+e-mail+sent."));
+		) or die(translate("error.mail") . $email);
+		header("Location: " . getFullPath("users.php?message=" . urlencode(translate("message.user_added"))));
 		exit;
 	}
 }
@@ -161,7 +160,7 @@ else if ($action == "update") {
 		$stmt->bindParam(6, $userisadmin, PDO::PARAM_BOOL);
 		$stmt->bindValue(7, (int) $_GET["userid"], PDO::PARAM_INT);
 		$stmt->execute();
-		header("Location: " . getFullPath("users.php?message=User+updated."));
+		header("Location: " . getFullPath("users.php?message=" . urlencode(translate("message.user_updated"))));
 		exit;		
 	}
 }
@@ -177,15 +176,15 @@ else if ($action == "reset") {
 	$stmt->execute();
 	mail(
 		$resetemail,
-		"Gift Registry password reset",
-		"Your Gift Registry password was reset to $pwd.",
+		translate("email.password_reset_subject"),
+		translateFormat("email.password_reset_body", $pwd),
 		"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-	) or die("Mail not accepted for $email");
-	header("Location: " . getFullPath("users.php?message=Password+reset."));
+	) or die(translate("error.mail") . $email);
+	header("Location: " . getFullPath("users.php?message=" . urlencode(translate("message.password_reset"))));
 	exit;
 }
 else {
-	echo "Unknown verb.";
+	echo translate("error.unknown_action");
 	exit;
 }
 

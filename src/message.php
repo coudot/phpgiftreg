@@ -35,7 +35,7 @@ if ($action == "send") {
 	for ($i = 0; $i < count($_GET["recipients"]); $i++)
 		sendMessage($userid, (int) $_GET["recipients"][$i], $msg, $smarty->dbh(), $smarty->opt());
 		
-	header("Location: " . getFullPath("index.php?message=Your+message+has+been+sent+to+" . count($_GET["recipients"]) . "+recipient(s)."));
+	header("Location: " . getFullPath("index.php?message=" . urlencode(translateFormat("message.message_sent", count($_GET["recipients"])))));
 	exit;
 }
 
@@ -61,6 +61,6 @@ try {
 	$smarty->display('message.tpl');
 }
 catch (PDOException $e) {
-	die("sql exception: " . $e->getMessage());
+	die(translate("error.sql") . $e->getMessage());
 }
 ?>

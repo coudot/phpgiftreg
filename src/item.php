@@ -37,11 +37,11 @@ if (isset($_REQUEST["itemid"]) && $_REQUEST["itemid"] != "") {
 		$stmt->bindValue(2, (int) $_REQUEST["itemid"], PDO::PARAM_INT);
 		$stmt->execute();
 		if (!$stmt->fetch()) {
-			die("Nice try! (That's not your item.)");
+			die(translate("error.item_not_owned"));
 		}
 	}
 	catch (PDOException $e) {
-		die("sql exception: " . $e->getMessage());
+		die(translate("error.sql") . $e->getMessage());
 	}
 }
 
@@ -63,27 +63,27 @@ if (!empty($_REQUEST["action"])) {
 		$haserror = false;
 		if ($description == "") {
 			$haserror = true;
-			$description_error = "A description is required.";
+			$description_error = translate("validation.description_required");
 		}
 		if ($price == "" || !preg_match("/^\d*(\.\d{2})?$/i",$price)) {
 			$haserror = true;
-			$price_error = "Price format is not valid.<br />Price is required and must be a number, either accurate or approximate.<br />Do not enter the currency symbol.";
+			$price_error = translate("validation.price_invalid");
 		}
 		if ($source == "") {
 			$haserror = true;
-			$source_error = "A source is required (i.e., where it can be purchased).";
+			$source_error = translate("validation.source_required");
 		}
 		if ($url != "" && !preg_match("/^http(s)?:\/\/([^\/]+)/i",$url)) {
 			$haserror = true;
-			$url_error = "A well-formed URL is required in the format <i>http://www.somesite.net/somedir/somefile.html</i>.";
+			$url_error = translate("validation.url_invalid");
 		}
 		if ($ranking == "") {
 			$haserror = true;
-			$ranking_error = "A ranking is required.";
+			$ranking_error = translate("validation.ranking_required");
 		}
 		if ($quantity == "" || (int) $quantity < 1) {
 			$haserror = true;
-			$quantity_error = "A positive quantity is required.";
+			$quantity_error = translate("validation.quantity_required");
 		}
 	}
 
@@ -127,7 +127,7 @@ if (!empty($_REQUEST["action"])) {
 				if ($buyerid != null) {
 					sendMessage($userid,
 						$buyerid,
-						"$description that you " . (($bought == 1) ? "bought" : "reserved") . " $quantity of for {$_SESSION["fullname"]} has been deleted.  Check your reservation/purchase to ensure it's still needed.",
+						translateFormat("email.item_deleted", $description, translate(($bought == 1) ? "email.item_bought" : "email.item_reserved"), $quantity, $_SESSION["fullname"]),
 						$smarty->dbh(),
 						$smarty->opt());
 				}
@@ -144,11 +144,11 @@ if (!empty($_REQUEST["action"])) {
 			stampUser($userid, $smarty->dbh(), $smarty->opt());
 			processSubscriptions($userid, $action, $description, $smarty->dbh(), $smarty->opt());
 
-			header("Location: " . getFullPath("index.php?message=Item+deleted."));
+			header("Location: " . getFullPath("index.php?message=" . urlencode(translate("message.item_deleted"))));
 			exit;
 		}
 		catch (PDOException $e) {
-			die("sql exception: " . $e->getMessage());
+			die(translate("error.sql") . $e->getMessage());
 		}
 	}
 	else if ($action == "edit") {
@@ -243,7 +243,7 @@ if (!empty($_REQUEST["action"])) {
 		}
 	}
 	else {
-		echo "Unknown verb.";
+		echo translate("error.unknown_action");
 		exit;
 	}
 }

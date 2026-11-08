@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Forgot Password</title>
+	<title>{$messages.tpl.forgot.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -38,7 +38,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					username: {
-						required: "Username is required."
+						required: "{$messages.tpl.forgot.username_required|escape:'javascript'}"
 					}
 				}
 			});
@@ -52,8 +52,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="well">
-					<p>Shortly, you will receive an e-mail with your new password.</p>
-					<p>Once you've received your password, click <a href="login.php">here</a> to login.</p>
+					<p>{$messages.tpl.forgot.sent}</p>
+					<p>{$messages.tpl.forgot.login_link}</p>
 				</div>
 			</div>
 		</div>
@@ -63,23 +63,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				<form name="forgotform" id="forgotform" method="post" action="forgot.php" class="well form-horizontal">	
 					<input type="hidden" name="action" value="forgot">
 					<fieldset>
-						<legend>Reset Your Password</legend>
+						<legend>{$messages.tpl.forgot.legend}</legend>
 						<div class="control-group {if isset($error)}warning{/if}">
-							<label class="control-label" for="username">Username</label>
+							<label class="control-label" for="username">{$messages.tpl.forgot.username}</label>
 							<div class="controls">
 								<input id="username" name="username" type="text" class="input-xlarge" value="{$username|escape:'htmlall'}">
 								{if isset($error)}
 									<span class="help-inline">{$error|escape:'htmlall'}</span>
 								{/if}
 								<p class="help-block">
-									Supply your username and click Submit.<br /> 
-									Your password will be reset and the new password will be sent to the e-mail address you have associated with your account.
+									{$messages.tpl.forgot.help}
 								</p>
 							</p>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">Submit</button>
-							<button type="button" class="btn" onClick="document.location.href='login.php';">Cancel</button>
+							<button type="submit" class="btn btn-primary">{$messages.tpl.common.submit}</button>
+							<button type="button" class="btn" onClick="document.location.href='login.php';">{$messages.tpl.common.cancel}</button>
 						</div>
 					</fieldset>
 				</form>

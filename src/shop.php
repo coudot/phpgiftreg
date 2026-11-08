@@ -85,7 +85,7 @@ if (!empty($_GET["action"])) {
 
 $shopfor = (int) $_GET["shopfor"];
 if ($shopfor == $userid) {
-	echo "Nice try! (You can't shop for yourself.)";
+	echo translate("error.shop_self");
 	exit;
 }
 $stmt = $smarty->dbh()->prepare("SELECT * FROM {$opt["table_prefix"]}shoppers WHERE shopper = ? AND mayshopfor = ? AND pending = 0");
@@ -93,7 +93,7 @@ $stmt->bindParam(1, $userid, PDO::PARAM_INT);
 $stmt->bindParam(2, $shopfor, PDO::PARAM_INT);
 $stmt->execute();
 if (!($stmt->fetch())) {
-	echo "Nice try! (You can't shop for someone who hasn't approved it.)";
+	echo translate("error.shop_unapproved");
 	exit;
 }
 

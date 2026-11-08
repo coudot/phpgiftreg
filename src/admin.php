@@ -24,7 +24,7 @@ if (!isset($_SESSION["userid"])) {
 	exit;
 }
 else if ($_SESSION["admin"] != 1) {
-	echo "You don't have admin privileges.";
+	echo translate("error.admin_required");
 	exit;
 }
 else {
@@ -52,11 +52,10 @@ if ($action == "approve") {
 	if ($row = $stmt->fetch()) {
 		mail(
 			$row["email"],
-			"Gift Registry application approved",
-			"Your Gift Registry application was approved by " . $_SESSION["fullname"] . ".\r\n" . 
-				"Your username is " . $row["username"] . " and your password is $pwd.",
+			translate("email.application_approved_subject"),
+			translateFormat("email.application_approved_body", $_SESSION["fullname"], $row["username"], $pwd),
 			"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-		) or die("Mail not accepted for " . $row["email"]);	
+		) or die(translate("error.mail") . $row["email"]);
 	}
 	header("Location: " . getFullPath("index.php"));
 	exit;
@@ -69,10 +68,10 @@ else if ($action == "reject") {
 	if ($row = $stmt->fetch()) {
 		mail(
 			$row["email"],
-			"Gift Registry application denied",
-			"Your Gift Registry application was denied by " . $_SESSION["fullname"] . ".",
+			translate("email.application_denied_subject"),
+			translateFormat("email.application_denied_body", $_SESSION["fullname"]),
 			"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-		) or die("Mail not accepted for " . $row["email"]);	
+		) or die(translate("error.mail") . $row["email"]);
 	}
 
 	$stmt = $smarty->dbh()->prepare("DELETE FROM {$opt["table_prefix"]}users WHERE userid = ?");

@@ -24,7 +24,7 @@ if (!isset($_SESSION["userid"])) {
 	exit;
 }
 else if ($_SESSION["admin"] != 1) {
-	echo "You don't have admin privileges.";
+	echo translate("error.admin_required");
 	exit;
 }
 else {
@@ -44,11 +44,11 @@ if ($action == "insert" || $action == "update") {
 	$haserror = false;
 	if ($title == "") {
 		$haserror = true;
-		$title_error = "A title is required.";
+		$title_error = translate("validation.rank_title_required");
 	}
 	if ($rendered == "") {
 		$haserror = true;
-		$rendered_error = "HTML is required.";
+		$rendered_error = translate("validation.rank_html_required");
 	}
 }
 
@@ -62,7 +62,7 @@ if ($action == "delete") {
 	$stmt->bindValue(1, (int) $_GET["ranking"], PDO::PARAM_INT);
 	$stmt->execute();
 	
-	header("Location: " . getFullPath("ranks.php?message=Rank+deleted."));
+	header("Location: " . getFullPath("ranks.php?message=" . urlencode(translate("message.rank_deleted"))));
 	exit;
 }
 else if ($action == "promote") {
@@ -74,7 +74,7 @@ else if ($action == "promote") {
 	$stmt->bindValue(1, (int) $_GET["ranking"], PDO::PARAM_INT);
 	$stmt->execute();
 
-	header("Location: " . getFullPath("ranks.php?message=Rank+promoted."));
+	header("Location: " . getFullPath("ranks.php?message=" . urlencode(translate("message.rank_promoted"))));
 	exit;
 }
 else if ($action == "demote") {
@@ -86,7 +86,7 @@ else if ($action == "demote") {
 	$stmt->bindValue(1, (int) $_GET["ranking"], PDO::PARAM_INT);
 	$stmt->execute();
     
-	header("Location: " . getFullPath("ranks.php?message=Rank+demoted."));
+	header("Location: " . getFullPath("ranks.php?message=" . urlencode(translate("message.rank_demoted"))));
     exit;
 }
 else if ($action == "edit") {
@@ -115,7 +115,7 @@ else if ($action == "insert") {
 			$stmt->bindParam(3, $rankorder, PDO::PARAM_INT);
 			$stmt->execute();
 			
-			header("Location: " . getFullPath("ranks.php?message=Rank+added."));
+			header("Location: " . getFullPath("ranks.php?message=" . urlencode(translate("message.rank_added"))));
 			exit;
 		}
 	}
@@ -130,12 +130,12 @@ else if ($action == "update") {
 		$stmt->bindValue(3, (int) $_GET["ranking"], PDO::PARAM_INT);
 		$stmt->execute();
 		
-		header("Location: " . getFullPath("ranks.php?message=Rank+updated."));
+		header("Location: " . getFullPath("ranks.php?message=" . urlencode(translate("message.rank_updated"))));
 		exit;		
 	}
 }
 else {
-	die("Unknown verb.");
+	die(translate("error.unknown_action"));
 }
 
 $stmt = $smarty->dbh()->prepare("SELECT ranking, title, rendered, rankorder " .

@@ -103,15 +103,15 @@ function processSubscriptions($publisher, $action, $itemdesc, $dbh, $opt) {
 		if ($msg == "") {
 			// same message for each user but we need the fullname from the first row before we can assemble it.
 			if ($action == "insert") {
-				$msg = $row["fullname"] . " has added the item \"$itemdesc\" to their list.";
+				$msg = translateFormat("email.subscription_added", $row["fullname"], $itemdesc);
 			}
 			else if ($action == "update") {
-				$msg = $row["fullname"] . " has updated the item \"$itemdesc\" on their list.";
+				$msg = translateFormat("email.subscription_updated", $row["fullname"], $itemdesc);
 			}
 			else if ($action == "delete") {
-				$msg = $row["fullname"] . " has deleted the item \"$itemdesc\" from their list.";
+				$msg = translateFormat("email.subscription_deleted", $row["fullname"], $itemdesc);
 			}
-			$msg .= "\r\n\r\nYou are receiving this message because you are subscribed to their updates.  You will not receive another message for their updates for the next " . $opt["notify_threshold_minutes"] . " minutes.";
+			$msg .= "\r\n\r\n" . translateFormat("email.subscription_footer", $opt["notify_threshold_minutes"]);
 		}
 		sendMessage($publisher, $row["subscriber"], $msg, $dbh, $opt);
 
@@ -142,14 +142,14 @@ function sendMessage($sender, $recipient, $message, $dbh, $opt) {
 		if ($row["email_msgs"] == 1) {
 			mail(
 				$row["remail"],
-				"Gift Registry message from " . $row["fullname"],
-				$row["fullname"] . " <" . $row["semail"] . "> sends:\r\n" . $message,
+				translateFormat("email.message_subject", $row["fullname"]),
+				translateFormat("email.message_body", $row["fullname"], $row["semail"], $message),
 				"From: {$opt["email_from"]}\r\nReply-To: " . $row["semail"] . "\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-			) or die("Mail not accepted for " . $row["remail"]);
+			) or die(translate("error.mail") . $row["remail"]);
 		}
 	}
 	else {
-		die("recipient doesn't exist");
+		die(translate("error.recipient_missing"));
 	}
 }
 

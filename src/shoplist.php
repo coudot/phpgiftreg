@@ -85,6 +85,6 @@ try {
 	$smarty->display('shoplist.tpl');
 }
 catch (PDOException $e) {
-	die("sql exception: " . $e->getMessage());
+	die(translate("error.sql") . $e->getMessage());
 }
 ?>

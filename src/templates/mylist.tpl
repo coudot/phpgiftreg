@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - My Items</title>
+	<title>{$messages.tpl.mylist.title}</title>
  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -34,15 +34,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="well">
-					<p style="text-align: center">🎁 Wish list for {$fullname|escape:'htmlall'} - {$today|escape:'htmlall'} 🎁</p>
+					<p style="text-align: center">{$messages.tpl.mylist.wish_list|replace:'%s':$fullname|replace:'%s':$today|escape:'htmlall'}</p>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th><a href="mylist.php?sort=ranking">Ranking</a></th>
-								<th><a href="mylist.php?sort=source">Source</a></th>
-								<th><a href="mylist.php?sort=description">Description</a></th>
-								<th><a href="mylist.php?sort=category">Category</a></th>
-								<th><a href="mylist.php?sort=price">Price</a></th>
+								<th><a href="mylist.php?sort=ranking">{$messages.tpl.mylist.ranking}</a></th>
+								<th><a href="mylist.php?sort=source">{$messages.tpl.mylist.source}</a></th>
+								<th><a href="mylist.php?sort=description">{$messages.tpl.mylist.description}</a></th>
+								<th><a href="mylist.php?sort=category">{$messages.tpl.mylist.category}</a></th>
+								<th><a href="mylist.php?sort=price">{$messages.tpl.mylist.price}</a></th>
 							</tr>
 						</thead>
 						<tbody>

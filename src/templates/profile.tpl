@@ -16,9 +16,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Update Profile</title>
+	<title>{$messages.tpl.profile.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -45,13 +45,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					newpwd: {
-						required: "Password is required.",
-						maxlength: "Password must be 50 characters or less."
+						required: "{$messages.tpl.profile.password_required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.profile.password_maxlength|escape:'javascript'}"
 					},
 					confpwd: {
-						required: "Confirmation is required.",
-						maxlength: "Confirmation must be 50 characters or less.",
-						equalTo: "Passwords don't match."
+						required: "{$messages.tpl.profile.confirmation_required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.profile.confirmation_maxlength|escape:'javascript'}",
+						equalTo: "{$messages.tpl.profile.password_mismatch|escape:'javascript'}"
 					}
 				}
 			});
@@ -71,13 +71,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					fullname: {
-						required: "Full name is required.",
-						maxlength: "Full name must be 50 characters or less."
+						required: "{$messages.tpl.profile.fullname_required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.profile.fullname_maxlength|escape:'javascript'}"
 					},
 					email: {
-						required: "E-mail address is required.",
-						maxlength: "E-mail address must be 255 characters or less.",
-						email: "E-mail address must be a valid address."
+						required: "{$messages.tpl.profile.email_required|escape:'javascript'}",
+						maxlength: "{$messages.tpl.profile.email_maxlength|escape:'javascript'}",
+						email: "{$messages.tpl.profile.email_invalid|escape:'javascript'}"
 					}
 				}
 			});
@@ -93,22 +93,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 <form name="changepwdform" id="changepwdform" action="profile.php" method="POST" class="well form-horizontal">
 	<input type="hidden" name="action" value="changepwd">
 	<fieldset>
-		<legend>Change Password</legend>
+		<legend>{$messages.tpl.profile.change_password}</legend>
 		<div class="control-group">
-			<label class="control-label" for="newpwd">New password</label>
+			<label class="control-label" for="newpwd">{$messages.tpl.profile.new_password}</label>
 			<div class="controls">
 				<input type="password" id="newpwd" name="newpwd" class="input-xlarge">
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="confpwd">Confirm password</label>
+			<label class="control-label" for="confpwd">{$messages.tpl.profile.confirm_password}</label>
 			<div class="controls">
 				<input type="password" id="confpwd" name="confpwd" class="input-xlarge">
 			</div>
 		</div>
 		<div class="form-actions">
-			<button type="submit" class="btn btn-primary">Change Password</button>
-			<button type="button" class="btn" onclick="document.location.href='index.php';">Cancel</button>
+			<button type="submit" class="btn btn-primary">{$messages.tpl.profile.change_password}</button>
+			<button type="button" class="btn" onclick="document.location.href='index.php';">{$messages.tpl.common.cancel}</button>
 		</div>
 	</fieldset>
 </form>
@@ -119,35 +119,35 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 <form name="profileform" id="profileform" action="profile.php" method="POST" class="well form-horizontal">
 	<input type="hidden" name="action" value="save">
 	<fieldset>
-		<legend>Update Profile</legend>
+		<legend>{$messages.tpl.profile.update_profile}</legend>
 		<div class="control-group">
-			<label class="control-label" for="fullname">Full name</label>
+			<label class="control-label" for="fullname">{$messages.tpl.profile.fullname}</label>
 			<div class="controls">
 				<input type="text" id="fullname" name="fullname" class="input-xlarge" value="{$fullname|escape:'htmlall'}">
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="email">E-mail address</label>
+			<label class="control-label" for="email">{$messages.tpl.profile.email}</label>
 			<div class="controls">
 				<input type="text" id="email" name="email" class="input-xlarge" value="{$email|escape:'htmlall'}">
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="email_msgs">Copy on msg</label>
+			<label class="control-label" for="email_msgs">{$messages.tpl.profile.copy_msg}</label>
 			<div class="controls">
 				<input type="checkbox" id="email_msgs" name="email_msgs" {if $email_msgs}CHECKED{/if}>
-				E-mail me a copy of every message
+				{$messages.tpl.profile.email_copy}
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="comment">Comments / shipping address / etc. (optional)</label>
+			<label class="control-label" for="comment">{$messages.tpl.profile.comments}</label>
 			<div class="controls">
 				<textarea id="comment" name="comment" rows="5" cols="40">{$comment|escape:'htmlall'}</textarea>
 			</div>
 		</div>
 		<div class="form-actions">
-			<button type="submit" class="btn btn-primary">Update Profile</button>
-			<button type="button" class="btn" onclick="document.location.href='index.php';">Cancel</button>
+			<button type="submit" class="btn btn-primary">{$messages.tpl.profile.update_profile}</button>
+			<button type="button" class="btn" onclick="document.location.href='index.php';">{$messages.tpl.common.cancel}</button>
 		</div>
 	</fieldset>
 </form>

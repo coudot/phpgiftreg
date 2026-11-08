@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Compose a Message</title>
+	<title>{$messages.tpl.message.title}</title>
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 </head>
@@ -30,27 +30,27 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				<form name="message" method="get" action="message.php" class="well form-horizontal">
 					<input type="hidden" name="action" value="send">
 					<fieldset>
-						<legend>Send a message</legend>
+						<legend>{$messages.tpl.message.send}</legend>
 						<div class="control-group">
-							<label class="control-label" for="recipients[]">Recipients</label>
+							<label class="control-label" for="recipients[]">{$messages.tpl.message.recipients}</label>
 							<div class="controls">
 								<select name="recipients[]" size="{$rcount}" MULTIPLE class="input-xlarge">
 									{foreach from=$recipients item=row}
 										<option value="{$row.userid}">{$row.fullname|escape:'htmlall'}</option>
 									{/foreach}
 								</select>
-					 			<p class="help-block">(Hold CTRL while clicking to select multiple names.)</p>
+							<p class="help-block">{$messages.tpl.message.select_help}</p>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="msg">Message</label>
+							<label class="control-label" for="msg">{$messages.tpl.message.message}</label>
 							<div class="controls">
 								<textarea id="msg" name="msg" rows="5" cols="40" class="input-xlarge"></textarea>
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">Send Message</button>
-							<button type="button" class="btn" onClick="document.location.href='index.php';">Cancel</button>
+							<button type="submit" class="btn btn-primary">{$messages.tpl.message.send_button}</button>
+							<button type="button" class="btn" onClick="document.location.href='index.php';">{$messages.tpl.common.cancel}</button>
 						</div>
 					</fieldset>
 				</form>

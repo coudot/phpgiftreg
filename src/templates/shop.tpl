@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Shopping List for {$ufullname}</title>
+	<title>{$messages.tpl.shop.title|replace:'%s':$ufullname|escape:'htmlall'}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -57,18 +57,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		</div>
 	{/if}
 	<div class="row">
-		<h1>Shopping List for {$ufullname|escape:'htmlall'}</h1>
+		<h1>{$messages.tpl.shop.heading|replace:'%s':$ufullname|escape:'htmlall'}</h1>
 	</div>
 	{if $opt.show_helptext}
 		<div class="row">
 			<div class="span12">
 				<div class="alert alert-info">
 					<ul>
-						<li>If you intend to purchase a gift for this person, click the <img src="images/locked.png"> icon.  If you end up actually purchasing it, come back and click the <img src="images/credit-card-3.png"> icon.  If you change your mind and don't want to buy it, come back and click the <img src="images/unlocked.png"> icon.</li>
-						<li>If you return something you've purchased, come back and click the <img src="images/return.png"> icon.  It will remain reserved for you.</li>
-						<li>Just because an item has a URL listed doesn't mean you have to buy it from there (unless the comment says so).</li>
-						<li>You can click the column headers to sort by that attribute.</li>
-						<li>If you see something you'd like for yourself, click the <img src="images/split-2.png"> icon to copy it to your own list.</li>
+						<li>{$messages.tpl.shop.help_reserve}</li>
+						<li>{$messages.tpl.shop.help_return}</li>
+						<li>{$messages.tpl.shop.help_url}</li>
+						<li>{$messages.tpl.shop.help_sort}</li>
+						<li>{$messages.tpl.shop.help_copy}</li>
 					</ul>
 				</div>
 			</div>
@@ -77,7 +77,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<div class="row">
 		<div class="span6 offset6">
 			<div class="alert alert-info">
-		<img src="images/locked.png" alt="Reserve" title="Reserve"> = Reserve, <img src="images/unlocked.png" alt="Release" title="Release"> = Release, <img src="images/credit-card-3.png" alt="Purchase" title="Purchase"> = Purchase, <img src="images/return.png" alt="Return" title="Return"> = Return, <img src="images/split-2.png" alt="I Want This Too" title="I Want This Too"> = I Want This Too
+		<img src="images/locked.png" alt="{$messages.tpl.shop.reserve|escape:'htmlall'}" title="{$messages.tpl.shop.reserve|escape:'htmlall'}"> = {$messages.tpl.shop.reserve}, <img src="images/unlocked.png" alt="{$messages.tpl.shop.release|escape:'htmlall'}" title="{$messages.tpl.shop.release|escape:'htmlall'}"> = {$messages.tpl.shop.release}, <img src="images/credit-card-3.png" alt="{$messages.tpl.shop.purchase|escape:'htmlall'}" title="{$messages.tpl.shop.purchase|escape:'htmlall'}"> = {$messages.tpl.shop.purchase}, <img src="images/return.png" alt="{$messages.tpl.shop.return|escape:'htmlall'}" title="{$messages.tpl.shop.return|escape:'htmlall'}"> = {$messages.tpl.shop.return}, <img src="images/split-2.png" alt="{$messages.tpl.shop.want_too|escape:'htmlall'}" title="{$messages.tpl.shop.want_too|escape:'htmlall'}"> = {$messages.tpl.shop.want_too}
 			</div>
 		</div>
 	</div>
@@ -87,12 +87,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<table class="table table-bordered table-striped">
 			<thead>
 			<tr>
-				<th><a href="shop.php?shopfor={$shopfor}&sort=ranking">Rank</a></th>
-				<th><a href="shop.php?shopfor={$shopfor}&sort=description">Description</a></th>
-				<th><a href="shop.php?shopfor={$shopfor}&sort=category">Category</a></th>
-				<th><a href="shop.php?shopfor={$shopfor}&sort=price">Price</a></th>
-				<th><a href="shop.php?shopfor={$shopfor}&sort=source">Store/Location</a></th>
-				<th><a href="shop.php?shopfor={$shopfor}&sort=status">Status</a></th>
+				<th><a href="shop.php?shopfor={$shopfor}&sort=ranking">{$messages.tpl.shop.rank}</a></th>
+				<th><a href="shop.php?shopfor={$shopfor}&sort=description">{$messages.tpl.shop.description}</a></th>
+				<th><a href="shop.php?shopfor={$shopfor}&sort=category">{$messages.tpl.shop.category}</a></th>
+				<th><a href="shop.php?shopfor={$shopfor}&sort=price">{$messages.tpl.shop.price}</a></th>
+				<th><a href="shop.php?shopfor={$shopfor}&sort=source">{$messages.tpl.shop.store}</a></th>
+				<th><a href="shop.php?shopfor={$shopfor}&sort=status">{$messages.tpl.shop.status}</a></th>
 				<th>&nbsp;</th>
 			</tr>
 			</thead>
@@ -103,13 +103,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					<td>
 						{$row.description|escape:'htmlall'}
 						{if $row.comment != ''}
-							<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="Comment" data-content="{$row.comment|escape:'htmlall'}">...</a>
+							<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="{$messages.tpl.shop.comment|escape:'htmlall'}" data-content="{$row.comment|escape:'htmlall'}">...</a>
 						{/if}
 						{if $row.url != ''}
-							<a href="{$row.url}" target="_blank"><img src="images/link.png" border="0" alt="URL" title="URL"></a>
+							<a href="{$row.url}" target="_blank"><img src="images/link.png" border="0" alt="{$messages.tpl.shop.url|escape:'htmlall'}" title="{$messages.tpl.shop.url|escape:'htmlall'}"></a>
 						{/if}
 						{if $row.image_filename != '' && $opt.allow_images}
-							<a rel="lightbox" href="{$opt.image_subdir}/{$row.image_filename}" title="{$row.description|escape:'htmlall'}"><img src="images/image.png" border="0" alt="Image" /></a>
+							<a rel="lightbox" href="{$opt.image_subdir}/{$row.image_filename}" title="{$row.description|escape:'htmlall'}"><img src="images/image.png" border="0" alt="{$messages.tpl.shop.image|escape:'htmlall'}" /></a>
 						{/if}
 					</td>
 					<td>{$row.category|default:"&nbsp;"}</td>
@@ -120,21 +120,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							{foreach from=$row.allocs item=alloc}
 								<b>{$alloc}</b><br />
 							{/foreach}
-							{$row.avail} remaining.<br />
+							{$messages.tpl.shop.remaining|replace:'%s':$row.avail}<br />
 						</td>
 						<td nowrap align="right">
 							{if $row.avail > 0 || $row.ireserved > 0 || $row.ibought > 0}
 								{if $row.ireserved > 0}
-									{assign var="reservetext" value="Reserve Another"}
+									{assign var="reservetext" value=$messages.tpl.shop.reserve_another}
 								{else}
-									{assign var="reservetext" value="Reserve Item"}
+									{assign var="reservetext" value=$messages.tpl.shop.reserve_item}
 								{/if}
 								{if $row.ibought > 0}
-									{assign var="purchasetext" value="Purchase Another"}
+									{assign var="purchasetext" value=$messages.tpl.shop.purchase_another}
 								{elseif $row.ireserved > 0}
-									{assign var="purchasetext" value="Convert Reserve to Purchase"}
+									{assign var="purchasetext" value=$messages.tpl.shop.convert_reserve}
 								{else}
-									{assign var="purchasetext" value="Purchase Item"}
+									{assign var="purchasetext" value=$messages.tpl.shop.purchase_item}
 								{/if}
 								{if $row.avail > 0}
 									<a href="shop.php?action=reserve&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="{$reservetext|escape:'htmlall'}" title="{$reservetext|escape:'htmlall'}" src="images/locked.png" border="0" /></a>
@@ -144,34 +144,34 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 								{/if}
 							{/if}
 							{if $row.ireserved > 0}
-								<a href="shop.php?action=release&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="Release Item" title="Release Item" src="images/unlocked.png" border="0" /></a>
+								<a href="shop.php?action=release&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="{$messages.tpl.shop.release_item|escape:'htmlall'}" title="{$messages.tpl.shop.release_item|escape:'htmlall'}" src="images/unlocked.png" border="0" /></a>
 							{/if}
 							{if $row.ibought > 0}
-								<a href="shop.php?action=return&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="Return Item" title="Return Item" src="images/return.png" border="0" /></a>
+								<a href="shop.php?action=return&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="{$messages.tpl.shop.return_item|escape:'htmlall'}" title="{$messages.tpl.shop.return_item|escape:'htmlall'}" src="images/return.png" border="0" /></a>
 							{/if}
 						{* </td> *}
 					{else}
 						{if $row.rfullname == '' && $row.bfullname == ''}
 							<td>
-								<i>Available.</i>
+								<i>{$messages.tpl.shop.available}</i>
 							</td>
 							<td nowrap align="right">
-								<a href="shop.php?action=reserve&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="Reserve Item" title="Reserve Item" src="images/locked.png" border="0" /></a>&nbsp;<a href="shop.php?action=purchase&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="Purchase Item" title="Purchase Item" src="images/credit-card-3.png" border="0" /></a>
+								<a href="shop.php?action=reserve&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="{$messages.tpl.shop.reserve_item|escape:'htmlall'}" title="{$messages.tpl.shop.reserve_item|escape:'htmlall'}" src="images/locked.png" border="0" /></a>&nbsp;<a href="shop.php?action=purchase&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="{$messages.tpl.shop.purchase_item|escape:'htmlall'}" title="{$messages.tpl.shop.purchase_item|escape:'htmlall'}" src="images/credit-card-3.png" border="0" /></a>
 							{* </td> *}
 						{elseif $row.rfullname != ''}
 							{if $row.reservedid == $userid}
 								<td>
-									<i><b>Reserved by you.</b></i>
+									<i><b>{$messages.tpl.shop.reserved_by_you}</b></i>
 								</td>
 								<td align="right">
-									<a href="shop.php?action=release&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="Release Item" title="Release Item" src="images/unlocked.png" border="0" /></a>&nbsp;<a href="shop.php?action=purchase&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="Purchase Item" title="Purchase Item" src="images/credit-card-3.png" border="0" /></a>
+									<a href="shop.php?action=release&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="{$messages.tpl.shop.release_item|escape:'htmlall'}" title="{$messages.tpl.shop.release_item|escape:'htmlall'}" src="images/unlocked.png" border="0" /></a>&nbsp;<a href="shop.php?action=purchase&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="{$messages.tpl.shop.purchase_item|escape:'htmlall'}" title="{$messages.tpl.shop.purchase_item|escape:'htmlall'}" src="images/credit-card-3.png" border="0" /></a>
 								{* </td> *}
 							{else}
 								<td>
 									{if $opt.anonymous_purchasing}
-										<i>Reserved.</i>
+										<i>{$messages.tpl.shop.reserved}</i>
 									{else}
-										<i>Reserved by {$row.rfullname|escape:'htmlall'}.</i>
+										<i>{$messages.tpl.shop.reserved_by|replace:'%s':$row.rfullname|escape:'htmlall'}</i>
 									{/if}
 								</td>
 								<td>
@@ -180,21 +180,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						{elseif $row.bfullname != ''}
 							{if $row.boughtid == $userid}
 								<td>
-									<i><b>Bought by you.</b></i>
+									<i><b>{$messages.tpl.shop.bought_by_you}</b></i>
 								</td>
 								<td align="right">
-									<a href="shop.php?action=return&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="Return Item" title="Return Item" src="images/return.png" border="0" /></a>
+									<a href="shop.php?action=return&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="{$messages.tpl.shop.return_item|escape:'htmlall'}" title="{$messages.tpl.shop.return_item|escape:'htmlall'}" src="images/return.png" border="0" /></a>
 								{* </td> *}
 							{else}
 								{if $opt.anonymous_purchasing}
 									<td>
-										<i>Bought.</i>
+										<i>{$messages.tpl.shop.bought}</i>
 									</td>
 									<td>
 									{* </td> *}
 								{else}
 									<td>
-										<i>Bought by {$row.bfullname|escape:'htmlall'}.</i>
+										<i>{$messages.tpl.shop.bought_by|replace:'%s':$row.bfullname|escape:'htmlall'}</i>
 									</td>
 									<td>
 									{* </td> *}
@@ -203,7 +203,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						{/if}
 					{/if}
 					{* <td> *}
-						<a href="shop.php?action=copy&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="I Want This Too" title="I Want This Too" src="images/split-2.png" border="0" /></a>
+						<a href="shop.php?action=copy&itemid={$row.itemid}&shopfor={$shopfor}"><img alt="{$messages.tpl.shop.want_too|escape:'htmlall'}" title="{$messages.tpl.shop.want_too|escape:'htmlall'}" src="images/split-2.png" border="0" /></a>
 					</td>
 				</tr>
 			{/foreach}
@@ -215,7 +215,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<div class="row">
 		<div class="span6">
 			<div class="well">
-				<a onClick="printPage()" href="#">Send to printer</a>
+				<a onClick="printPage()" href="#">{$messages.tpl.shop.print}</a>
 			</div>
 		</div>
 	</div>

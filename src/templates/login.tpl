@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{$opt.language}">
 <head>
-	<title>Gift Registry - Login</title>
+	<title>{$messages.tpl.login.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -41,10 +41,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					username: {
-						required: "Username is required."
+						required: "{$messages.tpl.login.username_required|escape:'javascript'}"
 					},
 					password: {
-						required: "Password is required."
+						required: "{$messages.tpl.login.password_required|escape:'javascript'}"
 					}
 				}
 			});
@@ -55,26 +55,26 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<div class="container" style="padding-top: 30px;">
 		<div class="row">
 			<div class="span8 offset2">
-			<h1>Gift Registry</h1>
+			<h1>{$messages.tpl.gift_registry}</h1>
 		<form name="loginform" id="loginform" method="post" action="login.php" class="well form-horizontal">
 			<fieldset>
 				{if isset($username)}
-					<div class="alert alert-error">Bad login.</div>
+					<div class="alert alert-error">{$messages.tpl.login.bad_login}</div>
 				{/if}
 				<div class="control-group">
-					<label class="control-label" for="username">Username</label>
+					<label class="control-label" for="username">{$messages.tpl.login.username}</label>
 					<div class="controls">
-						<input id="username" name="username" type="text" class="input-xlarge" placeholder="username" />
+						<input id="username" name="username" type="text" class="input-xlarge" placeholder="{$messages.tpl.login.username|escape:'htmlall'}" />
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="password">Password</label>
+					<label class="control-label" for="password">{$messages.tpl.login.password}</label>
 					<div class="controls">
-						<input id="password" name="password" type="password" class="input-xlarge" placeholder="password" />
+						<input id="password" name="password" type="password" class="input-xlarge" placeholder="{$messages.tpl.login.password|escape:'htmlall'}" />
 					</div>
 				</div>
 				<div class="form-actions">
-					<button type="submit" class="btn btn-primary">Login</button>
+					<button type="submit" class="btn btn-primary">{$messages.tpl.login.login}</button>
 				</div>
 			</fieldset>
 		</form>
@@ -83,18 +83,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span4 offset2">
 				<div class="well">
-					<a href="signup.php">Need an account?</a>
+					<a href="signup.php">{$messages.tpl.login.need_account}</a>
 				</div>
 			</div>
 			<div class="span4">
 				<div class="well">
-					<a href="forgot.php">Forgot your password?</a>
+					<a href="forgot.php">{$messages.tpl.login.forgot_password}</a>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="span8 offset2" style="text-align: right;">
-				<a href="//sourceforge.net/projects/phpgiftreg">PHP Gift Registry version 2.1.2</a>
+				<a href="//sourceforge.net/projects/phpgiftreg">{$messages.tpl.login.version}</a>
 			</div>
 		</div>
 	</div>

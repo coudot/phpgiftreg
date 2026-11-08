@@ -29,7 +29,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "signup") {
 	$stmt->bindParam(1, $username, PDO::PARAM_STR);
 	$stmt->execute();
 	if ($stmt->fetch()) {
-		$error = "The username '" . $username . "' is already taken.  Please choose another.";
+		$error = translateFormat("message.user_duplicate", $username);
 	}
 	else {
 		// generate a password and insert the row.
@@ -53,10 +53,10 @@ if (isset($_POST["action"]) && $_POST["action"] == "signup") {
 			while ($row = $stmt->fetch()) {
 				mail(
 					$row["email"],
-					"Gift Registry approval request for " . $fullname,
-					$fullname . " <" . $email . "> would like you to approve him/her for access to the Gift Registry.",
+					translateFormat("email.signup_request_subject", $fullname),
+					translateFormat("email.signup_request_body", $fullname, $email),
 					"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-				) or die("Mail not accepted for " . $row["email"]);
+				) or die(translate("error.mail") . $row["email"]);
 			}
 		}
 		else {
@@ -78,11 +78,10 @@ if (isset($_POST["action"]) && $_POST["action"] == "signup") {
 
 				mail(
 					$email,
-					"Gift Registry account created",
-					"Your Gift Registry account was created.\r\n" . 
-						"Your username is $username and your password is $pwd.",
+					translate("email.account_created_subject"),
+					translateFormat("email.account_created_body", $username, $pwd),
 					"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-				) or die("Mail not accepted for $email");	
+				) or die(translate("error.mail") . $email);
 			}
 		}
 	}

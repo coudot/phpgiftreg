@@ -42,11 +42,11 @@ if (!empty($_POST["action"])) {
 
 			$stmt->execute();
 
-			header("Location: " . getFullPath("index.php?message=Password+changed."));
+			header("Location: " . getFullPath("index.php?message=" . urlencode(translate("message.password_changed"))));
 			exit;
 		}
 		catch (PDOException $e) {
-			die("sql exception: " . $e->getMessage());
+			die(translate("error.sql") . $e->getMessage());
 		}
 	}
 	else if ($action == "save") {
@@ -67,15 +67,15 @@ if (!empty($_POST["action"])) {
 
 			$_SESSION["fullname"] = $fullname;
 
-			header("Location: " . getFullPath("index.php?message=Profile+updated."));
+			header("Location: " . getFullPath("index.php?message=" . urlencode(translate("message.profile_updated"))));
 			exit;
 		}
 		catch (PDOException $e) {
-			die("sql exception: " . $e->getMessage());
+			die(translate("error.sql") . $e->getMessage());
 		}
 	}
 	else {
-		die("Unknown verb.");
+		die(translate("error.unknown_action"));
 	}
 }
 
@@ -92,10 +92,10 @@ try {
 		$smarty->display('profile.tpl');
 	}
 	else {
-		die("You don't exist.");
+		die(translate("error.user_missing"));
 	}
 }
 catch (PDOException $e) {
-	die("sql exception: " . $e->getMessage());
+	die(translate("error.sql") . $e->getMessage());
 }
 ?>
