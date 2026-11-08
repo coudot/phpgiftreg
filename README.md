@@ -1,5 +1,9 @@
 # PHP Gift Registry
 
+FIXME: <https://github.com/generalpf/phpgiftreg> looks like a newer upstream. Rebase against that, fork it instead, or simply defer/refer to it.
+
+## original Readme text
+
 This is a copy of Ryan Walberg's *PHP Gift Registry*, imported from the
 original [SourceForge](https://sourceforge.net/projects/phpgiftreg/) project
 page using the [svn2git](https://github.com/svn-all-fast-export/svn2git) tool.
@@ -9,7 +13,7 @@ circle of family members or friends, and allows members to keep track of what
 gifts they'd like to receive and see what items other members would like to
 receive. Private reservations ensure gifts are not bought twice.
 
-### Features
+## Features
 
 * Built with Twitter Bootstrap, so it looks great on mobile and small-form
   factor devices.
@@ -17,11 +21,11 @@ receive. Private reservations ensure gifts are not bought twice.
 * Bootswatch integration, so you can replace the theme with a pre-built theme
   by simply copying files.
 
-### More information
+## More information
 
 See the original [README](src/README) file for more information.
 
-### License and copyright
+## License and copyright
 
 phpgiftreg is licensed by the GPLv2+. See COPYING.
 
