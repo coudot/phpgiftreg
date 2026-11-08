@@ -24,7 +24,7 @@ if (!isset($_SESSION["userid"])) {
 	exit;
 }
 else if ($_SESSION["admin"] != 1) {
-	echo "You don't have admin privileges.";
+	echo "Vous devez être administrateur pour accéder à cette page.";
 	exit;
 }
 else {
@@ -46,7 +46,7 @@ if ($action == "insert" || $action == "update") {
 	$haserror = false;
 	if ($familyname == "") {
 		$haserror = true;
-		$familyname_error = "A family name is required.";
+		$familyname_error = "Le nom de la famille est obligatoire.";
 	}
 }
 
@@ -61,11 +61,11 @@ if ($action == "delete") {
 		$stmt->bindValue(1, $familyid, PDO::PARAM_INT);
 		$stmt->execute();
 	
-		header("Location: " . getFullPath("families.php?message=Family+deleted."));
+		header("Location: " . getFullPath("families.php?message=" . urlencode("Famille supprimée.")));
 		exit;
 	}
 	catch (PDOException $e) {
-		die("sql exception: " . $e->getMessage());
+		die("Erreur SQL : " . $e->getMessage());
 	}
 }
 else if ($action == "edit") {
@@ -77,11 +77,11 @@ else if ($action == "edit") {
 			$familyname = $row["familyname"];
 		}
 		else {
-			die("family doesn't exist.");
+			die("Cette famille n'existe pas.");
 		}
 	}
 	catch (PDOException $e) {
-		die("sql exception: " . $e->getMessage());
+		die("Erreur SQL : " . $e->getMessage());
 	}
 }
 else if ($action == "") {
@@ -95,10 +95,10 @@ else if ($action == "insert") {
 			$stmt->execute();
 		}
 		catch (PDOException $e) {
-			die("sql exception: " . $e->getMessage());
+			die("Erreur SQL : " . $e->getMessage());
 		}
 		
-		header("Location: " . getFullPath("families.php?message=Family+added."));
+		header("Location: " . getFullPath("families.php?message=" . urlencode("Famille ajoutée.")));
 		exit;
 	}
 }
@@ -113,10 +113,10 @@ else if ($action == "update") {
 			$stmt->execute();
 		}
 		catch (PDOException $e) {
-			die("sql exception: " . $e->getMessage());
+			die("Erreur SQL : " . $e->getMessage());
 		}
 		
-		header("Location: " . getFullPath("families.php?message=Family+updated."));
+		header("Location: " . getFullPath("families.php?message=" . urlencode("Famille modifiée.")));
 		exit;		
 	}
 }
@@ -137,14 +137,14 @@ else if ($action == "members") {
 		}
 	}
 	catch (PDOException $e) {
-		die("sql exception: " . $e->getMessage());
+		die("Erreur SQL : " . $e->getMessage());
 	}
 	
-	header("Location: " . getFullPath("families.php?message=Members+changed."));
+	header("Location: " . getFullPath("families.php?message=" . urlencode("Membres modifiés.")));
 	exit;
 }
 else {
-	die("Unknown verb.");
+	die("Action inconnue.");
 }
 
 try {
@@ -188,6 +188,6 @@ try {
 	$smarty->display('families.tpl');
 }
 catch (PDOException $e) {
-	die("sql exception: " . $e->getMessage());
+	die("Erreur SQL : " . $e->getMessage());
 }
 ?>

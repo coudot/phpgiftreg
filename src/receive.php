@@ -37,12 +37,12 @@ try {
 	$stmt->execute();
 	if ($row = $stmt->fetch()) {
 		if ($row["userid"] != $userid)
-			die("That's not your item!");
+			die("Cet article ne vous appartient pas.");
 
 		$quantity = $row["quantity"];
 	}
 	else {
-		die("Item does not exist.");
+		die("Cet article n'existe pas.");
 	}
 
 	stampUser($userid, $smarty->dbh(), $smarty->opt());
@@ -60,7 +60,7 @@ try {
 		$stmt->bindParam(1, $itemid, PDO::PARAM_INT);
 		$stmt->execute();
 
-		header("Location: " . getFullPath("index.php?message=Item+marked+as+received."));
+		header("Location: " . getFullPath("index.php?message=" . urlencode("Article indiqué comme reçu.")));
 		exit;
 	}
 	else if ($action == "receive") {
@@ -87,7 +87,7 @@ try {
 			$stmt->execute();
 		}
 	
-		header("Location: " . getFullPath("index.php?message=Item+marked+as+received."));
+		header("Location: " . getFullPath("index.php?message=" . urlencode("Article indiqué comme reçu.")));
 		exit;
 	}
 
@@ -111,6 +111,6 @@ try {
 	$smarty->display('receive.tpl');
 }
 catch (PDOException $e) {
-	die("sql exception: " . $e->getMessage());
+	die("Erreur SQL : " . $e->getMessage());
 }
 ?>

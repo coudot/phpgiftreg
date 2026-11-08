@@ -24,7 +24,7 @@ if (!isset($_SESSION["userid"])) {
 	exit;
 }
 else if ($_SESSION["admin"] != 1) {
-	echo "You don't have admin privileges.";
+	echo "Vous devez être administrateur pour accéder à cette page.";
 	exit;
 }
 else {
@@ -57,7 +57,7 @@ if ($action == "delete") {
 	$stmt->bindValue(1, (int) $_GET["categoryid"], PDO::PARAM_INT);
 	$stmt->execute();
 	
-	header("Location: " . getFullPath("categories.php?message=Category+deleted."));
+	header("Location: " . getFullPath("categories.php?message=" . urlencode("Catégorie supprimée.")));
 	exit;
 }
 else if ($action == "edit") {
@@ -77,7 +77,7 @@ else if ($action == "insert") {
 		$stmt->bindParam(1, $category, PDO::PARAM_STR);
 		$stmt->execute();
 		
-		header("Location: " . getFullPath("categories.php?message=Category+added."));
+		header("Location: " . getFullPath("categories.php?message=" . urlencode("Catégorie ajoutée.")));
 		exit;
 	}
 }
@@ -90,12 +90,12 @@ else if ($action == "update") {
 		$stmt->bindValue(2, (int) $_GET["categoryid"], PDO::PARAM_INT);
 		$stmt->execute();
 		
-		header("Location: " . getFullPath("categories.php?message=Category+updated."));
+		header("Location: " . getFullPath("categories.php?message=" . urlencode("Catégorie modifiée.")));
 		exit;		
 	}
 }
 else {
-	die("Unknown verb.");
+	die("Action inconnue.");
 }
 
 $stmt = $smarty->dbh()->prepare("SELECT c.categoryid, c.category, COUNT(itemid) AS itemsin " .

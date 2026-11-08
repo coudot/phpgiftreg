@@ -62,7 +62,7 @@ if (!empty($_POST["username"]) or ($opt["auth_http_header"] and !empty($_SERVER[
 		}
 	}
 	catch (PDOException $e) {
-		die("sql exception: " . $e->getMessage());
+		die("Erreur SQL : " . $e->getMessage());
 	}
 
 	$smarty->assign('username', $username);

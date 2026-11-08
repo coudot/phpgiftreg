@@ -64,13 +64,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				<div class="control-group">
 					<label class="control-label" for="username">Nom d'utilisateur</label>
 					<div class="controls">
-						<input id="username" name="username" type="text" class="input-xlarge" placeholder="username" />
+						<input id="username" name="username" type="text" class="input-xlarge" placeholder="nom d'utilisateur" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="password">Mot de passe</label>
 					<div class="controls">
-						<input id="password" name="password" type="password" class="input-xlarge" placeholder="password" />
+						<input id="password" name="password" type="password" class="input-xlarge" placeholder="mot de passe" />
 					</div>
 				</div>
 				<div class="form-actions">

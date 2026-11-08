@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-	<title>Gift Registry - Manage Users</title>
+	<title>Liste de cadeaux - Gérer les utilisateurs</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -30,7 +30,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		$(document).ready(function() {
 			$('a[rel=confirmdeleteuser]').click(function(event) {
 				var u = $(this).attr('data-content');
-				if (!window.confirm('Are you sure you want to delete ' + u + '?')) {
+				if (!window.confirm('Voulez-vous vraiment supprimer l’utilisateur ' + u + ' ?')) {
 					event.preventDefault();
 				}
 			});
@@ -55,17 +55,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					username: {
-						required: "Username is required.",
-						maxlength: "Username must be 20 characters or less."
+						required: "Le nom d'utilisateur est obligatoire.",
+						maxlength: "Le nom d'utilisateur ne doit pas dépasser 20 caractères."
 					},
 					fullname: {
-						required: "Full name is required.",
-						maxlength: "Full name must be 50 characters or less."
+						required: "Le nom complet est obligatoire.",
+						maxlength: "Le nom complet ne doit pas dépasser 50 caractères."
 					},
 					email: {
-						required: "E-mail address is required.",
-						maxlength: "E-mail address must be 255 characters or less.",
-						email: "E-mail address must be a valid address."
+						required: "L'adresse courriel est obligatoire.",
+						maxlength: "L'adresse courriel ne doit pas dépasser 255 caractères.",
+						email: "L'adresse courriel n'est pas valide."
 					}
 				}
 			});
@@ -91,12 +91,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Username</th>
-								<th>Fullname</th>
-								<th>E-mail</th>
-								<th>E-mail messages?</th>
-								<th>Approved?</th>
-								<th>Admin?</th>
+								<th>Nom d'utilisateur</th>
+								<th>Nom complet</th>
+								<th>Courriel</th>
+								<th>Messages par courriel ?</th>
+								<th>Approuvé ?</th>
+								<th>Administrateur ?</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
@@ -106,23 +106,23 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 									<td>{$row.username}</td>
 									<td>{$row.fullname}</td>
 									<td>{$row.email}</td>
-									<td>{if $row.email_msgs}Yes{else}No{/if}</td>
-									<td>{if $row.approved}Yes{else}No{/if}</td>
-									<td>{if $row.admin}Yes{else}No{/if}</td>
+									<td>{if $row.email_msgs}Oui{else}Non{/if}</td>
+									<td>{if $row.approved}Oui{else}Non{/if}</td>
+									<td>{if $row.admin}Oui{else}Non{/if}</td>
 									<td align="right">
-										<a href="users.php?action=edit&userid={$row.userid}#userform"><img alt="Edit User" src="images/pencil.png" border="0" title="Edit User" /></a>
-										<a rel="confirmdeleteuser" data-content="{$row.fullname|escape:'htmlall'}" href="users.php?action=delete&userid={$row.userid}"><img alt="Delete User" src="images/bin.png" border="0" title="Delete User" /></a>
+										<a href="users.php?action=edit&userid={$row.userid}#userform"><img alt="Modifier l'utilisateur" src="images/pencil.png" border="0" title="Modifier l'utilisateur" /></a>
+										<a rel="confirmdeleteuser" data-content="{$row.fullname|escape:'htmlall'}" href="users.php?action=delete&userid={$row.userid}"><img alt="Supprimer l'utilisateur" src="images/bin.png" border="0" title="Supprimer l'utilisateur" /></a>
 										{if $row.email != ''}
-											<a href="users.php?action=reset&userid={$row.userid}&email={$row.email|escape:'htmlall'}"><img alt="Reset Password" src="images/key.png" border="0" title="Reset Password" /></a>
+											<a href="users.php?action=reset&userid={$row.userid}&email={$row.email|escape:'htmlall'}"><img alt="Réinitialiser le mot de passe" src="images/key.png" border="0" title="Réinitialiser le mot de passe" /></a>
 										{else}
-											Reset Pwd
+											Réinitialiser
 										{/if}
 									</td>
 								</tr>
 							{/foreach}
 						</tbody>
 					</table>
-					<h5><a href="users.php">Add a new user</a></h5>
+					<h5><a href="users.php">Ajouter un utilisateur</a></h5>
 				</div>
 			</div>
 		</div>
@@ -138,9 +138,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<input type="hidden" name="action" value="insert">
 					{/if}
 					<fieldset>
-						<legend>{if $action == "edit" || $action == "update"}Edit User{else}Add User{/if}</legend>
+						<legend>{if $action == "edit" || $action == "update"}Modifier l'utilisateur{else}Ajouter un utilisateur{/if}</legend>
 						<div class="control-group {if isset($username_error)}warning{/if}">
-							<label class="control-label" for="username">Username</label>
+							<label class="control-label" for="username">Nom d'utilisateur</label>
 							<div class="controls">
 								<input id="username" name="username" type="text" class="input-xlarge" value="{$username|escape:'htmlall'}" maxlength="255">
 								{if isset($username_error)}
@@ -149,7 +149,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							</div>
 						</div>
 						<div class="control-group {if isset($fullname_error)}warning{/if}">
-							<label class="control-label" for="fullname">Full name</label>
+							<label class="control-label" for="fullname">Nom complet</label>
 							<div class="controls">
 								<input id="fullname" name="fullname" type="text" class="input-xlarge" value="{$fullname|escape:'htmlall'}" maxlength="255">
 								{if isset($fullname_error)}
@@ -158,7 +158,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							</div>
 						</div>
 						<div class="control-group {if isset($email_error)}warning{/if}">
-							<label class="control-label" for="email">E-mail address</label>
+							<label class="control-label" for="email">Adresse courriel</label>
 							<div class="controls">
 								<input id="email" name="email" type="text" class="input-xlarge" value="{$email|escape:'htmlall'}" maxlength="255">
 								{if isset($email_error)}
@@ -167,19 +167,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">Flags</label>
+							<label class="control-label">Options</label>
 							<div class="controls">
 								<input type="checkbox" name="email_msgs" {if $email_msgs}CHECKED{/if}>
-								E-mail messages
+								Messages par courriel
 								<input type="checkbox" name="approved" {if $approved}CHECKED{/if}>
-								Approved
+								Approuvé
 								<input type="checkbox" name="admin" {if $userisadmin}CHECKED{/if}>
-								Administrator
+								Administrateur
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}Add{else}Update{/if}</button>
-							<button type="button" class="btn" onClick="document.location.href='users.php';">Cancel</button>
+							<button type="submit" class="btn btn-primary">{if $action == "" || $action == "insert"}Ajouter{else}Modifier{/if}</button>
+							<button type="button" class="btn" onClick="document.location.href='users.php';">Annuler</button>
 						</div>
 					</fieldset>
 				</form>

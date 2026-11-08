@@ -103,15 +103,15 @@ function processSubscriptions($publisher, $action, $itemdesc, $dbh, $opt) {
 		if ($msg == "") {
 			// same message for each user but we need the fullname from the first row before we can assemble it.
 			if ($action == "insert") {
-				$msg = $row["fullname"] . " has added the item \"$itemdesc\" to their list.";
+				$msg = $row["fullname"] . " a ajouté l'article « $itemdesc » à sa liste.";
 			}
 			else if ($action == "update") {
-				$msg = $row["fullname"] . " has updated the item \"$itemdesc\" on their list.";
+				$msg = $row["fullname"] . " a modifié l'article « $itemdesc » dans sa liste.";
 			}
 			else if ($action == "delete") {
-				$msg = $row["fullname"] . " has deleted the item \"$itemdesc\" from their list.";
+				$msg = $row["fullname"] . " a supprimé l'article « $itemdesc » de sa liste.";
 			}
-			$msg .= "\r\n\r\nYou are receiving this message because you are subscribed to their updates.  You will not receive another message for their updates for the next " . $opt["notify_threshold_minutes"] . " minutes.";
+			$msg .= "\r\n\r\nVous recevez ce message car vous êtes abonné(e) à ses mises à jour. Vous ne recevrez pas d'autre notification pendant les " . $opt["notify_threshold_minutes"] . " prochaines minutes.";
 		}
 		sendMessage($publisher, $row["subscriber"], $msg, $dbh, $opt);
 
@@ -142,14 +142,14 @@ function sendMessage($sender, $recipient, $message, $dbh, $opt) {
 		if ($row["email_msgs"] == 1) {
 			mail(
 				$row["remail"],
-				"Gift Registry message from " . $row["fullname"],
-				$row["fullname"] . " <" . $row["semail"] . "> sends:\r\n" . $message,
+				"Message de " . $row["fullname"] . " - Liste de cadeaux",
+				$row["fullname"] . " <" . $row["semail"] . "> vous a envoyé le message suivant :\r\n" . $message,
 				"From: {$opt["email_from"]}\r\nReply-To: " . $row["semail"] . "\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-			) or die("Mail not accepted for " . $row["remail"]);
+			) or die("Courriel non accepté pour " . $row["remail"]);
 		}
 	}
 	else {
-		die("recipient doesn't exist");
+		die("Le destinataire n'existe pas.");
 	}
 }
 

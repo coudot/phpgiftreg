@@ -73,14 +73,14 @@ function getGlobalOptions() {
 
 		/* This is prefixed to all currency values, set it as appropriate for your currency. */
 		"currency_symbol" => "$",	// US or other dollars	  
-		//"currency_symbol" => "&#163;",	// Pound (£) symbol
+		//"currency_symbol" => "&#163;",	// Pound (ï¿½) symbol
 		//"currency_symbol" => "&#165;",	// Yen
 		//"currency_symbol" => "&#8364;",	// Euro
 		//"currency_symbol" => "&euro;",	// Euro alternative
 
 		/* The date format used in DateTime::format()
 			http://php.net/manual/en/function.date.php */
-		"date_format" => "m/d/Y",
+		"date_format" => "d/m/Y",
 
 		/* If this is set to something other than "" then phpgiftreg will expect that
 			string to prefix all tables in this installation.  Useful for running

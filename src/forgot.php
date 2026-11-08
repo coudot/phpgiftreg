@@ -31,7 +31,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "forgot") {
 			$email = $row["email"];
 		
 			if ($email == "")
-				$error = "The username '" . $username . "' does not have an e-mail address, so the password could not be sent.";
+				$error = "Aucune adresse courriel n'est associée au nom d'utilisateur « " . $username . " » ; le mot de passe n'a pas pu être envoyé.";
 			else {
 				$pwd = generatePassword($opt);
 				$stmt = $smarty->dbh()->prepare("UPDATE {$opt["table_prefix"]}users SET password = {$opt["password_hasher"]}(?) WHERE username = ?");
@@ -41,15 +41,15 @@ if (isset($_POST["action"]) && $_POST["action"] == "forgot") {
 				$stmt->execute();
 				mail(
 					$email,
-					"Gift Registry password reset",
-					"Your Gift Registry account information:\r\n" . 
-						"Your username is '" . $username . "' and your new password is '$pwd'.",
+					"Réinitialisation du mot de passe de la liste de cadeaux",
+					"Informations de votre compte de liste de cadeaux :\r\n" .
+						"Votre nom d'utilisateur est « " . $username . " » et votre nouveau mot de passe est « $pwd ».",
 					"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-				) or die("Mail not accepted for $email");
+				) or die("Courriel non accepté pour $email");
 			}
 		}
 		else {
-			$error = "The username '" . $username . "' could not be found.";
+			$error = "Le nom d'utilisateur « " . $username . " » est introuvable.";
 		}
 
 		if (!empty($error)) {
@@ -60,7 +60,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "forgot") {
 		$smarty->display('forgot.tpl');
 	}
 	catch (PDOException $e) {
-		die("sql exception: " . $e->getMessage());
+		die("Erreur SQL : " . $e->getMessage());
 	}
 }
 else {

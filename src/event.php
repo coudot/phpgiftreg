@@ -51,10 +51,10 @@ if (isset($eventid)) {
 
 		$stmt->execute();
 		if (!$stmt->fetch())
-			die("Nice try! (That's not your event.)");
+			die("Cet événement ne vous appartient pas.");
 	}
 	catch (PDOException $e) {
-		die("sql exception: " . $e->getMessage());
+		die("Erreur SQL : " . $e->getMessage());
 	}
 }
 
@@ -64,7 +64,11 @@ if ($action == "insert" || $action == "update") {
 	/* validate the data. */
 	$description = trim($_GET["description"]);
 	try {
-		$eventdate = new DateTime($_GET["eventdate"]);
+		$eventdate = DateTime::createFromFormat("!" . $opt["date_format"], $_GET["eventdate"]);
+		$date_errors = DateTime::getLastErrors();
+		if ($date_errors !== false && ($date_errors["warning_count"] > 0 || $date_errors["error_count"] > 0)) {
+			$eventdate = false;
+		}
 	}
 	catch (Exception $e) {
 		$eventdate = FALSE;
@@ -75,11 +79,11 @@ if ($action == "insert" || $action == "update") {
 	$haserror = false;
 	if ($description == "") {
 		$haserror = true;
-		$description_error = "A description is required.";
+		$description_error = "La description est obligatoire.";
 	}
 	if ($eventdate == FALSE) {
 		$haserror = true;
-		$eventdate_error = "Date is out of range for this server.";
+		$eventdate_error = "La date n'est pas valide pour ce serveur.";
 	}
 }
 
@@ -90,11 +94,11 @@ if ($action == "delete") {
 
 		$stmt->execute();
 
-		header("Location: " . getFullPath("event.php?message=Event+deleted."));
+		header("Location: " . getFullPath("event.php?message=" . urlencode("Événement supprimé.")));
 		exit;
 	}
 	catch (PDOException $e) {
-		die("sql exception: " . $e->getMessage());
+		die("Erreur SQL : " . $e->getMessage());
 	}
 }
 else if ($action == "edit") {
@@ -112,7 +116,7 @@ else if ($action == "edit") {
 		$systemevent = ($row["userid"] == "");
 	}
 	catch (PDOException $e) {
-		die("sql exception: " . $e->getMessage());
+		die("Erreur SQL : " . $e->getMessage());
 	}
 }
 else if ($action == "") {
@@ -132,11 +136,11 @@ else if ($action == "insert") {
 
 			$stmt->execute();
 		
-			header("Location: " . getFullPath("event.php?message=Event+added."));
+			header("Location: " . getFullPath("event.php?message=" . urlencode("Événement ajouté.")));
 			exit;
 		}
 		catch (PDOException $e) {
-			die("sql exception: " . $e->getMessage());
+			die("Erreur SQL : " . $e->getMessage());
 		}
 	}
 }
@@ -157,16 +161,16 @@ else if ($action == "update") {
 
 			$stmt->execute();
 
-			header("Location: " . getFullPath("event.php?message=Event+updated."));
+			header("Location: " . getFullPath("event.php?message=" . urlencode("Événement modifié.")));
 			exit;
 		}
 		catch (PDOException $e) {
-			die("sql exception: " . $e->getMessage());
+			die("Erreur SQL : " . $e->getMessage());
 		}
 	}
 }
 else {
-	die("Unknown verb.");
+	die("Action inconnue.");
 }
 
 try {
@@ -187,7 +191,7 @@ try {
 			$eventDateTime = new DateTime($row['eventdate']);
 		}
 		catch (Exception $e) {
-			die("There was an error with an event with datetime " . $row['eventdate']);
+			die("Une erreur s'est produite pour l'événement daté du " . $row['eventdate']);
 		}
 		$row['eventdate'] = $eventDateTime->format($opt["date_format"]);
 		$events[] = $row;
@@ -216,6 +220,6 @@ try {
 	$smarty->display('event.tpl');
 }
 catch (PDOException $e) {
-	die("sql exception: " . $e->getMessage());
+	die("Erreur SQL : " . $e->getMessage());
 }
 ?>

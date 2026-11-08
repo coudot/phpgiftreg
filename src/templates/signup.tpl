@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-	<title>Gift Registry - Sign Up</title>
+	<title>Liste de cadeaux - Inscription</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -51,15 +51,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					username: {
-						required: "A username is required.",
-						maxlength: "Username must be 20 characters or less."
+						required: "Le nom d'utilisateur est obligatoire.",
+						maxlength: "Le nom d'utilisateur ne doit pas dépasser 20 caractères."
 					},
 					fullname: {
-						required: "Your full name is required.",
-						maxlength: "Your full name must be 50 characteres or less."
+						required: "Votre nom complet est obligatoire.",
+						maxlength: "Votre nom complet ne doit pas dépasser 50 caractères."
 					},
-					email: "A valid e-mail address is required.",
-					familyid: "Please select a family."
+					email: "Une adresse courriel valide est obligatoire.",
+					familyid: "Veuillez choisir une famille."
 				}
 			});
 		});
@@ -78,13 +78,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="row">
 				<div class="span8 offset2">
 					<div class="well">
-						<p>Thank you for signing up.</p>
+						<p>Merci de vous être inscrit.</p>
 						{if $opt.newuser_requires_approval}
-							<p>The administrators have been informed of your request and you will receive an e-mail once they've made a decision.</p>
+							<p>Les administrateurs ont été informés de votre demande et vous recevrez un courriel dès qu'ils auront pris une décision.</p>
 						{else}
-							<p>Shortly, you will receive an e-mail with your initial password.</p>
+							<p>Vous recevrez bientôt un courriel contenant votre mot de passe initial.</p>
 						{/if}
-						<p>Once you've received your password, click <a href="login.php">here</a> to login.</p>
+						<p>Une fois votre mot de passe reçu, cliquez <a href="login.php">ici</a> pour vous connecter.</p>
 					</div>
 				</div>
 			</div>
@@ -92,13 +92,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="row">
 				<div class="span8 offset2">
 					<div class="alert alert-info">
-						<p>Complete the form below and click Submit.</p>
+						<p>Remplissez le formulaire ci-dessous et cliquez sur Envoyer.</p>
 						{if $opt.newuser_requires_approval}
-							<p>The list administrators will be notified of your request by e-mail and will approve or decline your request.
+							<p>Les administrateurs de la liste seront informés de votre demande par courriel et l'approuveront ou la refuseront.
 </p>
-							<p>If the e-mail address you supply is valid, you will be notified once a decision is made.</p>
+							<p>Si l'adresse courriel fournie est valide, vous serez informé lorsqu'une décision aura été prise.</p>
 						{else}
-							<p>If the e-mail address you supply is valid, you will shortly receive an e-mail with your initial password.</p>
+							<p>Si l'adresse courriel fournie est valide, vous recevrez bientôt un courriel contenant votre mot de passe initial.</p>
 						{/if}
 					</div>
 				</div>
@@ -109,31 +109,31 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					<form name="signupform" id="signupform" method="post" action="signup.php" class="well form-horizontal">	
 						<input type="hidden" name="action" value="signup">
 						<fieldset>
-							<legend>Sign Up for the Gift Registry</legend>
+							<legend>Créer un compte</legend>
 							<div class="control-group">
-								<label class="control-label" for="username">Username</label>
+								<label class="control-label" for="username">Nom d'utilisateur</label>
 								<div class="controls">
-									<input id="username" name="username" type="text" class="input-xlarge" value="{$username|escape:'htmlall'}" placeholder="Username">
+									<input id="username" name="username" type="text" class="input-xlarge" value="{$username|escape:'htmlall'}" placeholder="Nom d'utilisateur">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="fullname">Full name</label>
+								<label class="control-label" for="fullname">Nom complet</label>
 								<div class="controls">
-									<input id="fullname" name="fullname" type="text" class="input-xlarge" value="{$fullname|escape:'htmlall'}" placeholder="Full name">
+									<input id="fullname" name="fullname" type="text" class="input-xlarge" value="{$fullname|escape:'htmlall'}" placeholder="Nom complet">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="email">E-mail address</label>
+								<label class="control-label" for="email">Adresse courriel</label>
 								<div class="controls">
 									<input id="email" name="email" type="text" class="input-xlarge" value="{$email|escape:'htmlall'}" placeholder="you@somewhere.com">
 								</div>
 							</div>
 							{if $familycount > 1}
 								<div class="control-group">
-									<label class="control-label" for="familyid">Family</label>
+									<label class="control-label" for="familyid">Famille</label>
 									<div class="controls">
 										<select name="familyid">
-											<option value="">(select one)</option>
+											<option value="">(choisissez une option)</option>
 											{foreach from=$families item=row}
 												<option value="{$row.familyid}">{$row.familyname|escape:'htmlall'}</option>
 											{/foreach}
@@ -144,8 +144,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 								<input type="hidden" name="familyid" value="{$familyid}">
 							{/if}
 							<div class="form-actions">
-								<button type="submit" class="btn btn-primary">Submit</button>
-								<button type="button" class="btn" onClick="document.location.href='login.php';">Cancel</button>
+								<button type="submit" class="btn btn-primary">Envoyer</button>
+								<button type="button" class="btn" onClick="document.location.href='login.php';">Annuler</button>
 							</div>
 						</fieldset>
 					</form>

@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-	<title>Gift Registry - Home Page for {$fullname|escape:'htmlall'}</title>
+	<title>Liste de cadeaux - Accueil de {$fullname|escape:'htmlall'}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -39,7 +39,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			{if $opt.confirm_item_deletes}
 				$('a[rel=confirmitemdelete]').click(function(event) {
 					var desc = $(this).attr('data-content');
-					if (!window.confirm('Are you sure you want to delete "' + desc + '"?')) {
+					if (!window.confirm('Voulez-vous vraiment supprimer « ' + desc + ' » ?')) {
 						event.preventDefault();
 					}
 				});
@@ -47,7 +47,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			{if $opt.shop_requires_approval}
 				$('a[rel=confirmunshop]').click(function(event) {
 					var fn = $(this).attr('data-content');
-					if (!window.confirm('Are you sure you no longer wish to shop for ' + fn + '?')) {
+					if (!window.confirm('Ne souhaitez-vous vraiment plus faire des achats pour ' + fn + ' ?')) {
 						event.preventDefault();
 					}
 				});
@@ -72,10 +72,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			<div class="span12">
 				<div class="alert alert-info">
 				<ul>
-					<li>You can click the column headers to sort by that attribute.</li>
-					<li>List each item seperately on your list - do not combine items. (i.e. list each book of a 4-part series separately.)</li>
-					<li>Once you've bought or decided not to buy an item, remember to return to the recipient's gift lists and mark it accordingly.</li>
-					<li>If someone purchases an item on your list, click <img src="images/return.png" /> to mark it as received.</li>
+					<li>Cliquez sur les en-têtes de colonne pour trier la liste selon cet attribut.</li>
+					<li>Ajoutez chaque article séparément à votre liste. Ne regroupez pas plusieurs articles (par exemple, chaque livre d'une série en quatre volumes doit être indiqué séparément).</li>
+					<li>Après avoir acheté un article ou décidé de ne pas l'acheter, retournez sur la liste du destinataire et indiquez-le.</li>
+					<li>Si quelqu'un achète un article de votre liste, cliquez sur <img src="images/return.png" /> pour indiquer que vous l'avez reçu.</li>
 				</ul>
 				</div>
 			</div>
@@ -85,15 +85,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 	<section id="myitems">
 		<div class="well">
 		<div class="page-header">
-			<h1>My Items</h1>
+			<h1>Mes articles</h1>
 		</div>
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
 					<th class="colheader"><a href="index.php?mysort=description">Description</a></th>
-					<th class="colheader"><a href="index.php?mysort=ranking">Ranking</a></th>
-					<th class="colheader"><a href="index.php?mysort=category">Category</a></th>
-					<th class="rcolheader"><a href="index.php?mysort=price">Price</a></th>
+					<th class="colheader"><a href="index.php?mysort=ranking">Niveau</a></th>
+					<th class="colheader"><a href="index.php?mysort=category">Catégorie</a></th>
+					<th class="rcolheader"><a href="index.php?mysort=price">Prix</a></th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -103,7 +103,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<td>
 							{$row.description|escape:'htmlall'}
 							 {if $row.comment != ''}
-								<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="Comment" data-content="{$row.comment|escape:'htmlall'}">...</a>
+								<a class="btn btn-small" rel="popover" href="#" data-placement="right" 								data-original-title="Commentaire" data-content="{$row.comment|escape:'htmlall'}">...</a>
 							{/if}
 							{if $row.url != ''}
 								<a href="{$row.url|escape:'htmlall'}" target="_blank"><img src="images/link.png" border="0" alt="URL" title="URL"></a>
@@ -116,9 +116,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<td>{$row.category|default:"&nbsp;"}</td>
 						<td align="right">{$row.price}</td>
 						<td align="right" nowrap>
-							<a href="receive.php?itemid={$row.itemid}"><img alt="Mark Item Received" src="images/return.png" border="0" title="Mark Item Received" /></a>&nbsp;
-							<a href="item.php?action=edit&itemid={$row.itemid}"><img alt="Edit Item" src="images/pencil.png" border="0" title="Edit Item" /></a>&nbsp;
-							<a rel="confirmitemdelete" data-content="{$row.description|escape:'htmlall'}" href="item.php?action=delete&itemid={$row.itemid}"><img alt="Delete Item" src="images/bin.png" border="0" alt="Delete" title="Delete Item" /></a>
+							<a href="receive.php?itemid={$row.itemid}"><img alt="Indiquer l'article comme reçu" src="images/return.png" border="0" title="Indiquer l'article comme reçu" /></a>&nbsp;
+							<a href="item.php?action=edit&itemid={$row.itemid}"><img alt="Modifier l'article" src="images/pencil.png" border="0" title="Modifier l'article" /></a>&nbsp;
+							<a rel="confirmitemdelete" data-content="{$row.description|escape:'htmlall'}" href="item.php?action=delete&itemid={$row.itemid}"><img alt="Supprimer l'article" src="images/bin.png" border="0" alt="Supprimer" title="Supprimer l'article" /></a>
 						</td>
 					</tr>
 				{/foreach}
@@ -139,20 +139,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				</ul>
 			</div>
 		{/if}
-		<h5><a href="item.php?action=add">Add a new item</a></h5>
+		<h5><a href="item.php?action=add">Ajouter un article</a></h5>
 		</div>
 	</section>
 	<section id="otherstuff">
 		<div class="row">
 			<div class="span6">
 				<div class="well">
-				<h3>People I'm shopping for</h3>
+				<h3>Personnes pour lesquelles je fais des achats</h3>
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th class="colheader">Name</th>
-					<th class="rcolheader">Last Updated</th>
-					<th class="rcolheader"># Items</th>
+					<th class="colheader">Nom</th>
+					<th class="rcolheader">Dernière mise à jour</th>
+					<th class="rcolheader">Nombre d'articles</th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -162,21 +162,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<td>
 							<a href="shop.php?shopfor={$row.userid}">{$row.fullname|escape:'htmlall'}</a>
 							{if $row.comment != ''}
-								<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="Comment" data-content="{$row.comment|escape:'htmlall'}">...</a>
+								<a class="btn btn-small" rel="popover" href="#" data-placement="right" data-original-title="Commentaire" data-content="{$row.comment|escape:'htmlall'}">...</a>
 							{/if}
 						</td>
 						<td align="right">{$row.list_stamp}</td>
 						<td align="right">{$row.itemcount}</td>
 						<td align="right" nowrap>
 							{if $row.itemcount > 0}
-								<a href="shop.php?shopfor={$row.userid}"><img alt="Shop for {$row.fullname|escape:'htmlall'}" src="images/store.png" border="0" title="Shop for {$row.fullname|escape:'htmlall'}"></a>
+								<a href="shop.php?shopfor={$row.userid}"><img alt="Faire des achats pour {$row.fullname|escape:'htmlall'}" src="images/store.png" border="0" title="Faire des achats pour {$row.fullname|escape:'htmlall'}"></a>
 							{/if}
 							{if !$row.is_unsubscribed}
-								<a href="index.php?action=unsubscribe&shoppee={$row.userid}"><img alt="Unsubscribe from {$row.fullname|escape:'htmlall'}'s updates" src="images/delete.png" border="0" title="Unsubscribe from {$row.fullname|escape:'htmlall'}'s updates"></a>
+								<a href="index.php?action=unsubscribe&shoppee={$row.userid}"><img alt="Ne plus recevoir les mises à jour de {$row.fullname|escape:'htmlall'}" src="images/delete.png" border="0" title="Ne plus recevoir les mises à jour de {$row.fullname|escape:'htmlall'}"></a>
 							{else}
-								<a href="index.php?action=subscribe&shoppee={$row.userid}"><img alt="Subscribe to {$row.fullname|escape:'htmlall'}'s updates" src="images/podcast.png" border="0" title="Subscribe to {$row.fullname|escape:'htmlall'}'s updates"></a>
+								<a href="index.php?action=subscribe&shoppee={$row.userid}"><img alt="Recevoir les mises à jour de {$row.fullname|escape:'htmlall'}" src="images/podcast.png" border="0" title="Recevoir les mises à jour de {$row.fullname|escape:'htmlall'}"></a>
 							{/if}
-							<a rel="confirmunshop" data-content="{$row.fullname|escape:'htmlall'}" href="index.php?action=cancel&shopfor={$row.userid}"><img src="images/bin.png" border="0" alt="Don't shop for {$row.fullname|escape:'htmlall'} anymore" title="Don't shop for {$row.fullname|escape:'htmlall'} anymore" /></a>
+							<a rel="confirmunshop" data-content="{$row.fullname|escape:'htmlall'}" href="index.php?action=cancel&shopfor={$row.userid}"><img src="images/bin.png" border="0" alt="Ne plus faire d'achats pour {$row.fullname|escape:'htmlall'}" title="Ne plus faire d'achats pour {$row.fullname|escape:'htmlall'}" /></a>
 						</td>
 					</tr>
 				{/foreach}
@@ -186,11 +186,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 			</div>
 			<div class="span6">
 				<div class="well">
-				<h3>People I'm not shopping for</h3>
+				<h3>Personnes pour lesquelles je ne fais pas d'achats</h3>
 					<table class="table table-bordered table-striped"> 
 						<thead>
 						<tr>
-							<th class="colheader">Name</th>
+							<th class="colheader">Nom</th>
 							<th>&nbsp;</th>
 						</tr>
 						</thead>
@@ -200,13 +200,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 								<td>{$row.fullname|escape:'htmlall'}</td>
 								<td align="right" nowrap>
 									{if $row.pending}
-										<a href="index.php?action=cancel&shopfor={$row.userid}"><img src="images/delete.png" border="0" alt="Cancel" title="Cancel" /></a>
+										<a href="index.php?action=cancel&shopfor={$row.userid}"><img src="images/delete.png" border="0" alt="Annuler" title="Annuler" /></a>
 									{else}
 										<a href="index.php?action=request&shopfor={$row.userid}">
 											{if $opt.shop_requires_approval}
-												<img src="images/cloud-add.png" border="0" alt="Request" title="Request" />
+												<img src="images/cloud-add.png" border="0" alt="Demander" title="Demander" />
 											{else}
-												<img src="images/cloud-add.png" border="0" alt="Add" title="Add" />	
+												<img src="images/cloud-add.png" border="0" alt="Ajouter" title="Ajouter" />
 											{/if}
 										</a>
 									{/if}
@@ -228,7 +228,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					<thead>
 						<tr>
 							<th class="colheader">Date</th>
-							<th class="colheader">Sender</th>
+							<th class="colheader">Expéditeur</th>
 							<th class="colheader">Message</th>
 							<th>&nbsp;</th>
 						</tr>
@@ -240,25 +240,25 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 								<td>{$row.fullname|escape:'htmlall'}</td>
 								<td>{$row.message|escape:'htmlall'}</td>
 								<td align="right">
-									<a href="index.php?action=ack&messageid={$row.messageid}"><img alt="Acknowledge" title="Acknowledge" src="images/delete.png" border="0"></a>
+									<a href="index.php?action=ack&messageid={$row.messageid}"><img alt="Confirmer la lecture" title="Confirmer la lecture" src="images/delete.png" border="0"></a>
 								</td>
 							</tr>
 						{/foreach}
 					</tbody>
 					</table>
-					<h5><a href="message.php">Send a message</a></h5>
+					<h5><a href="message.php">Envoyer un message</a></h5>
 					</div>
 				</div>
 				<div class="span6">
 					<div class="well">
-					<h3>Upcoming events (within {$opt.event_threshold} days)</h3>
+					<h3>Événements à venir (dans les {$opt.event_threshold} prochains jours)</h3>
 					<table class="table table-bordered table-striped">
 						<thead>
 						<tr>
-							<th class="colheader">Name</th>
-							<th class="colheader">Event</th>
+							<th class="colheader">Nom</th>
+							<th class="colheader">Événement</th>
 							<th class="colheader">Date</th>
-							<th class="colheader">Days left</th>
+							<th class="colheader">Jours restants</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -266,7 +266,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 							<tr>
 								<td>
 									{if $row.fullname == ''}
-										<i>System event</i>
+										<i>Événement système</i>
 									{else}
 										{$row.fullname|escape:'htmlall'}
 									{/if}
@@ -275,7 +275,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 								<td>{$row.date}</td>
 								<td>
 									{if $row.daysleft == 0}
-										<b>Today</b>
+										<b>Aujourd'hui</b>
 									{else}
 										{$row.daysleft}
 									{/if}
@@ -292,11 +292,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					{if $opt.shop_requires_approval}
 						<div class="span6">
 							<div class="well">
-								<h3>People who want to shop for me</h3>
+								<h3>Personnes qui souhaitent faire des achats pour moi</h3>
 								<table class="table table-bordered table-striped">
 									<thead>
 										<tr>	
-											<th class="colheader">Name</th>
+											<th class="colheader">Nom</th>
 											<th>&nbsp;</th>
 										</tr>
 									</thead>
@@ -305,8 +305,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 											<tr>
 												<td>{$row.fullname|escape:'htmlall'}</td>
 												<td align="right">
-													<a href="index.php?action=approve&shopper={$row.userid}">Approve</a>&nbsp;/
-													<a href="index.php?action=decline&shopper={$row.userid}">Decline</a>
+													<a href="index.php?action=approve&shopper={$row.userid}">Approuver</a>&nbsp;/
+													<a href="index.php?action=decline&shopper={$row.userid}">Refuser</a>
 												</td>
 											</tr>
 										{/foreach}
@@ -318,12 +318,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					{if $isadmin && $opt.newuser_requires_approval}
 						<div class="span6">
 							<div class="well">
-								<h3>People waiting for approval</h3>
+								<h3>Personnes en attente d'approbation</h3>
 								<table class="table table-bordered table-striped">
 									<thead>
 										<tr>
-											<th class="colheader">Name</th>
-											<th class="colheader">Family</th>
+											<th class="colheader">Nom</th>
+											<th class="colheader">Famille</th>
 											<th>&nbsp;</th>
 										</tr>
 									</thead>
@@ -333,8 +333,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 												<td>{$row.fullname|escape:'htmlall'} &lt;<a href="mailto:{$row.email|escape:'htmlall'}">{$row.email|escape:'htmlall'}</a>&gt;</td>
 												<td>{$row.familyname|escape:'htmlall'}</td>
 												<td align="right">
-													<a href="admin.php?action=approve&userid={$row.userid}&familyid={$row.initialfamilyid}">Approve</a>&nbsp;/
-													<a href="admin.php?action=reject&userid={$row.userid}">Reject</a>
+													<a href="admin.php?action=approve&userid={$row.userid}&familyid={$row.initialfamilyid}">Approuver</a>&nbsp;/
+													<a href="admin.php?action=reject&userid={$row.userid}">Refuser</a>
 												</td>
 											</tr>
 										{/foreach}

@@ -24,7 +24,7 @@ if (!isset($_SESSION["userid"])) {
 	exit;
 }
 else if ($_SESSION["admin"] != 1) {
-	echo "You don't have admin privileges.";
+	echo "Vous devez être administrateur pour accéder à cette page.";
 	exit;
 }
 else {
@@ -62,7 +62,7 @@ if ($action == "delete") {
 	$stmt->bindValue(1, (int) $_GET["ranking"], PDO::PARAM_INT);
 	$stmt->execute();
 	
-	header("Location: " . getFullPath("ranks.php?message=Rank+deleted."));
+	header("Location: " . getFullPath("ranks.php?message=" . urlencode("Niveau supprimé.")));
 	exit;
 }
 else if ($action == "promote") {
@@ -74,7 +74,7 @@ else if ($action == "promote") {
 	$stmt->bindValue(1, (int) $_GET["ranking"], PDO::PARAM_INT);
 	$stmt->execute();
 
-	header("Location: " . getFullPath("ranks.php?message=Rank+promoted."));
+	header("Location: " . getFullPath("ranks.php?message=" . urlencode("Niveau remonté.")));
 	exit;
 }
 else if ($action == "demote") {
@@ -86,7 +86,7 @@ else if ($action == "demote") {
 	$stmt->bindValue(1, (int) $_GET["ranking"], PDO::PARAM_INT);
 	$stmt->execute();
     
-	header("Location: " . getFullPath("ranks.php?message=Rank+demoted."));
+	header("Location: " . getFullPath("ranks.php?message=" . urlencode("Niveau abaissé.")));
     exit;
 }
 else if ($action == "edit") {
@@ -115,7 +115,7 @@ else if ($action == "insert") {
 			$stmt->bindParam(3, $rankorder, PDO::PARAM_INT);
 			$stmt->execute();
 			
-			header("Location: " . getFullPath("ranks.php?message=Rank+added."));
+			header("Location: " . getFullPath("ranks.php?message=" . urlencode("Niveau ajouté.")));
 			exit;
 		}
 	}
@@ -130,12 +130,12 @@ else if ($action == "update") {
 		$stmt->bindValue(3, (int) $_GET["ranking"], PDO::PARAM_INT);
 		$stmt->execute();
 		
-		header("Location: " . getFullPath("ranks.php?message=Rank+updated."));
+		header("Location: " . getFullPath("ranks.php?message=" . urlencode("Niveau modifié.")));
 		exit;		
 	}
 }
 else {
-	die("Unknown verb.");
+	die("Action inconnue.");
 }
 
 $stmt = $smarty->dbh()->prepare("SELECT ranking, title, rendered, rankorder " .

@@ -24,7 +24,7 @@ if (!isset($_SESSION["userid"])) {
 	exit;
 }
 else if ($_SESSION["admin"] != 1) {
-	echo "You don't have admin privileges.";
+	echo "Vous devez être administrateur pour accéder à cette page.";
 	exit;
 }
 else {
@@ -52,11 +52,11 @@ if ($action == "approve") {
 	if ($row = $stmt->fetch()) {
 		mail(
 			$row["email"],
-			"Gift Registry application approved",
-			"Your Gift Registry application was approved by " . $_SESSION["fullname"] . ".\r\n" . 
-				"Your username is " . $row["username"] . " and your password is $pwd.",
+			"Votre demande de compte a été approuvée",
+			"Votre demande d'accès à la liste de cadeaux a été approuvée par " . $_SESSION["fullname"] . ".\r\n" .
+				"Votre nom d'utilisateur est " . $row["username"] . " et votre mot de passe est $pwd.",
 			"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-		) or die("Mail not accepted for " . $row["email"]);	
+		) or die("Courriel non accepté pour " . $row["email"]);
 	}
 	header("Location: " . getFullPath("index.php"));
 	exit;
@@ -69,10 +69,10 @@ else if ($action == "reject") {
 	if ($row = $stmt->fetch()) {
 		mail(
 			$row["email"],
-			"Gift Registry application denied",
-			"Your Gift Registry application was denied by " . $_SESSION["fullname"] . ".",
+			"Votre demande de compte a été refusée",
+			"Votre demande d'accès à la liste de cadeaux a été refusée par " . $_SESSION["fullname"] . ".",
 			"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-		) or die("Mail not accepted for " . $row["email"]);	
+		) or die("Courriel non accepté pour " . $row["email"]);
 	}
 
 	$stmt = $smarty->dbh()->prepare("DELETE FROM {$opt["table_prefix"]}users WHERE userid = ?");

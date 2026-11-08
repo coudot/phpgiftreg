@@ -42,11 +42,11 @@ if (!empty($_POST["action"])) {
 
 			$stmt->execute();
 
-			header("Location: " . getFullPath("index.php?message=Password+changed."));
+			header("Location: " . getFullPath("index.php?message=" . urlencode("Mot de passe modifié.")));
 			exit;
 		}
 		catch (PDOException $e) {
-			die("sql exception: " . $e->getMessage());
+			die("Erreur SQL : " . $e->getMessage());
 		}
 	}
 	else if ($action == "save") {
@@ -67,15 +67,15 @@ if (!empty($_POST["action"])) {
 
 			$_SESSION["fullname"] = $fullname;
 
-			header("Location: " . getFullPath("index.php?message=Profile+updated."));
+			header("Location: " . getFullPath("index.php?message=" . urlencode("Profil mis à jour.")));
 			exit;
 		}
 		catch (PDOException $e) {
-			die("sql exception: " . $e->getMessage());
+			die("Erreur SQL : " . $e->getMessage());
 		}
 	}
 	else {
-		die("Unknown verb.");
+		die("Action inconnue.");
 	}
 }
 
@@ -92,10 +92,10 @@ try {
 		$smarty->display('profile.tpl');
 	}
 	else {
-		die("You don't exist.");
+		die("Votre compte n'existe pas.");
 	}
 }
 catch (PDOException $e) {
-	die("sql exception: " . $e->getMessage());
+	die("Erreur SQL : " . $e->getMessage());
 }
 ?>

@@ -15,9 +15,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-	<title>Gift Registry - Edit Item</title>
+	<title>Liste de cadeaux - Modifier un article</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -66,31 +66,31 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 				},
 				messages: {
 					description: {
-						required: "The item's description is required.",
-						maxlength: "The item's description must be 255 characters or less."
+						required: "La description de l'article est obligatoire.",
+						maxlength: "La description de l'article ne doit pas dépasser 255 caractères."
 					},
 					/*category: {
-						required: "A category must be selected."
+						required: "Veuillez sélectionner une catégorie."
 					},*/
 					price: {
-						required: "The item's price is required.",
-						min: "Price can't be a negative number.",
-						"number": "Price must be a valid number."
+						required: "Le prix de l'article est obligatoire.",
+						min: "Le prix ne peut pas être négatif.",
+						"number": "Le prix doit être un nombre valide."
 					},
 					source: {
-						required: "A source to buy the item is required.",
-						maxlength: "The source must be 255 characters or less."
+						required: "Le magasin où acheter l'article est obligatoire.",
+						maxlength: "Le magasin ne doit pas dépasser 255 caractères."
 					},
 					ranking: {
-						required: "A ranking is required."
+						required: "Un niveau est obligatoire."
 					},
 					quantity: {
-						required: "A quantity is required.",
-						digits: "Quantity must be a valid number.",
-						min: "Quantity can't be negative"
+						required: "La quantité est obligatoire.",
+						digits: "La quantité doit être un nombre entier valide.",
+						min: "La quantité doit être supérieure ou égale à 1."
 					},
 					url: {
-						url: "If specified, URL must be valid."
+						url: "L'URL doit être valide."
 					}
 				}
 			});
@@ -105,14 +105,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="row">
 			<div class="span12">
 				<div class="alert alert-info">
-		Helpful hints:
+		Conseils :
 		<ul>
-			<li>Include a URL copied &amp; pasted from the address bar of your browser so that potential buyers can see exactly what you want.</li>
-			<li>If the item description and URL can't describe exactly what you want, use the <strong>Comment</strong> area to mention anything you feel is necessary.  It doesn't mean the shopper has to buy the item from that website.</li>
-			<li>If you don't know the price of the item, simply enter <strong>0</strong>.</li>
-			<li>Try not to set all your items at the same ranking level.  When someone is shopping for you, they'll rely on the ranking to know what you want the most.  If you don't think there are enough levels, or the descriptions aren't adequate, ask an administrator to add or change them.</li>
+			<li>Copiez-collez l'URL depuis la barre d'adresse de votre navigateur afin que les acheteurs potentiels puissent voir précisément l'article souhaité.</li>
+			<li>Si la description et l'URL ne suffisent pas à préciser l'article souhaité, utilisez le champ <strong>Commentaire</strong>. Cela n'oblige pas l'acheteur à acheter l'article sur ce site.</li>
+			<li>Si vous ne connaissez pas le prix de l'article, saisissez simplement <strong>0</strong>.</li>
+			<li>Évitez d'attribuer le même niveau à tous vos articles. Les acheteurs s'appuieront sur ce niveau pour connaître vos préférences. Si les niveaux ou leurs descriptions ne vous conviennent pas, demandez à un administrateur de les modifier ou d'en ajouter.</li>
 			{if $opt.allow_multiples}
-				<li>The quantity field indicates the number of that item that you want.  Once that many are bought or reserved, no more will be available.  If you have no limit on how many you want, enter 999 (for example).</li>
+				<li>La quantité indique le nombre d'exemplaires souhaités. Une fois cette quantité achetée ou réservée, aucun autre exemplaire ne sera disponible. Si vous ne souhaitez pas fixer de limite, saisissez par exemple 999.</li>
 			{/if}
 		</ul>
 				</div>
@@ -123,7 +123,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 		<div class="span8 offset2">
 			<form name="itemform" id="itemform" method="POST" action="item.php" enctype="multipart/form-data" class="well form-horizontal">
 				<fieldset>
-					<legend>{if $action == 'edit' || (isset($haserror) && $action == 'update')}Edit Item{else}Add Item{/if}</legend>
+					<legend>{if $action == 'edit' || (isset($haserror) && $action == 'update')}Modifier un article{else}Ajouter un article{/if}</legend>
 					{if $action == 'edit' || (isset($haserror) && $action == 'update')}
 						<input type="hidden" name="itemid" value="{$itemid}">
 						<input type="hidden" name="action" value="update">
@@ -140,10 +140,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						</div>
 					</div>
 					<div class="control-group {if isset($category_error)}warning{/if}">
-						<label class="control-label" for="category">Category</label>
+						<label class="control-label" for="category">Catégorie</label>
 						<div class="controls">
 							<select id="category" name="category" class="input-xlarge">
-								<option value="" {if $category == NULL}SELECTED{/if}>Uncategorized</option>
+								<option value="" {if $category == NULL}SELECTED{/if}>Sans catégorie</option>
 								{foreach from=$categories item=row}
 									<option value="{$row.categoryid}" {if $row.categoryid == $category}SELECTED{/if}>{$row.category|escape:'htmlall'}</option>
 								{/foreach}
@@ -154,7 +154,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						</div>
 					</div>
 					<div class="control-group {if isset($price_error)}warning{/if}">
-						<label class="control-label" for="price">Price ({$opt.currency_symbol})</label>
+						<label class="control-label" for="price">Prix ({$opt.currency_symbol})</label>
 						<div class="controls">
 							<input id="price" name="price" type="text" value="{$price|escape:'htmlall'}" class="input-xlarge" placeholder="0.00">
 							{if isset($price_error)}
@@ -163,16 +163,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						</div>
 					</div>
 					<div class="control-group {if isset($source_error)}warning{/if}">
-						<label class="control-label" for="source">Store/Retailer</label>
+						<label class="control-label" for="source">Magasin / détaillant</label>
 						<div class="controls">
-							<input id="source" name="source" type="text" value="{$source|escape:'htmlall'}" class="input-xlarge" maxlength="255" placeholder="Source">
+							<input id="source" name="source" type="text" value="{$source|escape:'htmlall'}" class="input-xlarge" maxlength="255" placeholder="Magasin">
 							{if isset($source_error)}
 								<span class="help-inline">{$source_error}</span>
 							{/if}
 						</div>
 					</div>
 					<div class="control-group {if isset($ranking_error)}warning{/if}">
-						<label class="control-label" for="ranking">Ranking</label>
+						<label class="control-label" for="ranking">Niveau</label>
 						<div class="controls">
 							<select id="ranking" name="ranking" multiple="multiple" class="input-xlarge">
 								{foreach from=$ranks item=row}
@@ -186,7 +186,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					</div>
 					{if $opt.allow_multiples}
 						<div class="control-group {if isset($quantity_error)}warning{/if}">
-							<label class="control-label" for="quantity">Quantity</label>
+							<label class="control-label" for="quantity">Quantité</label>
 							<div class="controls">
 								<input id="quantity" name="quantity" type="text" value="{$quantity|escape:'htmlall'}" class="input-xlarge" maxlength="3">
 								{if isset($quantity_error)}
@@ -198,7 +198,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<input type="hidden" name="quantity" value="1">
 					{/if}
 					<div class="control-group {if isset($url_error)}warning{/if}">
-						<label class="control-label" for="url">URL (optional)</label>
+						<label class="control-label" for="url">URL (facultative)</label>
 						<div class="controls">
 							<input id="url" name="url" type="text" value="{$url|escape:'htmlall'}" class="input-xlarge" maxlength="255">
 							{if isset($url_error)}
@@ -208,35 +208,35 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					</div>
 					{if $opt.allow_images}
 						<div class="control-group">
-							<label class="control-label" for="image">Image (optional)</label>
+							<label class="control-label" for="image">Image (facultative)</label>
 							<div class="controls">
 								{if $image_filename == ''}
 									<input type="radio" name="image" value="none" CHECKED>
-									No image.<br />
+									Aucune image.<br />
 									<input type="radio" name="image" value="upload" id="ifnew">
-									Upload image:
+									Envoyer une image :
 									<input type="file" id="imagefile" name="imagefile">
 								{else}
 									<input type="radio" name="image" value="remove">
-									Remove existing image.<br />
+									Supprimer l'image existante.<br />
 									<input type="radio" name="image" value="keep" CHECKED>
-									Keep existing image.<br />
+									Conserver l'image existante.<br />
 									<input type="radio" name="image" value="replace" id="ifreplace">
-									Replace existing image:
+									Remplacer l'image existante :
 									<input type="file" id="imagefile" name="imagefile">
 								{/if}
 							</div>
 						</div>
 					{/if}
 					<div class="control-group">
-						<label class="control-label" for="comment">Comment</label>
+						<label class="control-label" for="comment">Commentaire</label>
 						<div class="controls">
 							<textarea id="comment" name="comment" class="input-xlarge" rows="2" cols="40">{$comment|escape:'htmlall'}</textarea>
 						</div>
 					</div>
 					<div class="form-actions">
-						<button type="submit" class="btn btn-primary">Save</button>
-						<button type="button" class="btn" onclick="document.location.href='index.php';">Cancel</button>
+						<button type="submit" class="btn btn-primary">Enregistrer</button>
+						<button type="button" class="btn" onclick="document.location.href='index.php';">Annuler</button>
 					</div>
 				</fieldset>
 			</form>

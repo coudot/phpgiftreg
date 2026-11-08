@@ -55,14 +55,14 @@ if (!empty($_GET["action"])) {
 		$stmt->bindValue(1, (int) $_GET["shopper"], PDO::PARAM_INT);
 		$stmt->bindParam(2, $userid, PDO::PARAM_INT);
 		$stmt->execute();
-		sendMessage($userid,(int) $_GET["shopper"],$_SESSION["fullname"] . " has approved your request to shop for him/her.", $smarty->dbh(), $smarty->opt());
+		sendMessage($userid,(int) $_GET["shopper"],$_SESSION["fullname"] . " a approuvé votre demande pour faire des achats pour lui/elle.", $smarty->dbh(), $smarty->opt());
 	}
 	else if ($action == "decline") {
 		$stmt = $smarty->dbh()->prepare("DELETE FROM {$opt["table_prefix"]}shoppers WHERE shopper = ? AND mayshopfor = ?"); 
 		$stmt->bindValue(1, (int) $_GET["shopper"], PDO::PARAM_INT);
 		$stmt->bindParam(2, $userid, PDO::PARAM_INT);
 		$stmt->execute();
-		sendMessage($userid,(int) $_GET["shopper"],$_SESSION["fullname"] . " has declined your request to shop for him/her.", $smarty->dbh(), $smarty->opt());
+		sendMessage($userid,(int) $_GET["shopper"],$_SESSION["fullname"] . " a refusé votre demande pour faire des achats pour lui/elle.", $smarty->dbh(), $smarty->opt());
 	}
 	else if ($action == "request") {
 		$stmt = $smarty->dbh()->prepare("INSERT INTO {$opt["table_prefix"]}shoppers(shopper,mayshopfor,pending) VALUES(?, ?, ?)");
@@ -71,7 +71,7 @@ if (!empty($_GET["action"])) {
 		$stmt->bindValue(3, $opt["shop_requires_approval"], PDO::PARAM_BOOL);
 		$stmt->execute();
 		if ($opt["shop_requires_approval"]) {
-			sendMessage($userid,(int) $_GET["shopfor"],$_SESSION["fullname"] . " has requested to shop for you.  Please approve or decline this request.", $smarty->dbh(), $smarty->opt());
+			sendMessage($userid,(int) $_GET["shopfor"],$_SESSION["fullname"] . " souhaite faire des achats pour vous. Veuillez approuver ou refuser cette demande.", $smarty->dbh(), $smarty->opt());
 		}
 	}
 	else if ($action == "cancel") {
@@ -89,11 +89,11 @@ if (!empty($_GET["action"])) {
 		$stmt->execute();
 		if ($row = $stmt->fetch()) {
 			if ($row["pending"]) {
-				die("You aren't allowed to shop for that user yet.");
+				die("Vous n'êtes pas encore autorisé à faire des achats pour cet utilisateur.");
 			}
 		}
 		else {
-			die("You aren't allowed to shop for that user.");
+			die("Vous n'êtes pas autorisé à faire des achats pour cet utilisateur.");
 		}
 
 		$stmt = $smarty->dbh()->prepare("INSERT INTO {$opt["table_prefix"]}subscriptions(publisher, subscriber) VALUES(?, ?)");

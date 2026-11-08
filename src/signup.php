@@ -29,7 +29,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "signup") {
 	$stmt->bindParam(1, $username, PDO::PARAM_STR);
 	$stmt->execute();
 	if ($stmt->fetch()) {
-		$error = "The username '" . $username . "' is already taken.  Please choose another.";
+		$error = "Le nom d'utilisateur « " . $username . " » est déjà utilisé. Veuillez en choisir un autre.";
 	}
 	else {
 		// generate a password and insert the row.
@@ -53,10 +53,10 @@ if (isset($_POST["action"]) && $_POST["action"] == "signup") {
 			while ($row = $stmt->fetch()) {
 				mail(
 					$row["email"],
-					"Gift Registry approval request for " . $fullname,
-					$fullname . " <" . $email . "> would like you to approve him/her for access to the Gift Registry.",
+					"Demande d'inscription à la liste de cadeaux - " . $fullname,
+					$fullname . " <" . $email . "> demande l'autorisation d'accéder à la liste de cadeaux.",
 					"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-				) or die("Mail not accepted for " . $row["email"]);
+				) or die("Courriel non accepté pour " . $row["email"]);
 			}
 		}
 		else {
@@ -78,11 +78,11 @@ if (isset($_POST["action"]) && $_POST["action"] == "signup") {
 
 				mail(
 					$email,
-					"Gift Registry account created",
-					"Your Gift Registry account was created.\r\n" . 
-						"Your username is $username and your password is $pwd.",
+					"Votre compte de liste de cadeaux a été créé",
+					"Votre compte de liste de cadeaux a été créé.\r\n" .
+						"Votre nom d'utilisateur est $username et votre mot de passe est $pwd.",
 					"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-				) or die("Mail not accepted for $email");	
+				) or die("Courriel non accepté pour $email");
 			}
 		}
 	}

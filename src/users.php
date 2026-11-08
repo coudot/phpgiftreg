@@ -28,7 +28,7 @@ else {
 }
 
 if ($_SESSION["admin"] != 1) {
-	echo "You don't have admin privileges.";
+	echo "Vous devez être administrateur pour accéder à cette page.";
 	exit;
 }
 
@@ -53,15 +53,15 @@ if ($action == "insert" || $action == "update") {
 	$haserror = false;
 	if ($username == "") {
 		$haserror = true;
-		$username_error = "A username is required.";
+		$username_error = "Le nom d'utilisateur est obligatoire.";
 	}
 	if ($fullname == "") {
 		$haserror = true;
-		$fullname_error = "A full name is required.";
+		$fullname_error = "Le nom complet est obligatoire.";
 	}
 	if ($email == "") {
 		$haserror = true;
-		$email_error = "An e-mail address is required.";
+		$email_error = "L'adresse courriel est obligatoire.";
 	}
 
 }
@@ -94,7 +94,7 @@ if ($action == "delete") {
 	$stmt->bindParam(1, $deluserid, PDO::PARAM_INT);
 	$stmt->execute();
 	
-	header("Location: " . getFullPath("users.php?message=User+deleted."));
+	header("Location: " . getFullPath("users.php?message=" . urlencode("Utilisateur supprimé.")));
 	exit;
 }
 else if ($action == "edit") {
@@ -134,12 +134,12 @@ else if ($action == "insert") {
 
 		mail(
 			$email,
-			"Gift Registry account created",
-			"Your Gift Registry account was created.\r\n" . 
-				"Your username is $username and your password is $pwd.",
+			"Votre compte de liste de cadeaux a été créé",
+			"Votre compte de liste de cadeaux a été créé.\r\n" .
+				"Votre nom d'utilisateur est $username et votre mot de passe est $pwd.",
 			"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-		) or die("Mail not accepted for $email");	
-		header("Location: " . getFullPath("users.php?message=User+added+and+e-mail+sent."));
+		) or die("Courriel non accepté pour $email");
+		header("Location: " . getFullPath("users.php?message=" . urlencode("Utilisateur ajouté et courriel envoyé.")));
 		exit;
 	}
 }
@@ -161,7 +161,7 @@ else if ($action == "update") {
 		$stmt->bindParam(6, $userisadmin, PDO::PARAM_BOOL);
 		$stmt->bindValue(7, (int) $_GET["userid"], PDO::PARAM_INT);
 		$stmt->execute();
-		header("Location: " . getFullPath("users.php?message=User+updated."));
+		header("Location: " . getFullPath("users.php?message=" . urlencode("Utilisateur modifié.")));
 		exit;		
 	}
 }
@@ -177,15 +177,15 @@ else if ($action == "reset") {
 	$stmt->execute();
 	mail(
 		$resetemail,
-		"Gift Registry password reset",
-		"Your Gift Registry password was reset to $pwd.",
+		"Réinitialisation du mot de passe de la liste de cadeaux",
+		"Votre mot de passe de liste de cadeaux a été réinitialisé ; le nouveau mot de passe est $pwd.",
 		"From: {$opt["email_from"]}\r\nReply-To: {$opt["email_reply_to"]}\r\nX-Mailer: {$opt["email_xmailer"]}\r\n"
-	) or die("Mail not accepted for $email");
-	header("Location: " . getFullPath("users.php?message=Password+reset."));
+	) or die("Courriel non accepté pour $email");
+	header("Location: " . getFullPath("users.php?message=" . urlencode("Mot de passe réinitialisé.")));
 	exit;
 }
 else {
-	echo "Unknown verb.";
+	echo "Action inconnue.";
 	exit;
 }
 
