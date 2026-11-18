@@ -43,12 +43,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						required: true
 					},*/
 					price: {
-						required: true,
 						min: 0,
 						"number": true
 					},
 					source: {
-						required: true,
 						maxlength: 255
 					},
 					ranking: {
@@ -72,12 +70,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						required: "{$messages.tpl.item.category_required|escape:'javascript'}"
 					},*/
 					price: {
-						required: "{$messages.tpl.item.price_required|escape:'javascript'}",
 						min: "{$messages.tpl.item.price_min|escape:'javascript'}",
 						"number": "{$messages.tpl.item.price_number|escape:'javascript'}"
 					},
 					source: {
-						required: "{$messages.tpl.item.source_required|escape:'javascript'}",
 						maxlength: "{$messages.tpl.item.source_maxlength|escape:'javascript'}"
 					},
 					ranking: {

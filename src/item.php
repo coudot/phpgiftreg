@@ -65,13 +65,12 @@ if (!empty($_REQUEST["action"])) {
 			$haserror = true;
 			$description_error = translate("validation.description_required");
 		}
-		if ($price == "" || !preg_match("/^\d*(\.\d{2})?$/i",$price)) {
+		if ($price != "" && !preg_match("/^\d*(\.\d{2})?$/i",$price)) {
 			$haserror = true;
 			$price_error = translate("validation.price_invalid");
 		}
-		if ($source == "") {
-			$haserror = true;
-			$source_error = translate("validation.source_required");
+		if ($price == "") {
+			$price = null;
 		}
 		if ($url != "" && !preg_match("/^http(s)?:\/\/([^\/]+)/i",$url)) {
 			$haserror = true;
@@ -185,7 +184,7 @@ if (!empty($_REQUEST["action"])) {
 				"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?" . ($image_base_filename != "" ? ", ?)" : ")"));
 			$stmt->bindParam(1, $userid, PDO::PARAM_INT);
 			$stmt->bindParam(2, $description, PDO::PARAM_STR);
-			$stmt->bindParam(3, $price);
+			$stmt->bindValue(3, $price, $price === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
 			$stmt->bindParam(4, $source, PDO::PARAM_STR);
 			$stmt->bindParam(5, $category, PDO::PARAM_INT);
 			$stmt->bindParam(6, $url, PDO::PARAM_STR);
@@ -219,7 +218,7 @@ if (!empty($_REQUEST["action"])) {
 					($image_base_filename != "" ? ", image_filename = ? " : "") .
 					"WHERE itemid = ?");
 			$stmt->bindParam(1, $description, PDO::PARAM_STR);
-			$stmt->bindParam(2, $price);
+			$stmt->bindValue(2, $price, $price === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
 		    $stmt->bindParam(3, $source, PDO::PARAM_STR);
 		    $stmt->bindParam(4, $category, PDO::PARAM_INT);
 		    $stmt->bindParam(5, $url, PDO::PARAM_STR);
