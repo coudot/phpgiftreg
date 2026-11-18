@@ -132,54 +132,54 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					<div class="row mb-3 {if isset($description_error)}text-danger{/if}">
 						<label class="col-sm-3 col-form-label" for="description">{$messages.tpl.item.description}</label>
 						<div class="col-sm-9">
-							<input id="description" name="description" type="text" value="{$description|escape:'htmlall'}" class="form-control" placeholder="{$messages.tpl.item.description|escape:'htmlall'}" maxlength="255">
+							<input id="description" name="description" type="text" value="{$description|escape:'htmlall'}" class="form-control{if isset($description_error)} is-invalid{/if}" placeholder="{$messages.tpl.item.description|escape:'htmlall'}" maxlength="255">
 							{if isset($description_error)}
-								<span class="invalid-feedback d-block">{$description_error}</span>
+								<span class="d-block text-danger">{$description_error}</span>
 							{/if}
 						</div>
 					</div>
 					<div class="row mb-3 {if isset($category_error)}text-danger{/if}">
 						<label class="col-sm-3 col-form-label" for="category">{$messages.tpl.item.category}</label>
 						<div class="col-sm-9">
-							<select id="category" name="category" class="form-select">
+							<select id="category" name="category" class="form-select{if isset($category_error)} is-invalid{/if}">
 								<option value="" {if $category == NULL}SELECTED{/if}>{$messages.tpl.item.uncategorized}</option>
 								{foreach from=$categories item=row}
 									<option value="{$row.categoryid}" {if $row.categoryid == $category}SELECTED{/if}>{$row.category|escape:'htmlall'}</option>
 								{/foreach}
 							</select>
 							{if isset($category_error)}
-								<span class="invalid-feedback d-block">{$category_error}</span>
+								<span class="d-block text-danger">{$category_error}</span>
 							{/if}
 						</div>
 					</div>
 					<div class="row mb-3 {if isset($price_error)}text-danger{/if}">
 						<label class="col-sm-3 col-form-label" for="price">{$messages.tpl.item.price} ({$opt.currency_symbol})</label>
 						<div class="col-sm-9">
-							<input id="price" name="price" type="text" value="{$price|escape:'htmlall'}" class="form-control" placeholder="0.00">
+							<input id="price" name="price" type="text" value="{$price|escape:'htmlall'}" class="form-control{if isset($price_error)} is-invalid{/if}" placeholder="0.00">
 							{if isset($price_error)}
-								<span class="invalid-feedback d-block">{$price_error}</span>
+								<span class="d-block text-danger">{$price_error}</span>
 							{/if}
 						</div>
 					</div>
 					<div class="row mb-3 {if isset($source_error)}text-danger{/if}">
 						<label class="col-sm-3 col-form-label" for="source">{$messages.tpl.item.source}</label>
 						<div class="col-sm-9">
-							<input id="source" name="source" type="text" value="{$source|escape:'htmlall'}" class="form-control" maxlength="255" placeholder="{$messages.tpl.item.source_placeholder|escape:'htmlall'}">
+							<input id="source" name="source" type="text" value="{$source|escape:'htmlall'}" class="form-control{if isset($source_error)} is-invalid{/if}" maxlength="255" placeholder="{$messages.tpl.item.source_placeholder|escape:'htmlall'}">
 							{if isset($source_error)}
-								<span class="invalid-feedback d-block">{$source_error}</span>
+								<span class="d-block text-danger">{$source_error}</span>
 							{/if}
 						</div>
 					</div>
 					<div class="row mb-3 {if isset($ranking_error)}text-danger{/if}">
 						<label class="col-sm-3 col-form-label" for="ranking">{$messages.tpl.item.ranking}</label>
 						<div class="col-sm-9">
-							<select id="ranking" name="ranking" multiple="multiple" class="form-select">
+							<select id="ranking" name="ranking" multiple="multiple" class="form-select{if isset($ranking_error)} is-invalid{/if}">
 								{foreach from=$ranks item=row}
 									<option value="{$row.ranking}" {if $row.ranking == $ranking}SELECTED{/if}>{$row.title}</option>
 								{/foreach}
 							</select>
 							{if isset($ranking_error)}
-								<span class="invalid-feedback d-block">{$ranking_error}</span>
+								<span class="d-block text-danger">{$ranking_error}</span>
 							{/if}
 						</div>
 					</div>
@@ -187,9 +187,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 						<div class="row mb-3 {if isset($quantity_error)}text-danger{/if}">
 							<label class="col-sm-3 col-form-label" for="quantity">{$messages.tpl.item.quantity}</label>
 							<div class="col-sm-9">
-								<input id="quantity" name="quantity" type="text" value="{$quantity|escape:'htmlall'}" class="form-control" maxlength="3">
+								<input id="quantity" name="quantity" type="text" value="{$quantity|escape:'htmlall'}" class="form-control{if isset($quantity_error)} is-invalid{/if}" maxlength="3">
 								{if isset($quantity_error)}
-									<span class="invalid-feedback d-block">{$quantity_error}</span>
+									<span class="d-block text-danger">{$quantity_error}</span>
 								{/if}
 							</div>
 						</div>
@@ -199,9 +199,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 					<div class="row mb-3 {if isset($url_error)}text-danger{/if}">
 						<label class="col-sm-3 col-form-label" for="url">{$messages.tpl.item.url_optional}</label>
 						<div class="col-sm-9">
-							<input id="url" name="url" type="text" value="{$url|escape:'htmlall'}" class="form-control" maxlength="255">
+							<input id="url" name="url" type="text" value="{$url|escape:'htmlall'}" class="form-control{if isset($url_error)} is-invalid{/if}" maxlength="255">
 							{if isset($url_error)}
-								<span class="invalid-feedback d-block">{$url_error}</span>
+								<span class="d-block text-danger">{$url_error}</span>
 							{/if}
 						</div>
 					</div>
