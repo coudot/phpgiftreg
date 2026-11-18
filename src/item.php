@@ -269,7 +269,7 @@ if (isset($_REQUEST['itemid'])) {
 	$smarty->assign('itemid', (int) $_REQUEST['itemid']);
 }
 $smarty->assign('description', $description);
-if (isset($descripton_error)) {
+if (isset($description_error)) {
 	$smarty->assign('description_error', $description_error);
 }
 $smarty->assign('category', $category);
